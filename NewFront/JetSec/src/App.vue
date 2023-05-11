@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
       <HeaderSite />
@@ -19,5 +18,5 @@ export default {
 };
 </script>
 
-
-<style scoped></style>
+<style scoped>
+</style>

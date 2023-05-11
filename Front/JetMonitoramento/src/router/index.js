@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../components/Home.vue";
+import Home from "../views/Home.vue";
+import ClientArea from "../views/ClientArea.vue";
 
 
 Vue.use(VueRouter);
@@ -15,29 +16,9 @@ const router = new VueRouter({
             component: Home,
         },
         {
-            path: "/About",
-            name: "About",
-            component: About,
-        },
-        {
-            path: "/Blog",
-            name: "Blog",
-            component: Blog,
-        },
-        {
-            path: "/Service",
-            name: "Service",
-            component: Service,
-        },
-        {
-            path: "/Contact",
-            name: "Contact",
-            component: Contact,
-        },
-        {
-            path: "/ClientArea",
-            name: "ClientArea",
-            component: ClientArea,
+          path: "/ClientArea",
+          name: "ClientArea",
+          component: ClientArea,
         },
     ],
 });

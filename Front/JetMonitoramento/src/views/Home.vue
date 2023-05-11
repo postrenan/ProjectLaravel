@@ -1,11 +1,3 @@
-<script >
-export default {
-    name: "HomeSite",
-    data() {
-    },
-}
-</script>
-
 <template>
     <div id="app">
         <section class="columns is-vcentered section" id="forms-section">
@@ -178,6 +170,13 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<script >
+export default {
+    name: "HomeSite",
+    data() {
+    },
+}
+</script>
 
+<style scoped>
 </style>

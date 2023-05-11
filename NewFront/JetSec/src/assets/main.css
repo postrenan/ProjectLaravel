@@ -1,0 +1,168 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content: space-around;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+.navbar-brand{
+  margin-right: 15rem;
+}
+
+#formBox input , textarea{
+  border-radius: 5px;
+  background-color: #02B9FB;
+  color:white;
+  font-size: 15px;
+}
+
+#forms-section{
+  background-image: linear-gradient(to left, rgba(79, 93, 166, 0.52), rgb(2, 185, 251)) , url('/front/images/Foto-frente.png');
+  background-position: 0.1rem;
+  background-repeat: repeat;
+  background-size: cover;
+  color:black;
+}
+
+.navbar-item img{
+  max-width: 3rem;
+  max-height: 3rem;
+
+}
+
+#forms-section form{
+  background-color: white;
+  border-radius: 15px;
+  max-width: 350px;
+}
+
+textarea {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+
+i {
+  color:rgba(4,166,242, 0.89);
+  font-size: 40px;
+}
+
+#navbarForms a{
+  color: inherit;
+}
+
+#navbarForms a:hover{
+  color: #02B9FB;
+}
+
+.required-field::before {
+  content: "*";
+  color: red;
+}
+
+#clientArea{
+  background-color: #02B9FB;
+  border-radius: 50px;
+}
+
+#clientArea a:hover{
+  color: #f2f2f2;
+}
+
+#titleForm{
+  color: white;
+}
+
+#sectionPreve {
+  background-color: #02B9FB;
+  border-radius: 25px;
+  color: white;
+
+}
+
+#sectionPreve p{
+  color: white;
+}
+
+textarea {
+  resize: none;
+}
+
+
+@media (320px <= width <= 428px ){
+  #imageCare {
+    max-height: 40rem;
+    min-height: 30rem;
+    border-radius: 50px;
+  }
+
+}
+
+@media (430px <= width <= 770px ){
+  #imageCare {
+    min-height: 60rem;
+    max-height: 80rem;
+    zoom: 0.9;
+    border-radius: 50px;
+
+  }
+  #columImage{
+    zoom:0.4;
+
+  }
+
+}
+
+@media (850px <= width <= 1100px){
+  #imageCare {
+    min-height: 65rem;
+    max-height: 80rem;
+    border-radius: 50px;
+  }
+  #columImage{
+    zoom:0.4;
+  }
+
+
+}
+
+@media (1150px <= width){
+  #imageCare {
+    min-height: 79rem;
+    max-height: 80rem;
+    border-radius: 50px;
+
+  }
+  #columImage{
+    zoom:0.4;
+  }
+  #formBox {
+    padding-left: 20rem;
+  }
+
+
+  #sectionPreve{
+    padding: 2rem 10em ;
+  }
+
+  #Services{
+    padding: 5rem 20rem;
+  }
+
+  #CareSection{
+    padding: 5rem 15rem;
+  }
+  #textLocation {
+    padding: 0rem 20rem;
+  }
+
+}
+
+@media (1530px <= width){
+  #forms-section h2 {
+    padding-left: 25rem;
+  }
+}

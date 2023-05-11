@@ -10,7 +10,7 @@
 import HeaderSite from "./components/Header.vue";
 import FooterSite from "./components/Footer.vue";
 export default {
-    name: "App",
+    name: "app",
     components: {
         HeaderSite,
         FooterSite,

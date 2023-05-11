@@ -172,7 +172,7 @@
 
 <script >
 export default {
-    name: "HomeSite",
+    name: "Home",
     data() {
     },
 }

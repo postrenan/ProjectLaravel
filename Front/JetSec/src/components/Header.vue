@@ -1,9 +1,3 @@
-<script >
-export default {
-    name: "HeaderSite",
-};
-</script>
-
 <template>
     <nav class="navbar">
         <div class="navbar-brand" >
@@ -20,9 +14,8 @@ export default {
             <ul class="navbar-end" id="navbarForms">
                 <li class="navbar-item"><router-link to="/home">Home</router-link></li>
                 <li class="navbar-item"><router-link to="/about">Sobre</router-link></li>
-                <li class="navbar-item"><router-link to="/blog">Blog</router-link></li>
                 <li class="navbar-item"><router-link to="/service">Serviços</router-link></li>
-                <li class="navbar-item"><router-link to="/WorkWithUs">Trabalhe conosco</router-link></li>
+                <li class="navbar-item"><router-link to="/">Trabalhe conosco</router-link></li>
                 <li class="navbar-item"><router-link to="/home">Contato</router-link></li>
                 <li class="navbar-item" id="clientArea">
                     <router-link to="/ClientArea">Area do cliente</router-link>
@@ -31,6 +24,12 @@ export default {
         </div>
     </nav>
 </template>
+
+<script >
+export default {
+    name: "HeaderSite",
+};
+</script>
 
 <style scoped>
 ul {

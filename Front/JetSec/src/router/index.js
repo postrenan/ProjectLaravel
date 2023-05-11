@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from "../views/Home.vue";
-import ClientArea from "../views/ClientArea.vue";
+
 
 Vue.use(VueRouter)
 
@@ -14,11 +14,11 @@ const router = new VueRouter({
       name: "Home",
       component: Home,
     },
-    {
-      path: "/ClientArea",
-      name: "ClientArea",
-      component: ClientArea,
-    },
+    // {
+    //   path: "/ClientArea",
+    //   name: "ClientArea",
+    //   component: ClientArea,
+    // },
   ]
 })
 

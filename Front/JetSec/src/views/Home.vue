@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="App">
         <section class="columns is-vcentered section" id="forms-section">
             <div class="column has-text-centered title" id="titleForm">
                 <h2>
@@ -9,37 +9,31 @@
                     >
                 </h2>
             </div>
-            <div class="column has-text-centered" id="formBox">
+            <div class="column has-text-centered " id="formBox">
                 <form id="myForm" class="box">
                     <p>Solicite um contato</p>
                     <div class="field">
-                        <label class="required-field" for="firstName">Nome<br /></label>
-                        <input v-model="name" type="text" name="name" id="firstName" />
+                        <label class="required-field" >Nome</label>
+                        <input v-model="name" type="text"/>
                     </div>
                     <div class="field">
-                        <label class="required-field" for="phone">Telefone<br /></label>
+                        <label class="required-field" >Telefone<br /></label>
                         <input v-model="phone" type="number" name="phone" id="phone" />
                     </div>
                     <div class="field">
-                        <label class="required-field" for="email"
-                        >Endereço de E-mail <br
+                        <label class="required-field">Endereço de E-mail <br
                         /></label>
-                        <input v-model="mail" type="email" name="email" id="email" />
+                        <input type="email" name="email" id="email" />
                     </div>
                     <div class="field">
-                        <label class="required-field" for="textarea">Mensagem:<br /></label>
-                        <textarea v-model="msg" type="text" name="textarea" id="textarea"></textarea>
+                        <label class="required-field" >Mensagem:<br /></label>
+                        <textarea  type="text" name="textarea" id="textarea"></textarea>
                     </div>
                     <div>
                         <span id="errorMessage"></span>
                     </div>
                     <div class="column has-text-centered">
-                        <input
-                                class="button is-success"
-                                @click.prevent="sendForm(name, phone, mail, msg)"
-                                type="button"
-                                value="Enviar"
-                        />
+                        <input class="button is-success" type="button"  value="Enviar"/>
                     </div>
                 </form>
             </div>
@@ -157,14 +151,10 @@
                 <iframe
                         width="775"
                         height="400"
-                        frameborder="0"
-                        scrolling="no"
-                        marginheight="0"
-                        marginwidth="0"
                         id="gmap_canvas"
                         src="https://maps.google.com/maps?width=775&amp;height=400&amp;hl=en&amp;q=rua%20Cel.%20Niederauer%20santa%20maria+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                 ></iframe
-                ><a href="https://maps-generator.com/">Maps Generator</a>
+                >
             </div>
         </section>
     </div>
@@ -173,10 +163,15 @@
 <script >
 export default {
     name: "Home",
-    data() {
-    },
+    data(){
+        return{
+            name:'',
+            phone:'',
+            mail:'',
+            msg:''
+        }
+    }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

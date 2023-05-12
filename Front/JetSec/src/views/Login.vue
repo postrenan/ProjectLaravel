@@ -1,9 +1,3 @@
-<script>
-export default {
-    name: "Login",
-}
-</script>
-
 <template>
     <div id="app">
         <div class="section columns is-fullheight is-centered">
@@ -37,6 +31,10 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<script>
+export default {
+    name: "Login",
+}
+</script>
 
-</style>
+<style scoped></style>

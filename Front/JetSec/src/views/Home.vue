@@ -9,7 +9,7 @@
                     >
                 </h2>
             </div>
-            <div class="column has-text-centered" id="formBox">
+            <div class="column has-text-centered " id="formBox">
                 <form id="myForm" class="box">
                     <p>Solicite um contato</p>
                     <div class="field">
@@ -17,17 +17,16 @@
                         <input v-model="name" type="text"/>
                     </div>
                     <div class="field">
-                        <label class="required-field" for="phone">Telefone<br /></label>
+                        <label class="required-field" >Telefone<br /></label>
                         <input v-model="phone" type="number" name="phone" id="phone" />
                     </div>
                     <div class="field">
-                        <label class="required-field" for="mail"
-                        >Endereço de E-mail <br
+                        <label class="required-field">Endereço de E-mail <br
                         /></label>
                         <input type="email" name="email" id="email" />
                     </div>
                     <div class="field">
-                        <label class="required-field" for="msg">Mensagem:<br /></label>
+                        <label class="required-field" >Mensagem:<br /></label>
                         <textarea  type="text" name="textarea" id="textarea"></textarea>
                     </div>
                     <div>
@@ -155,7 +154,7 @@
                         id="gmap_canvas"
                         src="https://maps.google.com/maps?width=775&amp;height=400&amp;hl=en&amp;q=rua%20Cel.%20Niederauer%20santa%20maria+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                 ></iframe
-                ><a href="https://maps-generator.com/">Maps Generator</a>
+                >
             </div>
         </section>
     </div>
@@ -175,5 +174,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

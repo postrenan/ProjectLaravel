@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="App">
         <section class="columns is-vcentered section" id="forms-section">
             <div class="column has-text-centered title" id="titleForm">
                 <h2>
@@ -13,33 +13,28 @@
                 <form id="myForm" class="box">
                     <p>Solicite um contato</p>
                     <div class="field">
-                        <label class="required-field" for="firstName">Nome<br /></label>
-                        <input v-model="name" type="text" name="name" id="firstName" />
+                        <label class="required-field" >Nome</label>
+                        <input v-model="name" type="text"/>
                     </div>
                     <div class="field">
                         <label class="required-field" for="phone">Telefone<br /></label>
                         <input v-model="phone" type="number" name="phone" id="phone" />
                     </div>
                     <div class="field">
-                        <label class="required-field" for="email"
+                        <label class="required-field" for="mail"
                         >Endereço de E-mail <br
                         /></label>
-                        <input v-model="mail" type="email" name="email" id="email" />
+                        <input type="email" name="email" id="email" />
                     </div>
                     <div class="field">
-                        <label class="required-field" for="textarea">Mensagem:<br /></label>
-                        <textarea v-model="msg" type="text" name="textarea" id="textarea"></textarea>
+                        <label class="required-field" for="msg">Mensagem:<br /></label>
+                        <textarea  type="text" name="textarea" id="textarea"></textarea>
                     </div>
                     <div>
                         <span id="errorMessage"></span>
                     </div>
                     <div class="column has-text-centered">
-                        <input
-                                class="button is-success"
-                                @click.prevent="sendForm(name, phone, mail, msg)"
-                                type="button"
-                                value="Enviar"
-                        />
+                        <input class="button is-success" type="button"  value="Enviar"/>
                     </div>
                 </form>
             </div>
@@ -173,8 +168,14 @@
 <script >
 export default {
     name: "Home",
-    data() {
-    },
+    data(){
+        return{
+            name:'',
+            phone:'',
+            mail:'',
+            msg:''
+        }
+    }
 }
 </script>
 

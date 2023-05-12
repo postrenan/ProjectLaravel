@@ -15,11 +15,8 @@
                 <li class="navbar-item"><router-link to="/home">Home</router-link></li>
                 <li class="navbar-item"><router-link to="/about">Sobre</router-link></li>
                 <li class="navbar-item"><router-link to="/service">Serviços</router-link></li>
-                <li class="navbar-item"><router-link to="/">Trabalhe conosco</router-link></li>
                 <li class="navbar-item"><router-link to="/home">Contato</router-link></li>
-                <li class="navbar-item" id="clientArea">
-                    <router-link to="/ClientArea">Area do cliente</router-link>
-                </li>
+                <li class="navbar-item" id="clientArea"><router-link to="/login">Area do cliente</router-link></li>
             </ul>
         </div>
     </nav>

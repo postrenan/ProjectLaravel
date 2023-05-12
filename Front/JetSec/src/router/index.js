@@ -1,11 +1,12 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Service from "../views/Service.vue";
 import ClientArea from "../views/ClientArea.vue";
-import Contact from "../views/Home.vue"
-import Login from "../views/Login.vue"
+import Contact from "../views/Home.vue";
+import Login from "../views/Login.vue";
+import EmailStep from "../views/EmailStep.vue";
 
 
 Vue.use(VueRouter);
@@ -43,6 +44,11 @@ const router = new VueRouter({
       path: "/login",
       name: "Login",
       component: Login,
+    },
+    {
+      path: "/EmailStep",
+      name: "EmailStep",
+      component: EmailStep,
     },
   ]
 })

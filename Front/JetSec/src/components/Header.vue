@@ -2,7 +2,7 @@
     <nav class="navbar">
         <div class="navbar-brand" >
             <div class="navbar-item ">
-                <img src="">
+                <img src="" alt="">
             </div>
             <a class="navbar-burger" id="burger">
                 <span ></span>

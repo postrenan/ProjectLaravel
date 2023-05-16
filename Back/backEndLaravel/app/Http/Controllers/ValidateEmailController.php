@@ -1,23 +1,20 @@
 <?php
 namespace app\Http\Controllers;
 
-class ValidateEmailController extends Controller
+use App\Models\Accounts;
+use Illuminate\Http\Request;
+
+class ValidateEmailController
 {
-    public function dataVerifi(Request $request){
-        dd($request);
+    public function mailVerify(Request $request){
         $email = $request->input('email');
 
-        // Verifique se já existe um usuário com o mesmo email no banco de dados
-        $usuario = User::where('email', $email)->first();
+        $validateMail = Accounts::where('email', $email)->exists();
 
-        // Se o usuário existir, retorne uma resposta de erro com o status 422
-        if ($usuario) {
-            throw ValidationException::withMessages([
-                'email' => 'Este email já está sendo usado por outro usuário'
-            ]);
+        if($validateMail){
+            return response(404);
+        } else {
+            return response(200);
         }
-
-        // Se o usuário não existir, retorne uma resposta de sucesso com o status 200
-        return response()->json(['mensagem' => 'Email disponível']);
     }
 }

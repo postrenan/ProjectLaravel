@@ -9,20 +9,20 @@
               <div >
                   <label>Email</label>
                   <br>
-                  <input id="email" type="email" value="seuemail@gmail.com">
+                  <input v-model="email" id="email" type="email" value="seuemail@gmail.com">
               </div>
               <div>
                   <br>
                   <label>Senha</label>
                   <br>
-                  <input type="password" id="password">
+                  <input v-model="password" type="password" id="password">
               </div>
               <div>
                   <span id="loginError"></span>
               </div>
               <div>
                   <br>
-                  <button >Logar</button>
+                  <button @click="loginValidation">Logar</button>
               </div>
               <div>
                   <br>
@@ -36,8 +36,26 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: "Login",
+    data(){
+        return{
+            email: '',
+            password: '',
+        }
+    },
+    methods:{
+        loginValidation:function(){
+            axios.post('http://127.0.0.1:8000/api/validateLogin', {'email': this.email, 'password':this.password})
+                .then((response) => {
+
+                })
+                .catch(() => {
+
+                })
+        }
+    }
 }
 </script>
 

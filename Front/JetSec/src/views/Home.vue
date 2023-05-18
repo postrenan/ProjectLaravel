@@ -32,7 +32,7 @@
                         <span id="errorMessage"></span>
                     </div>
                     <div class="column has-text-centered">
-                        <span v-if="phone === '' || mail ==='' || name === '' || msg === ''" >verifique se todas areas foram preenchidas</span>
+                        <span v-if="hidden">verifique se todas areas foram preenchidas</span>
                         <span v-if="confirmation" >O formulário foi enviado com sucesso!</span>
                     </div>
                     <div class="column has-text-centered">
@@ -175,12 +175,13 @@ export default {
             phone:'',
             mail:'',
             msg:'',
-            confirmation: false
+            confirmation: false,
+            hidden: true,
         }
     },
     methods: {
         formSend: function(){
-            axios.post('http://127.0.0.1:8000/api/formSaver', { 'email': this.email, 'phone': this.phone, 'msg': this.msg, 'name': this.name})
+            axios.post('http://127.0.0.1:8000/api/formSaver', {'email': this.mail, 'phone': this.phone, 'msg': this.msg, 'name': this.name})
                 .then((response) => {
                     if(response){
                         this.name = '';
@@ -188,11 +189,13 @@ export default {
                         this.mail = '';
                         this.msg = '';
                         this.confirmation = true;
+                        this.hidden = false;
                     }
                 })
                 .catch((error) => {
                     console.log('Erro ao enviar dados', error.message);
                 });
+
         },
     },
 }

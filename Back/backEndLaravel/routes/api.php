@@ -16,7 +16,9 @@ Route::post('/emailValidate', 'App\Http\Controllers\ValidateEmailController@mail
 
 Route::post('/dataSaver', 'App\Http\Controllers\dataSaverController@dataUpload');
 
-Route::post('/formSaver', 'App\Http\Controllers\dataSaverController@dataUpload');
+Route::post('/formSaver', 'App\Http\Controllers\formSaver@dataUpload');
+
+Route::post('validateLogin', );
 
 Route::get('/users', 'UserController@index');
 

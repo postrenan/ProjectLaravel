@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Accounts extends Model
 {
-    protected  $table = 'account';
+    use HasFactory;
+    protected  $table = 'user';
     protected $primaryKey = 'id';
-
-    protected $unique = 'email';
-
-    protected $guarded = ['name','password','email'];
+    protected $fillable = ['email', 'password'];
 }

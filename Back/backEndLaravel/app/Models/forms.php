@@ -4,14 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PharIo\Manifest\Email;
 
-class CreateAccount extends Model
+class forms extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'Id',
-        'Email',
-        'Password'
-    ];
+    protected  $table = 'form';
+    protected $primaryKey = 'id';
+    protected $fillable = ['phone','email','msg','name'];
 }

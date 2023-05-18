@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['*'],
+    'paths' => ['*', 'api/dataSaver'],
 
     'allowed_methods' => ['*'],
 

@@ -18,7 +18,7 @@ Route::post('/dataSaver', 'App\Http\Controllers\dataSaverController@dataUpload')
 
 Route::post('/formSaver', 'App\Http\Controllers\formSaver@dataUpload');
 
-Route::post('validateLogin', );
+Route::post('/validateLogin', 'App\Http\Controllers\validateLogin@dbValidate');
 
 Route::get('/users', 'UserController@index');
 

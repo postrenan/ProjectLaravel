@@ -12,17 +12,11 @@ class dataSaverController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        $insert = DB::insert('insert into user (email,password) values (?,?)', [$email, $password]);
-//        $user = new Accounts();
-//        $user-> $password;
-//        $user-> $email;
-//        $user->save();
-//         não está funcionando a ORM
+        $user = new Accounts();
+        $user->password = $password;
+        $user->email = $email;
+        $user->save();
 
-        if ($insert){
-            return response(status: 200);
-        } else {
-            return response(status: 500);
-        }
+        return response(201);
     }
 }

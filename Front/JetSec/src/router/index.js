@@ -41,7 +41,7 @@ const router = new VueRouter({
       component: Contact,
     },
     {
-      path: "/login",
+      path: "/Login",
       name: "Login",
       component: Login,
     },

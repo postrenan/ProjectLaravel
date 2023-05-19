@@ -12,6 +12,7 @@ class ValidateEmailController
         $validateMail = Accounts::where('email', $email)->exists();
 
         if($validateMail){
+            // TODO Alterar para ele mudar o status da response, está apenas mandando uma string escrita 404
             return response(404);
         } else {
             return response(200);

@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Accounts extends Model
 {
-    use HasFactory;
-    protected  $table = 'user';
-    protected $primaryKey = 'id';
-    protected $fillable = ['email', 'password'];
+    public $timestamps = false;
+
+    public $table = 'account';
+    public $primaryKey = 'ID';
+    public $fillable = ['email', 'password'];
 }

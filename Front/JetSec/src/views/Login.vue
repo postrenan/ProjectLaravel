@@ -9,7 +9,7 @@
               <div >
                   <label>Email</label>
                   <br>
-                  <input v-model="email" id="email" type="email" value="seuemail@gmail.com">
+                  <input v-model="email" id="email" type="email" >
               </div>
               <div>
                   <br>
@@ -18,7 +18,7 @@
                   <input v-model="password" type="password" id="password">
               </div>
               <div>
-                  <span id="loginError"></span>
+                  <span v-if="verifyLog">verifica se o email e senha estão corretos</span>
               </div>
               <div>
                   <br>
@@ -37,22 +37,28 @@
 
 <script>
 import axios from 'axios';
+import router from "@/router";
 export default {
     name: "Login",
     data(){
         return{
             email: '',
             password: '',
+            verifyLog: false,
         }
     },
     methods:{
         loginValidation:function(){
-            axios.post('http://127.0.0.1:8000/api/validateLogin', {'email': this.email, 'password':this.password})
+            axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password:this.password})
                 .then((response) => {
-
+                  if(response.data === 200) {
+                      router.push({path: '/ClientArea'});
+                  }
+                  else{
+                    this.verifyLog = true;
+                  }
                 })
-                .catch(() => {
-
+                .catch((error) => {
                 })
         }
     }

@@ -13,7 +13,7 @@
                 <form id="myForm" class="box">
                     <p>Solicite um contato</p>
                     <div class="field">
-                        <label class="required-field" >Nome</label>
+                        <label class="required-field" >Nome</label><br>
                         <input v-model="name" type="text"/>
                     </div>
                     <div class="field">
@@ -21,19 +21,22 @@
                         <input v-model="phone" type="number" name="phone" id="phone" />
                     </div>
                     <div class="field">
-                        <label class="required-field">Endereço de E-mail <br
-                        /></label>
-                        <input type="email" name="email" id="email" />
+                        <label class="required-field">Endereço de E-mail</label>
+                        <input v-model="mail" type="email" name="email" id="email" />
                     </div>
                     <div class="field">
-                        <label class="required-field" >Mensagem:<br /></label>
-                        <textarea  type="text" name="textarea" id="textarea"></textarea>
+                        <label class="required-field" >Mensagem:</label><br>
+                        <textarea  v-model="msg" type="text" name="textarea" id="textarea"></textarea>
                     </div>
                     <div>
                         <span id="errorMessage"></span>
                     </div>
                     <div class="column has-text-centered">
-                        <input class="button is-success" type="button"  value="Enviar"/>
+                        <span v-if="hidden">verifique se todas areas foram preenchidas</span>
+                        <span v-if="confirmation" >O formulário foi enviado com sucesso!</span>
+                    </div>
+                    <div class="column has-text-centered">
+                        <input  v-if="phone !== '' && mail !=='' && name !== '' && msg !== ''" class="button is-success" @click="formSend" type="button"  value="Enviar"/>
                     </div>
                 </form>
             </div>
@@ -132,7 +135,9 @@
                         <p class="title">Rastreamento veicular</p>
                         <p class="subtitle">
                             Sua frota muito mais segura, com controle direto na palma da sua
-                            mão.
+                            mão. <div class="column has-text-centered">
+                        <span v-if="phone === '' || mail ==='' || name === '' || msg === ''" >verifique se todas areas foram preenchidas</span>
+                    </div>
                         </p>
                     </article>
                 </div>
@@ -161,6 +166,7 @@
 </template>
 
 <script >
+import axios from 'axios';
 export default {
     name: "Home",
     data(){
@@ -168,10 +174,32 @@ export default {
             name:'',
             phone:'',
             mail:'',
-            msg:''
+            msg:'',
+            confirmation: false,
+            hidden: true,
         }
-    }
+    },
+    methods: {
+        formSend: function(){
+            axios.post('http://127.0.0.1:8000/api/formSaver', {'email': this.mail, 'phone': this.phone, 'msg': this.msg, 'name': this.name})
+                .then((response) => {
+                    if(response){
+                        this.name = '';
+                        this.phone = '';
+                        this.mail = '';
+                        this.msg = '';
+                        this.confirmation = true;
+                        this.hidden = false;
+                    }
+                })
+                .catch((error) => {
+                    console.log('Erro ao enviar dados', error.message);
+                });
+
+        },
+    },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

@@ -23,9 +23,9 @@ class validateLogin extends Controller
            ->first();
 
        if($validateMail){
-           return response(200);
+           return response([],200);
        }else {
-           return response(401);
+           return response([],401);
        }
    }
 }

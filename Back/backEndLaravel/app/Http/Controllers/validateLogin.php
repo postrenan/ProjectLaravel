@@ -21,11 +21,11 @@ class validateLogin extends Controller
            ->where('password', '=', $password)
            ->get()
            ->first();
-
+        //TODO fazer a mudança para envio de status e não chumbado
        if($validateMail){
            return response(200);
        }else {
-           return response(401);
+           return response([],401);
        }
    }
 }

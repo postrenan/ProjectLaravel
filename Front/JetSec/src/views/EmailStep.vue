@@ -74,6 +74,7 @@
 
 <script >
 import axios from 'axios';
+import router from "@/router";
 export default {
     name: "EmailStep",
     data(){
@@ -98,7 +99,7 @@ export default {
                     axios.post('http://127.0.0.1:8000/api/emailValidate', { 'email': this.mail1 })
                         .then((response) => {
                             console.log(response.data);
-                            if(response.data === 200){
+                            if(response.status === 200){
                                 this.invalidEmail = false;
                                 this.emailStep = false;
                                 this.passwordStep = true;
@@ -125,7 +126,7 @@ export default {
                             if(response){
                                 this.pwd1 ="";
                                 this.pwd2 = "";
-
+                                router.push({path: '/Login'});
                             } else {
                                 console.log('error');
                                 this.errorCreate = true;

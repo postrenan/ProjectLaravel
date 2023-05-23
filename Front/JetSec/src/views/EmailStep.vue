@@ -98,8 +98,7 @@ export default {
                 }else {
                     axios.post('http://127.0.0.1:8000/api/emailValidate', { 'email': this.mail1 })
                         .then((response) => {
-                            console.log(response.data);
-                            if(response.status === 200){
+                            if(response.status === 201){
                                 this.invalidEmail = false;
                                 this.emailStep = false;
                                 this.passwordStep = true;
@@ -110,7 +109,9 @@ export default {
                             }
                         })
                         .catch((error) => {
-                            console.log('Erro ao enviar dados', error.message);
+                            this.emailInUse = true;
+                            this.mail1 ="";
+                            this.mail2 = "";
                         });
                 }
             }
@@ -123,7 +124,7 @@ export default {
                 } else{
                     axios.post('http://127.0.0.1:8000/api/dataSaver', {'email': this.mail1 ,'password' : this.pwd1})
                         .then((response) => {
-                            if(response){
+                            if(response.status === 201){
                                 this.pwd1 ="";
                                 this.pwd2 = "";
                                 router.push({path: '/Login'});
@@ -140,4 +141,19 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+#main{
+  padding-top: 3rem;
+}
+
+.section {
+  min-height: 30rem;
+  margin: 0px;
+  padding-top: 9rem;
+}
+
+#app{
+  background: #0f6674;
+  min-height: 40rem;
+}
+</style>

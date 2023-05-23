@@ -2,7 +2,7 @@
 <div id="app">
     <nav class="section navbar columns">
         <h2 class="column is-10">Seja bem-vindo a area do cliente</h2>
-        <button class="column">Logout</button>
+        <button class="column"><router-link to="/home">Logout</router-link></button>
     </nav>
 
         <div class="section">

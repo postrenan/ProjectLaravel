@@ -31,5 +31,7 @@ export default {
 </template>
 
 <style scoped>
-
+.footer{
+  height: 13rem;
+}
 </style>

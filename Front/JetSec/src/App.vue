@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <HeaderSite />
+      <HeaderSite v-if=""/>
       <router-view />
       <FooterSite />
   </div>
@@ -11,10 +11,19 @@ import HeaderSite from "./components/Header.vue";
 import FooterSite from "./components/Footer.vue";
 export default {
     name: "app",
-    components: {
+  data(){
+      return{
+
+      }
+  },
+  components: {
         HeaderSite,
         FooterSite,
     },
+  mounted() {
+
+
+  },
 };
 
 </script>

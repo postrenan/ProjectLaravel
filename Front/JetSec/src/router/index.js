@@ -35,6 +35,9 @@ const router = new VueRouter({
       path: "/ClientArea",
       name: "ClientArea",
       component: ClientArea,
+      children:[
+       
+      ],
       meta: {requiresAuth: true},
     },
     {
@@ -54,4 +57,5 @@ const router = new VueRouter({
     },
   ]
 });
+
 export default router

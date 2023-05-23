@@ -2,7 +2,10 @@
 <div id="app">
     <nav class="section navbar columns">
         <h2 class="column is-10">Seja bem-vindo a area do cliente</h2>
-        <button class="column"><router-link to="/home">Logout</router-link></button>
+        <router-link class="button" to="/home">Home</router-link>
+
+        <router-link class="button" to="/login">Logout</router-link>
+
     </nav>
 
         <div class="section">
@@ -27,4 +30,13 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+  .section {
+  margin: 0px;
+  }
+
+  #app{
+    background: #0f6674;
+    min-height: 40rem;
+  }
+</style>

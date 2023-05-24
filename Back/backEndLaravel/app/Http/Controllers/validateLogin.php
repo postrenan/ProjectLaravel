@@ -20,7 +20,7 @@ class validateLogin extends Controller
            ->first();
 
        if (Auth::attempt(['email' => $email, 'password' => $password])) {
-           return response(status: 200);
+           return response ( ['api_token' => Auth::user()->api_token , 'emailUser' => $email],200);
        } else {
            return response(status:401);
        }

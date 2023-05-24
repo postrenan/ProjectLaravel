@@ -39,6 +39,7 @@
 import axios from 'axios';
 import router from '@/router';
 import {mapGetters, mapMutations} from 'vuex';
+import Cookies from 'js-cookie'
 
 export default {
     name: "Login",
@@ -55,17 +56,18 @@ export default {
     }),
   },
     methods:{
-      ...mapMutations({
-        setIncrement: 'validar',
-      }),
-      validar() {
-        this.setIncrement(true);
-      },
+      ...mapMutations([
+          'setLoggedIn',
+      ]),
         loginValidation:function(){
+
             axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password:this.password})
                 .then((response) => {
                   if(response.status === 200) {
-                      this.validar();
+                      Cookies.set('api_token', response.data.api_token);
+                      Cookies.set('email', response.data.emailUser);
+
+                      this.setLoggedIn(true);
                       router.push({path: '/ClientArea'});
                   }
                   else{
@@ -73,10 +75,9 @@ export default {
                   }
                 })
                 .catch((error) => {
-                  console.log(error);
                   this.verifyLog = true;
                 })
-        }
+        },
     },
 };
 

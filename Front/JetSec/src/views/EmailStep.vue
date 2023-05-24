@@ -55,7 +55,8 @@
                 <input v-model="pwd2" id="pwd2" type="password">
             </div>
             <div>
-                <span v-if="pwd1 !== pwd2" id="loginError">Verificar se as senhas coicidem</span>
+                <span v-if="pwd1 !== pwd2" id="loginError">Verificar se as senhas coicidem</span><br>
+                <span v-if="passwordWarning = true">As senha devem conter letras minusculas, maiusculas, números e simbolos</span>
             </div>
             <div>
                 <br>
@@ -88,6 +89,7 @@ export default {
             pwd1:"",
             pwd2:"",
             errorCreate: false,
+            passwordWarning: false,
         }
     },
     methods: {
@@ -117,10 +119,10 @@ export default {
             }
         },
         registerData: function(){
-
+            this.passwordWarning = true;
             if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(this.pwd1)){
                 if(this.pwd1 !== this.pwd2){
-                    console.log('senhas não coicidem');
+                  this.passwordWarning = false;
                 } else{
                     axios.post('http://127.0.0.1:8000/api/dataSaver', {'email': this.mail1 ,'password' : this.pwd1})
                         .then((response) => {

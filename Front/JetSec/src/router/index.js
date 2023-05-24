@@ -7,7 +7,6 @@ import ClientArea from "../views/ClientArea.vue";
 import Contact from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import EmailStep from "../views/EmailStep.vue";
-import axios from 'axios';
 
 
 Vue.use(VueRouter);
@@ -17,7 +16,7 @@ const router = new VueRouter({
   base: import.meta.env.BASE_URL,
   routes: [
     {
-      path: "/home",
+      path: "/",
       name: "Home",
       component: Home,
     },
@@ -35,9 +34,6 @@ const router = new VueRouter({
       path: "/ClientArea",
       name: "ClientArea",
       component: ClientArea,
-      children:[
-       
-      ],
       meta: {requiresAuth: true},
     },
     {
@@ -58,4 +54,11 @@ const router = new VueRouter({
   ]
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    next();
+  } else {
+    next();
+  }
+});
 export default router

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <HeaderSite v-if=""/>
+      <HeaderSite/>
       <router-view />
       <FooterSite />
   </div>
@@ -21,8 +21,6 @@ export default {
         FooterSite,
     },
   mounted() {
-
-
   },
 };
 

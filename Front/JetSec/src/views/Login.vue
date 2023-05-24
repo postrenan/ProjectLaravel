@@ -37,7 +37,9 @@
 
 <script>
 import axios from 'axios';
-import router from "@/router";
+import router from '@/router';
+import {mapGetters, mapMutations} from 'vuex';
+
 export default {
     name: "Login",
     data(){
@@ -47,11 +49,23 @@ export default {
             verifyLog: false,
         }
     },
+  computed: {
+      ...mapGetters({
+        getLog: 'loggedIn',
+    }),
+  },
     methods:{
+      ...mapMutations({
+        setIncrement: 'validar',
+      }),
+      validar() {
+        this.setIncrement(true);
+      },
         loginValidation:function(){
             axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password:this.password})
                 .then((response) => {
                   if(response.status === 200) {
+                      this.validar();
                       router.push({path: '/ClientArea'});
                   }
                   else{

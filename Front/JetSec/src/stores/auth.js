@@ -1,16 +1,26 @@
-import { defineStore } from 'pinia'
+import Vuex, { Store } from 'vuex'
+import Vue from "vue";
 
-export const useAuthStore = defineStore({
-  state: () => ({
-    isLoggedIn: false,
-  }),
-  actions: {
-    login(){
-      this.isLoggedIn = true;
-    },
-    logout(){
+Vue.use(Vuex)
 
-      this.isLoggedIn = false;
+// Create a new store instance.
+const store = new Store({
+  state () {
+    return {
+      loggedIn: false,
     }
+  },
+  getters: {
+      getLog: (state) => state.loggedIn,
+  },
+  mutations: {
+    increment (state) {
+      state.loggedIn;
+    },
+  },
+  actions: {
+
   }
 })
+
+export default store;

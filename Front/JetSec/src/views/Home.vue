@@ -32,7 +32,7 @@
                         <span id="errorMessage"></span>
                     </div>
                     <div class="column has-text-centered">
-                        <span v-if="hidden">verifique se todas areas foram preenchidas</span>
+                        <span v-if="hidden">Preencha todos os campos para enviar o formulário!</span>
                         <span v-if="confirmation" >O formulário foi enviado com sucesso!</span>
                     </div>
                     <div class="column has-text-centered">

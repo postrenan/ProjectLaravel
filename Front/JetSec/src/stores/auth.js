@@ -11,11 +11,11 @@ const store = new Store({
     }
   },
   getters: {
-      getLog: (state) => state.loggedIn,
+      getLoggedIn: (state) => state.loggedIn,
   },
   mutations: {
-    increment (state) {
-      state.loggedIn;
+    setLoggedIn (state, value) {
+      state.loggedIn = value;
     },
   },
   actions: {

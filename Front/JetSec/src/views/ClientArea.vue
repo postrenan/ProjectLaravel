@@ -1,15 +1,10 @@
 <template>
 <div id="app">
-    <nav class="section navbar columns">
-        <h2 class="column is-10">Seja bem-vindo a area do cliente</h2>
-        <router-link class="button" to="/home">Home</router-link>
-
-        <router-link class="button" to="/login">Logout</router-link>
-
-    </nav>
-
+        <div class="section columns ">
+          <h2 class="column-is-1 box">Olá {{email}}</h2>
+        </div>
         <div class="section">
-          <div class="box columns">
+          <div class="columns box">
             <div class="column">
               <p >sistemas de segurança em uso: </p>
             </div>
@@ -25,8 +20,19 @@
 </template>
 
 <script >
+import Cookies from "js-cookie";
 export default {
     name: "ClientArea",
+  data(){
+    return{
+      email: '',
+    }
+  },
+  mounted() {
+
+    this.email = Cookies.get('email');
+    console.log(this.email);
+  }
 }
 </script>
 

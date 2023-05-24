@@ -168,37 +168,47 @@
 <script >
 import axios from 'axios';
 export default {
-    name: "Home",
-    data(){
-        return{
-            name:'',
-            phone:'',
-            mail:'',
-            msg:'',
-            confirmation: false,
-            hidden: true,
-        }
-    },
-    methods: {
-        formSend: function(){
-            axios.post('http://127.0.0.1:8000/api/formSaver', {'email': this.mail, 'phone': this.phone, 'msg': this.msg, 'name': this.name})
-                .then((response) => {
-                    if(response){
-                        this.name = '';
-                        this.phone = '';
-                        this.mail = '';
-                        this.msg = '';
-                        this.confirmation = true;
-                        this.hidden = false;
-                    }
-                })
-                .catch((error) => {
-                    console.log('Erro ao enviar dados', error.message);
-                });
+  name: "Home",
+  data() {
+    return {
+      name: '',
+      phone: '',
+      mail: '',
+      msg: '',
+      confirmation: false,
+      hidden: true,
+    }
+  },
+  methods: {
+    formSend: function () {
+      axios.post('http://127.0.0.1:8000/api/formSaver', {
+        'email': this.mail,
+        'phone': this.phone,
+        'msg': this.msg,
+        'name': this.name
+      })
+          .then((response) => {
+            if (response) {
+              this.name = '';
+              this.phone = '';
+              this.mail = '';
+              this.msg = '';
+              this.confirmation = true;
+              this.hidden = false;
+            }
+          })
+          .catch((error) => {
+            //TODO fazer mostrar o erro na tela
+          });
 
-        },
     },
+  },
 }
+
+//TODO mudar o botão de area do cliente para logout caso a pessoa queira sair
+//TODO caso clicar em um botão deixa-lo em negrito
+//TODO autenticação da url
+//TODO trocar a senha, form de cadastro
 </script>
 
 <style scoped>

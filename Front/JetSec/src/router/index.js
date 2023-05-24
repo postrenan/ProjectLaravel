@@ -7,7 +7,7 @@ import ClientArea from "../views/ClientArea.vue";
 import Contact from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import EmailStep from "../views/EmailStep.vue";
-
+import Cookies from 'js-cookie'
 
 Vue.use(VueRouter);
 
@@ -54,11 +54,17 @@ const router = new VueRouter({
   ]
 });
 
+
+
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    next();
-  } else {
-    next();
-  }
+
+  // if (to.meta.requiresAuth) {
+  //   if (Cookies.get('api_token')) {
+  //     return next('/ClientArea');
+  //   } else if (!Cookies.get('api_token')) {
+  //     return next({name: '/Login'});
+  //   }
+  // }
+  next();
 });
 export default router

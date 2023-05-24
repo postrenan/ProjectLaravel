@@ -25,8 +25,21 @@
 <script >
 
 
+import {mapGetters, mapMutations} from "vuex";
+import axios from "axios";
+import Cookies from "js-cookie";
+import router from "@/router";
+
 export default {
     name: "HeaderSite",
+  data(){
+    return{
+      email: '',
+  }
+  methods:{
+
+    }
+  },
 }
 </script>
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Accounts;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class validateLogin extends Controller
 {
@@ -13,19 +15,14 @@ class validateLogin extends Controller
        $email = $request->input('email');
        $password = $request->input('password');
 
-       // TODO Fazer o hash da password
-
-       // Auth
-       $validateMail = DB::table('account')
+       $user = User::query()
            ->where('email', '=', $email)
-           ->where('password', '=', $password)
-           ->get()
            ->first();
-        //TODO fazer a mudança para envio de status e não chumbado
-       if($validateMail){
-           return response(200);
-       }else {
-           return response([],401);
+
+       if (Auth::attempt(['email' => $email, 'password' => $password])) {
+           return response(status: 200);
+       } else {
+           return response(status:401);
        }
    }
 }

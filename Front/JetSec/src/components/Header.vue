@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar">
+    <nav class="navbar" >
         <div class="navbar-brand" >
             <div class="navbar-item ">
                 <img src="" alt="">

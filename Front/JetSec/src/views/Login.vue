@@ -51,7 +51,7 @@ export default {
         loginValidation:function(){
             axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password:this.password})
                 .then((response) => {
-                  if(response.data === 200) {
+                  if(response.status === 200) {
                       router.push({path: '/ClientArea'});
                   }
                   else{
@@ -59,10 +59,26 @@ export default {
                   }
                 })
                 .catch((error) => {
+                  console.log(error);
+                  this.verifyLog = true;
                 })
         }
-    }
-}
-</script>
+    },
+};
 
-<style scoped></style>
+</script><style scoped>
+#main{
+  padding-top: 3rem;
+}
+
+.section {
+  min-height: 30rem;
+  margin: 0px;
+  padding-top: 9rem;
+}
+
+#app{
+  background: #0f6674;
+  min-height: 40rem;
+}
+</style>

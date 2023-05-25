@@ -30,6 +30,9 @@ Route::post('/formSaver', 'App\Http\Controllers\formSaver@dataUpload');
 
 Route::post('/validateLogin', 'App\Http\Controllers\validateLogin@dbValidate');
 
+Route::get('/validateLogin', 'App\Http\Controllers\validateLogin@mailGetData');
+
+
 Route::get('/users', function () {
     return response(['opa']);
 })->middleware('auth');

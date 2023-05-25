@@ -34,7 +34,9 @@ const router = new VueRouter({
       path: "/ClientArea",
       name: "ClientArea",
       component: ClientArea,
-      meta: {requiresAuth: true},
+      meta: {requiresAuth: true,
+          hideHeader: true
+      },
     },
     {
       path: "/home",

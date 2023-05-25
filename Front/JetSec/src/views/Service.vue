@@ -32,6 +32,9 @@
             </div>
         </div>
     </div>
+  <div>
+    <router-link to="/restrictAreaService">Area restrita</router-link>
+  </div>
 </div>
 </template>
 

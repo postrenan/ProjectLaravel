@@ -96,7 +96,6 @@ export default {
         validateEmail: function(){
             if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.mail1)){
                 if(this.mail1 !== this.mail2){
-                  //TODO arrumar isso
 
                 }else {
                     axios.post('http://127.0.0.1:8000/api/emailValidate', { 'email': this.mail1 })
@@ -132,7 +131,6 @@ export default {
                                 this.pwd2 = "";
                                 router.push({path: '/Login'});
                             } else {
-
                                 this.errorCreate = true;
                             }
                         })

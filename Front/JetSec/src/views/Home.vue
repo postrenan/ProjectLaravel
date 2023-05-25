@@ -3,8 +3,7 @@
         <section class="columns is-vcentered section" id="forms-section">
             <div class="column has-text-centered title" id="titleForm">
                 <h2>
-                    <strong
-                    >Quando o assunto é segurança, aqui você encontra tudo o que
+                    <strong>Quando o assunto é segurança, aqui você encontra tudo o que
                         precisa.</strong
                     >
                 </h2>
@@ -34,6 +33,7 @@
                     <div class="column has-text-centered">
                         <span v-if="hidden">Preencha todos os campos para enviar o formulário!</span>
                         <span v-if="confirmation" >O formulário foi enviado com sucesso!</span>
+                        <span v-if="errorSend" >O formulário não foi enviado, motivo: {{errorMsg}}</span>
                     </div>
                     <div class="column has-text-centered">
                         <input  v-if="phone !== '' && mail !=='' && name !== '' && msg !== ''" class="button is-success" @click="formSend" type="button"  value="Enviar"/>
@@ -57,11 +57,11 @@
                     parte da família <strong>Strong Security</strong> você também!
                 </p>
                 <div class="column has-text-centered">
-                    <button class="button is-success">Conheça a PRS</button>
+                    <button class="button is-success"><router-link to="/About">Conheça a Jet</router-link></button>
                 </div>
             </div>
         </section>
-        <section class="section">
+        <section class="section servicos">
             <div class="columns has-text-centered is-mobile is-centered">
                 <div class="column"></div>
                 <div class="column" id="sectionPreve">
@@ -70,7 +70,7 @@
                         Se você possui alguma dúvida relacionada a segurança, nossa equipe
                         está à disposição para te ajudar.
                     </p>
-                    <button class="button is-warning">Saiba mais</button>
+                    <button class="button is-warning"><router-link to="/">Saiba mais</router-link></button>
                 </div>
                 <div class="column"></div>
             </div>
@@ -143,7 +143,7 @@
                 </div>
             </div>
             <div class="column has-text-centered">
-                <button class="button is-success">Saiba mais</button>
+                <button class="button is-success"><router-link to="/Service">Saiba mais</router-link></button>
             </div>
         </section>
         <section class="section">
@@ -152,9 +152,9 @@
                 bairro Camobi. Cuidamos da segurança de lares e empresas, totalizando
                 mais de 12 mil sistemas de segurança instalados.
             </p>
-            <div class="column has-text-centered">
+            <div class="has-text-centered">
                 <iframe
-                        width="775"
+                        width="1000"
                         height="400"
                         id="gmap_canvas"
                         src="https://maps.google.com/maps?width=775&amp;height=400&amp;hl=en&amp;q=rua%20Cel.%20Niederauer%20santa%20maria+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
@@ -177,6 +177,8 @@ export default {
       msg: '',
       confirmation: false,
       hidden: true,
+      errorSend: false,
+      errorMsg: '',
     }
   },
   methods: {
@@ -198,18 +200,22 @@ export default {
             }
           })
           .catch((error) => {
-            //TODO fazer mostrar o erro na tela
+            this.errorSend= true;
+            this.errorMsg = error;
           });
 
     },
   },
 }
 
-//TODO mudar o botão de area do cliente para logout caso a pessoa queira sair
-//TODO caso clicar em um botão deixa-lo em negrito
-//TODO autenticação da url
-//TODO trocar a senha, form de cadastro
 </script>
 
 <style scoped>
+#textLocation{
+  padding: 25px;
+  margin: 0 200px 0 200px;
+}
+.servicos {
+  padding: 20px;
+}
 </style>

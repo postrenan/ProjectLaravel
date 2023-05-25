@@ -66,7 +66,7 @@ export default {
                   if(response.status === 200) {
                       Cookies.set('api_token', response.data.api_token);
                       Cookies.set('email', response.data.emailUser);
-
+                      Cookies.set('logged', true);
                       this.setLoggedIn(true);
                       router.push({path: '/ClientArea'});
                   }

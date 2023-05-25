@@ -2,7 +2,7 @@
     <nav class="navbar" >
         <div class="navbar-brand" >
             <div class="navbar-item ">
-                <img src="" alt="">
+              <router-link to="/"><img src="../assets/rocket.png" alt="Foguete azul"></router-link>
             </div>
             <a class="navbar-burger" id="burger">
                 <span ></span>
@@ -16,29 +16,28 @@
                 <li class="navbar-item"><router-link to="/about">Sobre</router-link></li>
                 <li class="navbar-item"><router-link to="/service">Serviços</router-link></li>
                 <li class="navbar-item"><router-link to="/home">Contato</router-link></li>
-                <li class="navbar-item" id="clientArea"><router-link to="/login">Area do cliente</router-link></li>
+                <li v-if="!hidden" class="navbar-item" id="clientArea"><router-link to="/login">Area do cliente</router-link></li>
+<!--                <li v-if="!hidden" @click="removeCookie" class="navbar-item" id="clientArea"><router-link to="/">Logout</router-link></li>-->
             </ul>
         </div>
     </nav>
 </template>
 
 <script >
-
-
-import {mapGetters, mapMutations} from "vuex";
-import axios from "axios";
 import Cookies from "js-cookie";
-import router from "@/router";
-
 export default {
     name: "HeaderSite",
-  data(){
-    return{
+  data() {
+    return {
       email: '',
-  }
+      verificationLoggin: '',
+      hidden: false,
+    }
+  },
+  mounted(){
+  },
   methods:{
 
-    }
   },
 }
 </script>

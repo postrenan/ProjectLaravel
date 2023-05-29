@@ -7,7 +7,10 @@ import ClientArea from "../views/ClientArea.vue";
 import Contact from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import EmailStep from "../views/EmailStep.vue";
+import RestrictArea from "@/views/RestrictArea.vue";
+import Crud from "@/views/Crud.vue";
 import Cookies from 'js-cookie'
+import axios from 'axios';
 
 Vue.use(VueRouter);
 
@@ -53,20 +56,33 @@ const router = new VueRouter({
       name: "EmailStep",
       component: EmailStep,
     },
+    {
+      path: "/RestrictArea",
+      name: "RestrictArea",
+      component: RestrictArea,
+    },{
+      path: "/Crud",
+      name: "Crud",
+      component: Crud,
+      meta: {requiresAuth: true,
+        hideHeader: true
+      },
+    },
+
   ]
 });
 
 
 
-router.beforeEach((to, from, next) => {
-
-  // if (to.meta.requiresAuth) {
-  //   if (Cookies.get('api_token')) {
-  //     return next('/ClientArea');
-  //   } else if (!Cookies.get('api_token')) {
-  //     return next({name: '/Login'});
-  //   }
-  // }
-  next();
-});
+// router.beforeEach((to, from, next) => {
+// axios.get('/http://127.0.0.1:8000/api/validateLogin')
+//   if (to.meta.requiresAuth) {
+//     if () {
+//       return next('/ClientArea');
+//     } else if (!Cookies.get('api_token')) {
+//       return next({name: '/Login'});
+//     }
+//   }
+//   next();
+// });
 export default router

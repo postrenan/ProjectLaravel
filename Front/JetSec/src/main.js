@@ -5,6 +5,9 @@ import App from './App.vue'
 import router from './router'
 import './assets/main.css'
 import store from './stores/auth';
+import CKEditor from "@ckeditor/ckeditor5-vue2"
+
+Vue.use( CKEditor );
 
 new Vue({
   store,

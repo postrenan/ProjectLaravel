@@ -18,12 +18,11 @@ class validateLogin extends Controller
            ->where('email', '=', $email)
            ->first();
 
-       if (Auth::attempt(['email' => $email, 'password' => $password])) {
-           return response(['emailUser' => $email ], status: 200);
-       } else {
-           return response(status:401);
-       }
-
+           if (Auth::attempt(['email' => $email, 'password' => $password])) {
+               return response(['emailUser' => $email], status: 200);
+           } else {
+               return response(status: 401);
+           }
    }
 
    public function mailGetData(string $email)

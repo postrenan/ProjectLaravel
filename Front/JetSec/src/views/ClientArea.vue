@@ -35,17 +35,16 @@
     </div>
   </div>
   <div v-if="!hiddenTable" class="section">
-    <div class="columns ">
-      <div class="column is-3 box ">
-        <p class="box"  >nome de usuario: {{nameUser}}<input v-model="newName" v-if="currentReplace" class="box" type="text"></p>
+    <div class=" ">
+      <div class="column is-5 box ">
+        <p class=" column box"  >nome de usuario: {{nameUser}}<input v-model="newName" v-if="currentReplace" class="box" type="text"></p>
 
-        <p class="box">email: {{email}}<input v-model="newEmail" v-if="currentReplace" class="box" type="text"></p>
+        <p class="column box">email: {{email}}<input v-model="newEmail" v-if="currentReplace" class="box" type="text"></p>
 
-        <p class="box">senha: {{password}}<input v-model="newPassword" v-if="currentReplace" class="box" type="text"></p>
+        <p class="column box">senha: {{password}}<input v-model="newPassword" v-if="currentReplace" class="box" type="text"></p>
 
-
-
-        <p class="box">data de criação da conta: {{created_at}}</p><br>
+        <p class="column box">data de criação da conta: {{created_at}}</p><br>
+        <span v-if="warningData !== ''"  class="column">{{warningData}}</span>
         <div class="box">
           <div class="columns">
             <button class="button column" @click="closeTable">Fechar</button>
@@ -64,7 +63,12 @@
 <script >
 import Cookies from "js-cookie";
 import axios from 'axios';
+import { ValidationProvider } from 'vee-validate';
+import router from "@/router";
 export default {
+    components: {
+      ValidationProvider
+    },
     name: "ClientArea",
   data(){
     return{
@@ -78,6 +82,7 @@ export default {
       newPassword: '',
       newEmail: '',
       newName: '',
+      warningData: '',
     }
   },
   mounted() {
@@ -115,14 +120,22 @@ export default {
         this.currentReplace = true;
       },
       deleteUser:function(){
-      },
+
+        axios.delete(`http://localhost:8000/api/deleteUser/${this.email}`)
+        .then((response) => {
+          console.log(response.data);
+          Cookies.remove('email');
+          Cookies.remove('logged');
+          Cookies.remove('passwordUser')
+         router.push({path:'/Login'});
+        })
+        .catch((error) => {
+
+        console.log(error);
+        })
+        },
       dataChange:function(){
-        if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(this.newPassword)){
-          console.log('senha')
-        }
-        if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.newEmail)){
-          console.log('email')
-        }
+        this.currentReplace = false;
 
       },
   },

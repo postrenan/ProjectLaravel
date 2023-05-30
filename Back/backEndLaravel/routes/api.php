@@ -32,6 +32,7 @@ Route::post('/validateLogin', 'App\Http\Controllers\validateLogin@dbValidate');
 
 Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@mailGetData');
 
+Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
 
 Route::get('/users', function () {
     return response(['opa']);

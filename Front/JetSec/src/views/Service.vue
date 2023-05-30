@@ -33,7 +33,7 @@
         </div>
     </div>
   <div>
-    <router-link to="/restrictAreaService">Area restrita</router-link>
+    <router-link class="button" to="/RestrictArea">Area restrita</router-link>
   </div>
 </div>
 </template>
@@ -47,10 +47,8 @@ export default {
 <style scoped>
 div .box{
   background-color: #d6e8ee;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-lef: 10px;
-  margin-right: 10px ;
+  margin: 0 10px 0 10px;
+
 }
 
 </style>

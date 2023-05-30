@@ -30,7 +30,7 @@ Route::post('/formSaver', 'App\Http\Controllers\formSaver@dataUpload');
 
 Route::post('/validateLogin', 'App\Http\Controllers\validateLogin@dbValidate');
 
-Route::get('/validateLogin', 'App\Http\Controllers\validateLogin@mailGetData');
+Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@mailGetData');
 
 
 Route::get('/users', function () {

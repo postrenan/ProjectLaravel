@@ -64,7 +64,7 @@ export default {
             axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password:this.password})
                 .then((response) => {
                   if(response.status === 200) {
-                      Cookies.set('api_token', response.data.api_token);
+                      Cookies.set('passwordUser', this.password);
                       Cookies.set('email', response.data.emailUser);
                       Cookies.set('logged', true);
                       this.setLoggedIn(true);
@@ -88,7 +88,7 @@ export default {
 
 .section {
   min-height: 30rem;
-  margin: 0px;
+  margin: 0;
   padding-top: 9rem;
 }
 

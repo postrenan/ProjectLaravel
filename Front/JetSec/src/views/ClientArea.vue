@@ -21,7 +21,6 @@
     <h2 class="column-is-1 box">Olá {{email}}</h2>
     <h2 class="column-is-2  button box" @click="userTable">Meu dados</h2>
   </div>
-
   <div class="section">
     <div class="columns box">
       <div class="column">
@@ -38,15 +37,23 @@
   <div v-if="!hiddenTable" class="section">
     <div class="columns ">
       <div class="column is-3 box ">
-        <p class="box">nome de usuario: {{nameUser}}</p>
-        <p class="box">email: {{email}} </p>
-        <div  class="box">
-          <p>senha: {{password}}</p>
-          <h2 >alterar</h2>
+        <p class="box"  >nome de usuario: {{nameUser}}<input v-model="newName" v-if="currentReplace" class="box" type="text"></p>
+
+        <p class="box">email: {{email}}<input v-model="newEmail" v-if="currentReplace" class="box" type="text"></p>
+
+        <p class="box">senha: {{password}}<input v-model="newPassword" v-if="currentReplace" class="box" type="text"></p>
+
+
+
+        <p class="box">data de criação da conta: {{created_at}}</p><br>
+        <div class="box">
+          <div class="columns">
+            <button class="button column" @click="closeTable">Fechar</button>
+            <button  v-if="!currentReplace" @click="replaceData()" class="button box">Alterar</button>
+            <button v-else @click="dataChange" class="button box">Confirmar troca</button>
+            <button class="button is-danger column" @click="deleteUser">DELETAR CONTA</button>
+          </div>
         </div>
-        <p  class="box">data de criação da conta: {{created_at}}</p><br>
-        <span v-if="verifyLog">verifica se o email e senha estão corretos</span>
-        <h2 class="button" @click="closeTable">Fechar</h2>
       </div>
     </div>
   </div>
@@ -58,7 +65,6 @@
 import Cookies from "js-cookie";
 import axios from 'axios';
 export default {
-
     name: "ClientArea",
   data(){
     return{
@@ -68,6 +74,10 @@ export default {
       nameUser: '',
       password: '',
       created_at: '',
+      currentReplace: false,
+      newPassword: '',
+      newEmail: '',
+      newName: '',
     }
   },
   mounted() {
@@ -76,14 +86,13 @@ export default {
   methods:{
       userTable:function(){
         this.hiddenTable = false;
-        axios.get('http://127.0.0.1:8000/api/validateLogin')
+        axios.get(`http://127.0.0.1:8000/api/getUserAfterValidate/${this.email}`)
             .then((response) => {
+              console.log(response);
               if(response) {
                 this.nameUser = response.data.name;
                 this.created_at = response.data.created_at;
-                this.password = Cookies.get('senha');
-                console.log(this.created_at);
-                console.log(response.data);
+                this.password = Cookies.get('passwordUser');
               }
               else{
                 this.verifyLog = true;
@@ -99,7 +108,22 @@ export default {
       removeCookie:function(){
         Cookies.remove('email');
         Cookies.remove('logged');
+        Cookies.remove('passwordUser')
         Cookies.set('otherPages', true);
+      },
+      replaceData:function(){
+        this.currentReplace = true;
+      },
+      deleteUser:function(){
+      },
+      dataChange:function(){
+        if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(this.newPassword)){
+          console.log('senha')
+        }
+        if(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.newEmail)){
+          console.log('email')
+        }
+
       },
   },
 }

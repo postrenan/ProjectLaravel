@@ -149,7 +149,7 @@ export default {
 
 .section {
   min-height: 30rem;
-  margin: 0px;
+  margin: 0;
   padding-top: 9rem;
 }
 

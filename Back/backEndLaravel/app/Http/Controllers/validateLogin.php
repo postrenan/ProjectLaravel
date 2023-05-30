@@ -12,30 +12,24 @@ class validateLogin extends Controller
 {
    public function dbValidate(Request $request)
    {
-
        $email = $request->input('email');
        $password = $request->input('password');
-       $name = '';
-       $created_at = '';
-       $user = User::query()
+       User::query()
            ->where('email', '=', $email)
            ->first();
 
-
-
        if (Auth::attempt(['email' => $email, 'password' => $password])) {
-           $created_at = Auth::user()->created_at;
-           $name = Auth::user()->name;
-           return response ( ['api_token' => Auth::user()->api_token , 'emailUser' => $email,],200);
+           return response(['emailUser' => $email ], status: 200);
        } else {
            return response(status:401);
        }
-       return $this->mailGetData($name, $created_at);
+
    }
 
-   public function mailGetData($name, $created_at)
+   public function mailGetData(string $email)
    {
-
-       return response ( [Auth::user()], status: 200);
+       return User::query()
+           ->where('email', '=', $email)
+           ->first();
    }
 }

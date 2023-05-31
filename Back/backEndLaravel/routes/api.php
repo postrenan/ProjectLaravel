@@ -34,6 +34,14 @@ Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@
 
 Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
 
+Route::post('/Service', 'App\Http\Controllers\ServiceController@ServiceUp');
+
+Route::get('/Service', 'App\Http\Controllers\ServiceController@ServiceGet');
+
+Route::get('/Service/disable', 'App\Http\Controllers\ServiceController@ServiceDeleteGet');
+
+Route::delete('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceDrop');
+
 Route::get('/users', function () {
     return response(['opa']);
 })->middleware('auth');

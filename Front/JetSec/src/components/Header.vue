@@ -15,16 +15,17 @@
                 <li class="navbar-item"><router-link to="/home">Home</router-link></li>
                 <li class="navbar-item"><router-link to="/about">Sobre</router-link></li>
                 <li class="navbar-item"><router-link to="/service">Serviços</router-link></li>
+                <li class="navbar-item"><router-link to="/blog">Blog</router-link></li>
                 <li class="navbar-item"><router-link to="/home">Contato</router-link></li>
                 <li v-if="!hidden" class="navbar-item" id="clientArea"><router-link to="/login">Area do cliente</router-link></li>
-<!--                <li v-if="!hidden" @click="removeCookie" class="navbar-item" id="clientArea"><router-link to="/">Logout</router-link></li>-->
+
             </ul>
         </div>
     </nav>
 </template>
 
 <script >
-import Cookies from "js-cookie";
+
 export default {
     name: "HeaderSite",
   data() {
@@ -33,8 +34,6 @@ export default {
       verificationLoggin: '',
       hidden: false,
     }
-  },
-  mounted(){
   },
   methods:{
 

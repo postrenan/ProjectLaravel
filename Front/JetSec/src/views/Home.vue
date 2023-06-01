@@ -79,66 +79,12 @@
             <p class="column has-text-centered title">Nossos serviços</p>
             <div class="tile is-ancestor has-text-centered">
                 <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <i class="fa-solid fa-building"></i>
-                        <p class="title">Portaria remota</p>
-                        <p class="subtitle">
-                            Ideal para quem busca alternativas com custos mais acessíveis e
-                            aumento da segurança com base em tecnologia!
-                        </p>
-                    </article>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <i class="fa-sharp fa-solid fa-building-lock"></i>
-                        <p class="title">Condomínio autônomo</p>
-                        <p class="subtitle">
-                            O seu condomínio direto na palma da sua mão, muito mais autonomia
-                            na sua vida.
-                        </p>
-                    </article>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <i class="fa-solid fa-bell"></i>
-                        <p class="title">Monitoramento 24 horas</p>
-                        <p class="subtitle">
-                            Seu patrimônio sob vigilância em tempo integral
-                        </p>
-                    </article>
-                </div>
-            </div>
-
-            <div class="tile is-ancestor has-text-centered">
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <i class="fa-solid fa-person-military-pointing"></i>
-                        <p class="title">Vigia portaria e limpeza</p>
-                        <p class="subtitle">
-                            Profissionais cuidadosamente selecionados e altamente treinados.
-                        </p>
-                    </article>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <i class="fa-sharp fa-solid fa-shield-halved"></i>
-                        <p class="title">Sistemas de segurança</p>
-                        <p class="subtitle">
-                            Câmeras, alarmes, cercas elétricas e tudo mais o que você precisar
-                            para sua segurança.
-                        </p>
-                    </article>
-                </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <i class="fa-sharp fa-solid fa-truck"></i>
-                        <p class="title">Rastreamento veicular</p>
-                        <p class="subtitle">
-                            Sua frota muito mais segura, com controle direto na palma da sua
-                            mão. <div class="column has-text-centered">
-                        <span v-if="phone === '' || mail ==='' || name === '' || msg === ''" >verifique se todas areas foram preenchidas</span>
-                    </div>
-                        </p>
+                    <article class="tile is-child box" v-for="service in currentServices" >
+                      <i class="fa-solid fa-building"></i>
+                      <p class="title">{{service.title}}</p>
+                      <p class="subtitle">
+                        {{service.content}}
+                      </p>
                     </article>
                 </div>
             </div>
@@ -179,7 +125,18 @@ export default {
       hidden: true,
       errorSend: false,
       errorMsg: '',
+      currentServices: [],
+
     }
+  },
+  created(){
+    axios.get('http://127.0.0.1:8000/api/Service')
+        .then((response) =>{
+          this.currentServices = response.data;
+        })
+        .catch((error) => {
+
+        })
   },
   methods: {
     formSend: function () {

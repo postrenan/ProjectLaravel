@@ -14,7 +14,6 @@ class dataSaverController extends Controller
     {
         $email = $request->input('email');
         $password = $request->input('password');
-
         $users = new User();
         $users->password = Hash::make($password);
         $users->email = $email;

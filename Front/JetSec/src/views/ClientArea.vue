@@ -93,7 +93,6 @@ export default {
         this.hiddenTable = false;
         axios.get(`http://127.0.0.1:8000/api/getUserAfterValidate/${this.email}`)
             .then((response) => {
-              console.log(response);
               if(response) {
                 this.nameUser = response.data.name;
                 this.created_at = response.data.created_at;
@@ -123,15 +122,13 @@ export default {
 
         axios.delete(`http://localhost:8000/api/deleteUser/${this.email}`)
         .then((response) => {
-          console.log(response.data);
           Cookies.remove('email');
           Cookies.remove('logged');
           Cookies.remove('passwordUser')
          router.push({path:'/Login'});
         })
         .catch((error) => {
-
-        console.log(error);
+          //todo arrumar
         })
         },
       dataChange:function(){

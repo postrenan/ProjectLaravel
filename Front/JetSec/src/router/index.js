@@ -9,6 +9,7 @@ import Login from "../views/Login.vue";
 import EmailStep from "../views/EmailStep.vue";
 import RestrictArea from "@/views/RestrictArea.vue";
 import Crud from "@/views/Crud.vue";
+import Blog from "../views/Blog.vue"
 import Cookies from 'js-cookie'
 import axios from 'axios';
 
@@ -60,15 +61,21 @@ const router = new VueRouter({
       path: "/RestrictArea",
       name: "RestrictArea",
       component: RestrictArea,
-    },{
+    },
+    {
       path: "/Crud",
       name: "Crud",
       component: Crud,
-      meta: {requiresAuth: true,
+      meta: {
+        requiresAuth: true,
         hideHeader: true
       },
     },
-
+    {
+      path: "/Blog",
+      name: "Blog",
+      component: Blog,
+    },
   ]
 });
 

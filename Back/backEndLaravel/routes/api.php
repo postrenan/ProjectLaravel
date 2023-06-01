@@ -42,6 +42,8 @@ Route::get('/Service/disable', 'App\Http\Controllers\ServiceController@ServiceDe
 
 Route::delete('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceDrop');
 
+Route::post('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceUp');
+
 Route::get('/users', function () {
     return response(['opa']);
 })->middleware('auth');

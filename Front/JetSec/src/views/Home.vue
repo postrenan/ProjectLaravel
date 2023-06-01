@@ -77,14 +77,12 @@
         </section>
         <section class="section" id="Services">
             <p class="column has-text-centered title">Nossos serviços</p>
-            <div class="tile is-ancestor has-text-centered">
-                <div class="tile is-parent">
-                    <article class="tile is-child box" v-for="service in currentServices" >
-                      <i class="fa-solid fa-building"></i>
+            <div class=" has-text-centered">
+                <div class=" columns is-multiline ">
+                    <article class="column is-one-third box mosaicService" v-for="service in currentServices" v-if="service.id !== 12" >
+                      <i class=""></i>
                       <p class="title">{{service.title}}</p>
-                      <p class="subtitle">
-                        {{service.content}}
-                      </p>
+                      <p class="subtitle">{{service.content}}</p>
                     </article>
                 </div>
             </div>
@@ -174,5 +172,9 @@ export default {
 }
 .servicos {
   padding: 20px;
+}
+
+.mosaicService{
+  margin: 0 0 24px 0;
 }
 </style>

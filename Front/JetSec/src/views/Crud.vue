@@ -69,12 +69,16 @@
         </div>
       </div>
     <div v-if="currentCard === 3" class="section">
-      <div class="section box">
+      <div class="section box ">
         <div v-for="service in disabledServices" class="columns">
           <div class="box column">
             {{service.title}}<br>
             {{service.content}}
-          </div><br>
+          </div>
+         <button class="button column is-vcentered is-2" @click="undoService(service.id)">Ativar</button>
+        </div>
+        <div v-if="badResponseToActive !== ''">
+          <p class="box">{{badResponseToActive}}</p>
         </div>
       </div>
       <div>
@@ -117,6 +121,7 @@ export default {
       title: '',
       godResponseToDelete: false,
       badResponseToDelete: '',
+      badResponseToActive: '',
     }
   },
   methods:{
@@ -155,6 +160,8 @@ export default {
       })
        .then((response) => {
           this.sendData = true;
+          this.editorDataText = '';
+          this.editorDataTitle = '';
        })
        .catch((error) => {
          this.textError = error;
@@ -163,10 +170,19 @@ export default {
     deleteService(value){
       axios.delete(`http://127.0.0.1:8000/api/ServiceManager/${value}`)
           .then((response) =>{
-            this.currentCard = 0;
+            this.currentCard = this.disableService;
           })
           .catch((error) =>{
             this.badResponseToDelete = error;
+          })
+    },
+    undoService(value){
+      axios.post(`http://127.0.0.1:8000/api/ServiceManager/${value}`)
+          .then((response) =>{
+            this.currentCard = this.activeService;
+          })
+          .catch((error) =>{
+            this.badResponseToActive = error;
           })
     },
   },

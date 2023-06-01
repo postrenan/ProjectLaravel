@@ -1,22 +1,19 @@
 <template>
 <div id="app">
-    <div class="section has-text-centered">
 
-      <h2><strong>O cuidado que você merece</strong></h2>
-        <div class="section columns ">
-            <div v-for="service in currentServices" class="column box">
-              <h2><strong>{{service.title}}</strong></h2>
-                <p>{{service.content}}</p>
-            </div>
-
+      <section class="section" id="Services">
+        <p class="column has-text-centered title">O cuidado que você merece</p>
+        <div class=" has-text-centered">
+          <div class=" columns is-multiline ">
+            <article class="column is-one-fifth box mosaicService" v-for="service in currentServices" >
+              <i class=""></i>
+              <p class="title">{{service.title}}</p>
+              <p class="subtitle">{{service.content}}</p>
+            </article>
+          </div>
         </div>
-        <div class="section columns">
-
-        </div>
-    </div>
-  <div>
+      </section>
     <router-link class="button" to="/RestrictArea">Area restrita</router-link>
-  </div>
 </div>
 </template>
 
@@ -43,10 +40,9 @@ export default {
 </script>
 
 <style scoped>
-div .box{
+.box{
   background-color: #d6e8ee;
-  margin: 0 10px 0 10px;
-
+  margin: 10px;
 }
 
 </style>

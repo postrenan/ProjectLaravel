@@ -20,6 +20,9 @@
   <div class="section columns has-text-centered">
     <h2 class="column-is-1 box">Olá {{email}}</h2>
     <h2 class="column-is-2  button box" @click="userTable">Meu dados</h2>
+    <div>
+      <button @click="redirectToBlogManager" class="button">BlogManager</button>
+    </div>
   </div>
   <div class="section">
     <div class="columns box">
@@ -56,7 +59,6 @@
       </div>
     </div>
   </div>
-
 </div>
 </template>
 
@@ -89,6 +91,10 @@ export default {
     this.email = Cookies.get('email');
   },
   methods:{
+    redirectToBlogManager(){
+      router.push({path: '/BlogManager'});
+
+    },
       userTable:function(){
         this.hiddenTable = false;
         axios.get(`http://127.0.0.1:8000/api/getUserAfterValidate/${this.email}`)

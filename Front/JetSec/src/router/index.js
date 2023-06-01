@@ -11,6 +11,7 @@ import RestrictArea from "@/views/RestrictArea.vue";
 import Crud from "@/views/Crud.vue";
 import Blog from "../views/Blog.vue"
 import BlogManager from "@/views/BlogManager.vue";
+
 import Cookies from 'js-cookie'
 import axios from 'axios';
 
@@ -76,13 +77,15 @@ const router = new VueRouter({
       path: "/Blog",
       name: "Blog",
       component: Blog,
+      meta: {
+        hideHeader: true
+      },
     },
     {
-      path: "/Blog/BlogManager",
+      path: "/BlogManager",
       name:"BlogManager",
       component: BlogManager,
       meta: {
-        requiresAuth: true,
         hideHeader: true
       },
     }

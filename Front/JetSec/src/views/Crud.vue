@@ -18,7 +18,7 @@
     </nav>
     <div class="section columns has-text-centered ">
       <div class="column">
-        <h2 @click="setPanel(insertService)" class="button ">Adicionar serviços</h2>
+        <h2 @click="setPanel(insertService)" class="button ">Adicionar post</h2>
       </div>
       <div class="column">
         <h2 @click="setPanel(activeService)" class="button">Serviços ativos</h2>
@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-    <div v-if="currentCard === 3" class="section">
+    <div v-if="currentCard === 3" class="section" >
       <div class="section box ">
         <div v-for="service in disabledServices" class="columns">
           <div class="box column">
@@ -122,6 +122,7 @@ export default {
       godResponseToDelete: false,
       badResponseToDelete: '',
       badResponseToActive: '',
+
     }
   },
   methods:{
@@ -134,7 +135,6 @@ export default {
        if(this.currentCard === this.activeService){
          axios.get('http://127.0.0.1:8000/api/Service')
              .then((response) => {
-
                this.currentServices = response.data;
              })
              .catch((error) => {
@@ -154,36 +154,43 @@ export default {
     },
     newService(){
       this.textError = '';
-      axios.post('http://127.0.0.1:8000/api/Service', {
-        'title' : this.editorDataTitle,
-        'content': this.editorDataText
-      })
-       .then((response) => {
-          this.sendData = true;
-          this.editorDataText = '';
-          this.editorDataTitle = '';
-       })
-       .catch((error) => {
-         this.textError = error;
-          })
+      if(this.editorDataTitle !== '' && this.editorDataText !== '') {
+        axios.post('http://127.0.0.1:8000/api/Service', {
+          'title': this.editorDataTitle,
+          'content': this.editorDataText
+        })
+            .then((response) => {
+              this.sendData = true;
+              this.editorDataText = '';
+              this.editorDataTitle = '';
+            })
+            .catch((error) => {
+              this.textError = error;
+            })
+      }
+      else{
+        this.textError = 'os campos não podem estar vazio';
+      }
     },
-    deleteService(value){
-      axios.delete(`http://127.0.0.1:8000/api/ServiceManager/${value}`)
+    deleteService(serviceId){
+      axios.delete(`http://127.0.0.1:8000/api/ServiceManager/${serviceId}`)
           .then((response) =>{
-            this.currentCard = this.disableService;
+            this.currentCard = 0;
           })
           .catch((error) =>{
             this.badResponseToDelete = error;
           })
     },
-    undoService(value){
-      axios.post(`http://127.0.0.1:8000/api/ServiceManager/${value}`)
+    undoService(serviceId){
+      axios.post(`http://127.0.0.1:8000/api/ServiceManager/${serviceId}`)
           .then((response) =>{
-            this.currentCard = this.activeService;
+            this.currentCard = 0;
+            //todo arrumar para dar um reload e recarregar sem esse serviço
           })
           .catch((error) =>{
             this.badResponseToActive = error;
           })
+
     },
   },
 }

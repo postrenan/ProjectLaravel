@@ -1,6 +1,5 @@
 <template>
 <div id="app">
-  <navbar>
     <div class="navbar-brand" >
     <div class="navbar-item ">
       <router-link to="/"><img src="../assets/rocket.png" alt="Foguete azul"></router-link>
@@ -47,7 +46,6 @@
       </div>
       </div>
     </div>
-  </navbar>
   <div class="section has-text-centered tituloPagina">
     <h1 class="title">Blog da Jet Monitoramentos</h1>
     <p>O melhor portal de conteúdo sobre o mercado de segurança</p>
@@ -57,14 +55,9 @@
     <div>
       <div class="section columns">
       <div class="tile is-ancestor  column">
-        <article class="tile is-child notification has-text-centered ">
-          <img class="image">img
-          <p class="title">titulo</p>
-          <p class="subtitle"></p>texto
-          <p>criador</p>
-        </article>
-        <article class="tile is-child notification has-text-centered " v-for="article  in currentArticles" v-if="article" >
-          <i class=""></i>
+
+        <article class="tile is-child notification has-text-centered " v-for="article  in currentArticles" v-if="article.id === 1" >
+
           <p class="">{{article.title}}</p>
           <p class="">{{article.content}}</p>
           <p class="">{{article.author}}</p>
@@ -73,10 +66,11 @@
         <div class="tile is-vertical column is-4">
           <div class="tile">
             <div class="tile is-parent is-vertical">
-              <article class="tile is-child notification ">
+              <article class="tile is-child notification " v-for="article  in currentArticles">
                 <div class="content">
-                  <img>imag
-                  <p class="title">artigos do canto </p>
+                  <img>
+                  <p class="">{{article.category}}</p>
+                  <p class="">{{article.title}}</p>
                 </div>
               </article>
             </div>
@@ -128,21 +122,25 @@ export default {
   data(){
     return{
       currentArticles: '',
+      arrayArticles: [],
     }
   },
   created() {
     axios.get('http://127.0.0.1:8000/api/ArticlesStorage')
         .then((response) => {
           this.currentArticles = response.data;
+          this.arrayArticles = response.data;
         })
         .catch((error) => {
           this.textError = error;
         })
+
+
   },
 
   methods(){
 
-  }
+  },
 }
 
 </script>

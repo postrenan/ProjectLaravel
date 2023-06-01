@@ -8,11 +8,11 @@
       <div class="navbar-end">
       <div class="navbar-menu" id="nav-links">
         <ul class="navbar-end" id="navbarForms">
-          <div class=" navbar-item has-dropdown button is-hoverable botaoDropDown ">
-            <a class="navbar-link  navbarDrop" >
+          <div class=" navbar-item has-dropdown button is-rounded is-hoverable botaoDropDown  ">
+            <a class="navbar-link  navbarDrop button is-rounded" >
               Categorias
             </a>
-            <div class="navbar-dropdown is-boxed">
+            <div class="navbar-dropdown is-rounded">
               <a class="navbar-item navbarDrop" >
                 Venda
               </a>
@@ -33,13 +33,15 @@
         </ul>
         <div class="level-item">
           <div class="field has-addons">
-            <p class="control">
-              <input class="input" type="text" placeholder="Find a post">
+            <p class="control select">
+              <input v-model="searchWord" class="input is-rounded " type="text" placeholder="Find a post" >
+                <select >
+                  <option></option>
+                </select>
+
             </p>
             <p class="control">
-              <button class="button">
-                Search
-              </button>
+              <button class="button" @click="findWord(searchWord)">Buscar</button>
             </p>
           </div>
         </div>
@@ -123,6 +125,9 @@ export default {
     return{
       currentArticles: '',
       arrayArticles: [],
+      searchWord: '',
+      articleFinded:'',
+
     }
   },
   created() {
@@ -137,9 +142,16 @@ export default {
 
 
   },
+  methods:{
+    findWord(searchWord){
+     axios.post(`http://127.0.0.1:8000/api/ArticlesStorage/${searchWord}`)
+         .then((response)=>{
+            this.articleFinded =response.data;
+         })
+         .catch((error) =>{
 
-  methods(){
-
+         })
+    }
   },
 }
 
@@ -148,14 +160,15 @@ export default {
 <style scoped>
 *{
   background: #053b44;
-  color: white;
+  color: #ffffff;
 }
 
 .title{
   color: #ffffff;
 }
 .navbarDrop{
-  background: white;
+  background:  #053b44;
+  color: white;
 }
 
 .tituloPagina{
@@ -166,6 +179,8 @@ export default {
 
 .botaoDropDown{
   margin-top: 15px;
+  background-color:  #053b44;
+  color:white;
 }
 
 .navbar-brand{

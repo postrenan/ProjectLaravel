@@ -49,4 +49,9 @@ class BlogController extends Controller
         }
     }
 
+    public function findArticle(string $searchWord){
+            return DB::table('blog')
+                ->where('title', '=', $searchWord)
+                ->first();
+    }
 }

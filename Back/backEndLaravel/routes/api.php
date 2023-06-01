@@ -58,4 +58,4 @@ Route::get('/ArticlesStorage','App\Http\Controllers\BlogController@GetArticle');
 
 Route::delete('/ArticlesStorage', 'App\Http\Controllers\BlogController@DeleteArticle');
 
-
+Route::post('/ArticleStorage/{searchWord}', 'App\Http\Controllers\BlogController@FindArticle');

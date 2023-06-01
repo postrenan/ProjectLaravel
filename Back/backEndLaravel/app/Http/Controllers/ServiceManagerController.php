@@ -17,9 +17,9 @@ class ServiceManagerController extends Controller
             return response(status:400);
         }
     }
-    public function ServiceUp(int $value){
+    public function ServiceUp(int $serviceId){
         $toUp = DB::table('service')
-            ->where('id', $value)
+            ->where('id', $serviceId)
             ->update(['deleted_at'=> null]);
 
         if($toUp){

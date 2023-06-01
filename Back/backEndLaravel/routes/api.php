@@ -22,6 +22,14 @@ Route::middleware('auth:api')->post('/ClientArea', function(Request $request) {
     return $request->user();
 });
 
+Route::get('/users', function () {
+    return response(['opa']);
+})->middleware('auth');
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 Route::post('/emailValidate', 'App\Http\Controllers\ValidateEmailController@mailVerify');
 
 Route::post('/dataSaver', 'App\Http\Controllers\dataSaverController@dataUpload');
@@ -44,10 +52,10 @@ Route::delete('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerCon
 
 Route::post('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceUp');
 
-Route::get('/users', function () {
-    return response(['opa']);
-})->middleware('auth');
+Route::post('/ArticlesStorage', 'App\Http\Controllers\BlogController@SaveArticle');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/ArticlesStorage','App\Http\Controllers\BlogController@GetArticle');
+
+Route::delete('/ArticlesStorage', 'App\Http\Controllers\BlogController@DeleteArticle');
+
+

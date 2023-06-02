@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\form;
+use App\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class formSaver extends Controller
@@ -13,7 +13,8 @@ class formSaver extends Controller
         $phone = $request->input('phone');
         $name = $request->input('name');
 
-        $insert = DB::insert('insert into form (name,phone,email,msg) values (?,?,?,?)', [$name, $phone, $email, $msg]);
+        $form = new Form($request->only(['email', 'msg', 'phone', 'name']));
+        $insert = $form->save();
 
         if($insert){
            return response(status:200);

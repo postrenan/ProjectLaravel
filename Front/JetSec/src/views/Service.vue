@@ -5,6 +5,7 @@
         <p class="column has-text-centered title">O cuidado que você merece</p>
         <div class=" has-text-centered">
           <div class=" columns is-multiline ">
+            <span v-if="errorInResponse" class="">{{errorMsg}}</span>
             <article class="column is-one-fifth box mosaicService" v-for="service in currentServices" >
               <i class=""></i>
               <p class="title">{{service.title}}</p>
@@ -25,15 +26,18 @@ export default {
   data(){
     return{
       currentServices: [],
+      errorMsg: '',
+      errorInResponse: false,
     }
   },
   created() {
     axios.get('http://127.0.0.1:8000/api/Service')
         .then((response) => {
-          this.currentServices = response.data;
+          this.currentServices = response.data.enabled;
         })
         .catch((error) => {
-
+          this.errorInResponse = true;
+          this.errorMsg = error;
         })
   },
 }

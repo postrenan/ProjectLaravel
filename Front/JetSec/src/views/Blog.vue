@@ -7,12 +7,12 @@
     </div>
       <div class="navbar-end">
       <div class="navbar-menu" id="nav-links">
-        <ul class="navbar-end" id="navbarForms">
-          <div class=" navbar-item has-dropdown button is-rounded is-hoverable botaoDropDown  ">
+        <ul class="navbar-end " id="navbarForms">
+          <div class=" navbar-item has-dropdown button is-rounded is-hoverable botaoDropDown ">
             <a class="navbar-link  navbarDrop button is-rounded" >
               Categorias
             </a>
-            <div class="navbar-dropdown is-rounded">
+            <div class="navbar-dropdown is-boxed">
               <a class="navbar-item navbarDrop" >
                 Venda
               </a>
@@ -32,16 +32,12 @@
           </div>
         </ul>
         <div class="level-item">
-          <div class="field has-addons">
-            <p class="control select">
-              <input v-model="searchWord" class="input is-rounded " type="text" placeholder="Find a post" >
-                <select >
-                  <option></option>
-                </select>
-
+          <div class="field has-addons ">
+            <p class="control">
+              <input v-model="searchArticleInput" class="input is-rounded" type="text" placeholder="Find a post">
             </p>
             <p class="control">
-              <button class="button" @click="findWord(searchWord)">Buscar</button>
+              <button @click="findArticle"  class="button is-rounded">Buscar</button>
             </p>
           </div>
         </div>
@@ -93,7 +89,7 @@
         <p class="">{{article.category}}</p>
       </article>
     </div>
-    <button class="button">Carregar mais posts</button>
+    <button class="button is-rounded">Carregar mais posts</button>
   </div>
   <div class="section is-centered columns ">
     <div class="section ">
@@ -105,7 +101,7 @@
       <div class="column is-4 ">
         <div class="columns ">
           <input class="column input is-rounded" type="text" size="8">
-          <button class=" column button">Cadastrar</button>
+          <button class=" column button is-rounded">Cadastrar</button>
         </div>
 
       </div>
@@ -125,16 +121,15 @@ export default {
     return{
       currentArticles: '',
       arrayArticles: [],
-      searchWord: '',
-      articleFinded:'',
-
+      searchArticleInput: '',
+      enableArticles:'',
     }
   },
   created() {
-    axios.get('http://127.0.0.1:8000/api/ArticlesStorage')
+    axios.get('http://127.0.0.1:8000/api/article')
         .then((response) => {
-          this.currentArticles = response.data;
-          this.arrayArticles = response.data;
+          this.currentArticles = response.data.enable;
+          this.arrayArticles = response.data.enable;
         })
         .catch((error) => {
           this.textError = error;
@@ -142,16 +137,18 @@ export default {
 
 
   },
-  methods:{
-    findWord(searchWord){
-     axios.post(`http://127.0.0.1:8000/api/ArticlesStorage/${searchWord}`)
-         .then((response)=>{
-            this.articleFinded =response.data;
-         })
-         .catch((error) =>{
 
-         })
-    }
+  methods:{
+      findArticle(){
+        axios.get(`http://localhost:8000/api/article/${this.searchArticleInput}`,)
+            .then((response) => {
+              this.enableArticles = response.data.enable;
+              console.log(this.enableArticles);
+            })
+            .catch((error)=>{
+
+            })
+      }
   },
 }
 
@@ -160,15 +157,14 @@ export default {
 <style scoped>
 *{
   background: #053b44;
-  color: #ffffff;
+  color: white;
 }
 
 .title{
   color: #ffffff;
 }
 .navbarDrop{
-  background:  #053b44;
-  color: white;
+  background: white;
 }
 
 .tituloPagina{
@@ -179,8 +175,6 @@ export default {
 
 .botaoDropDown{
   margin-top: 15px;
-  background-color:  #053b44;
-  color:white;
 }
 
 .navbar-brand{

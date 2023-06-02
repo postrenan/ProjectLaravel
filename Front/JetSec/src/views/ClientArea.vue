@@ -21,10 +21,10 @@
     <h2 class="column-is-1 box">Olá {{email}}</h2>
     <h2 class="column-is-2  button box" @click="userTable">Meu dados</h2>
     <div>
-      <button @click="redirectToManager(1)" class="button">BlogManager</button>
+      <button @click="redirectToManagers(1)" class="button">BlogManager</button>
     </div>
     <div>
-      <button @click="redirectToManager(2)" class="button">ServiceManager</button>
+    <button @click="redirectToManagers(2)" class="button">ServiceManager</button>
     </div>
   </div>
   <div class="section">
@@ -94,12 +94,13 @@ export default {
     this.email = Cookies.get('email');
   },
   methods:{
-    redirectToManager(RedirectId){
-      if(RedirectId === 1){
+    redirectToManagers(idRedirect){
+      if(idRedirect === 1){
         router.push({path: '/BlogManager'});
       }
       else{
         router.push({path: '/Crud'});
+
       }
     },
       userTable:function(){

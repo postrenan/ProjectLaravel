@@ -42,20 +42,17 @@ Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@
 
 Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
 
-Route::post('/Service', 'App\Http\Controllers\ServiceController@ServiceUp');
+Route::prefix('/')->group(function (){
+    Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
+    Route::prefix('/{value}')->group(function () {
+        Route::apiResource('/', \App\Http\Controllers\ServiceManagerController::class)->only(['destroy', 'store']);
+    });
+});
 
-Route::get('/Service', 'App\Http\Controllers\ServiceController@ServiceGet');
+Route::prefix('/')->group(function () {
+    Route::apiResource('/article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy']);
+});
 
-Route::get('/Service/disable', 'App\Http\Controllers\ServiceController@ServiceDeleteGet');
-
-Route::delete('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceDrop');
-
-Route::post('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceUp');
-
-Route::post('/ArticlesStorage', 'App\Http\Controllers\BlogController@SaveArticle');
-
-Route::get('/ArticlesStorage','App\Http\Controllers\BlogController@GetArticle');
-
-Route::delete('/ArticlesStorage', 'App\Http\Controllers\BlogController@DeleteArticle');
-
-Route::post('/ArticleStorage/{searchWord}', 'App\Http\Controllers\BlogController@FindArticle');
+Route::prefix('/')->group( function(){
+   Route::apiResource('/user', \App\Http\Controllers\UserController::class)->only(['index, store, destroy']);
+});

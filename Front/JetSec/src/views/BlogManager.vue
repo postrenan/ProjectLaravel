@@ -142,20 +142,16 @@ export default{
         this.textError = '';
         this.badResponseToDelete = '';
 
-        if(this.currentCard === this.activeArticle){
-          axios.get('http://127.0.0.1:8000/api/ArticlesStorage')
+        if(this.currentCard === this.activeArticle || this.currentCard === this.disableArticle){
+          axios.get('http://127.0.0.1:8000/api/article')
               .then((response) => {
+                if(response.data.enable){
+                  this.currentArticles = response.data.enable;
+                }
+                if(response.data.disable){
+                  this.disabledArticles = response.data.disable;
+                }
 
-                this.currentArticles = response.data;
-              })
-              .catch((error) => {
-                this.textError = error;
-              })
-        }
-        if(this.currentCard === this.disableArticle){
-          axios.get('http://127.0.0.1:8000/api/ArticlesStorage')
-              .then((response) => {
-                this.disabledArticles = response.data;
               })
               .catch((error) => {
                 this.textError = error;
@@ -165,7 +161,7 @@ export default{
       newArticle(){
         this.textError = '';
 
-        axios.post('http://127.0.0.1:8000/api/ArticlesStorage', {
+        axios.post('http://127.0.0.1:8000/api/article', {
           'title' : this.editorDataTitle,
           'content': this.editorDataText,
           'author': this.editorDataSign,
@@ -183,7 +179,7 @@ export default{
             })
       },
       deleteArticle(articleId){
-        axios.delete(`http://127.0.0.1:8000/api/ArticlesStorage`, this.articleId)
+        axios.delete(`http://127.0.0.1:8000/api/article`, )
             .then((response) =>{
               this.currentCard = 0;
             })
@@ -192,7 +188,7 @@ export default{
             })
       },
       undoArticle(serviceId){
-        axios.post(`http://127.0.0.1:8000/api/`)
+        axios.post(`http://127.0.0.1:8000/api/article`)
             .then((response) =>{
               this.currentCard = 0;
               //todo arrumar para dar um reload e recarregar sem esse serviço

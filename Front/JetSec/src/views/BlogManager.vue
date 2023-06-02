@@ -143,9 +143,9 @@ export default{
         this.badResponseToDelete = '';
 
         if(this.currentCard === this.activeArticle){
-          axios.get('http://127.0.0.1:8000/api/ArticlesStorage')
+          axios.get('http://127.0.0.1:8000/api/article')
               .then((response) => {
-
+                console.log(response)
                 this.currentArticles = response.data;
               })
               .catch((error) => {
@@ -153,7 +153,7 @@ export default{
               })
         }
         if(this.currentCard === this.disableArticle){
-          axios.get('http://127.0.0.1:8000/api/ArticlesStorage')
+          axios.get('http://127.0.0.1:8000/api/article')
               .then((response) => {
                 this.disabledArticles = response.data;
               })
@@ -165,7 +165,7 @@ export default{
       newArticle(){
         this.textError = '';
 
-        axios.post('http://127.0.0.1:8000/api/ArticlesStorage', {
+        axios.post('http://127.0.0.1:8000/api/article', {
           'title' : this.editorDataTitle,
           'content': this.editorDataText,
           'author': this.editorDataSign,
@@ -183,7 +183,7 @@ export default{
             })
       },
       deleteArticle(articleId){
-        axios.delete(`http://127.0.0.1:8000/api/ArticlesStorage`, this.articleId)
+        axios.delete(`http://127.0.0.1:8000/api/article`, this.articleId)
             .then((response) =>{
               this.currentCard = 0;
             })

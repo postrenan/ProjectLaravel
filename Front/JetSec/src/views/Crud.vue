@@ -135,17 +135,22 @@ export default {
        if(this.currentCard === this.activeService){
          axios.get('http://127.0.0.1:8000/api/Service')
              .then((response) => {
-               this.currentServices = response.data;
+               if(response.data.enabled) {
+                 this.currentServices = response.data;
+               }
+
              })
              .catch((error) => {
                this.textError = error;
              })
        }
        if(this.currentCard === this.disableService){
-         axios.get('http://127.0.0.1:8000/api/Service/disable')
+         axios.get('http://127.0.0.1:8000/api/Service')
              .then((response) => {
-
-               this.disabledServices = response.data;
+               console.log(response);
+               if(response.data.disabled) {
+                 this.disabledServices = response.data;
+               }
              })
              .catch((error) => {
                this.textError = error;

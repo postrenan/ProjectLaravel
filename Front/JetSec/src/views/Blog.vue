@@ -126,7 +126,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:8000/api/ArticlesStorage')
+    axios.get('http://127.0.0.1:8000/api/article')
         .then((response) => {
           this.currentArticles = response.data;
           this.arrayArticles = response.data;
@@ -138,7 +138,7 @@ export default {
 
   },
 
-  methods(){
+  methods:{
 
   },
 }

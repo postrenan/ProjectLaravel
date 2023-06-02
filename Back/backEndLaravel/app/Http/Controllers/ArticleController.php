@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateArticleRequest;
 use App\Models\Blog;
-use http\QueryString;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 
-class BlogController extends Controller
+
+class ArticleController extends \App\Http\Controllers\Controller
 {
-    public function store(Request $request){
+    public function store(CreateArticleRequest $request)
+    {
         $title = $request->input('title');
         $content = $request->input('content');
         $author = $request->input('author');
@@ -26,27 +28,23 @@ class BlogController extends Controller
         if($articleUp){
             return response(status:200);
         } else {
-            return response(status:401);
+            abort(400);
         }
-
     }
-    public function index(){
+
+    public function index()
+    {
         $enables = DB::table('blog')
             ->where('deleted_at', null )
             ->get();
         return $enables;
     }
 
-    public function destroy(int $articleId){
-        $toDelete = Blog::where('id','=', $articleId)
-            ->first();
-        $toDelete->delete();
+    public function destroy(Blog $blog)
+    {
+        $blog->delete();
 
-        if($toDelete){
-            return response(status:200);
-        }else{
-            return response(status:400);
-        }
+        return response(status:200);
     }
 
 }

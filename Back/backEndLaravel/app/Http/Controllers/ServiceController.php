@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
-    public function ServiceUp(Request $request){
+    public function store(Request $request){
         $title = $request->input('title');
         $content = $request->input('content');
 
@@ -26,18 +26,15 @@ class ServiceController extends Controller
         }
 
     }
-    public function ServiceGet(){
-            $enables = DB::table('service')
+    public function index(){
+            $enabled = DB::table('service')
                 ->where('deleted_at', null )
                 ->get();
-            return $enables;
-    }
 
-    public function ServiceDeleteGet(){
-        $disable = DB::table('service')
-            ->where('deleted_at', '!=',null )
-            ->get();
-        return $disable;
-    }
+            $disable = DB::table('service')
+                ->where('deleted_at', '!=',null )
+                ->get();
 
+            return response(['disables'=>  $disable, 'enabled' => $enabled]);
+    }
 }

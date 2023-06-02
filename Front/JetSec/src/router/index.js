@@ -18,7 +18,7 @@ import axios from 'axios';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: import.meta.env.BASE_URL,
   routes: [
     {
@@ -94,15 +94,5 @@ const router = new VueRouter({
 
 
 
-// router.beforeEach((to, from, next) => {
-// axios.get('/http://127.0.0.1:8000/api/validateLogin')
-//   if (to.meta.requiresAuth) {
-//     if () {
-//       return next('/ClientArea');
-//     } else if (!Cookies.get('api_token')) {
-//       return next({name: '/Login'});
-//     }
-//   }
-//   next();
-// });
+
 export default router

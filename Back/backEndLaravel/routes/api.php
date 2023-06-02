@@ -42,15 +42,18 @@ Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@
 
 Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
 
-Route::post('/Service', 'App\Http\Controllers\ServiceController@ServiceUp');
+Route::prefix('/')->group(function (){
+    Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
 
-Route::get('/Service', 'App\Http\Controllers\ServiceController@ServiceGet');
+//    Route::post('/', 'App\Http\Controllers\ServiceController@ServiceUp');
+//    Route::get('/', 'App\Http\Controllers\ServiceController@ServiceGet');
+//    Route::get('/disable', 'App\Http\Controllers\ServiceController@ServiceDeleteGet');
 
-Route::get('/Service/disable', 'App\Http\Controllers\ServiceController@ServiceDeleteGet');
-
-Route::delete('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceDrop');
-
-Route::post('/ServiceManager/{value}', 'App\Http\Controllers\ServiceManagerController@ServiceUp');
+    Route::prefix('/{value}')->group(function () {
+        Route::delete('/', 'App\Http\Controllers\ServiceManagerController@ServiceDrop');
+        Route::post('/', 'App\Http\Controllers\ServiceManagerController@ServiceUp');
+    });
+});
 
 Route::post('/ArticlesStorage', 'App\Http\Controllers\BlogController@SaveArticle');
 

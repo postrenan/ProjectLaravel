@@ -44,21 +44,11 @@ Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@
 
 Route::prefix('/')->group(function (){
     Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
-
-//    Route::post('/', 'App\Http\Controllers\ServiceController@ServiceUp');
-//    Route::get('/', 'App\Http\Controllers\ServiceController@ServiceGet');
-//    Route::get('/disable', 'App\Http\Controllers\ServiceController@ServiceDeleteGet');
-
     Route::prefix('/{value}')->group(function () {
-        Route::delete('/', 'App\Http\Controllers\ServiceManagerController@ServiceDrop');
-        Route::post('/', 'App\Http\Controllers\ServiceManagerController@ServiceUp');
+        Route::apiResource('/', \App\Http\Controllers\ServiceManagerController::class)->only(['destroy', 'store']);
     });
 });
 
-Route::post('/ArticlesStorage', 'App\Http\Controllers\BlogController@SaveArticle');
-
-Route::get('/ArticlesStorage','App\Http\Controllers\BlogController@GetArticle');
-
-Route::delete('/ArticlesStorage', 'App\Http\Controllers\BlogController@DeleteArticle');
-
-
+Route::prefix('/')->group(function () {
+    Route::apiResource('/article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy']);
+});

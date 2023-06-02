@@ -18,7 +18,7 @@
     </nav>
     <div class="section columns has-text-centered ">
       <div class="column">
-        <h2 @click="setPanel(insertService)" class="button ">Adicionar post</h2>
+        <h2 @click="setPanel(insertService)" class="button ">Adicionar serviço</h2>
       </div>
       <div class="column">
         <h2 @click="setPanel(activeService)" class="button">Serviços ativos</h2>
@@ -132,30 +132,21 @@ export default {
       this.textError = '';
       this.badResponseToDelete = '';
 
-       if(this.currentCard === this.activeService){
+       if(this.currentCard === this.activeService || this.currentCard === this.disableService){
          axios.get('http://127.0.0.1:8000/api/Service')
              .then((response) => {
                if(response.data.enabled) {
-                 this.currentServices = response.data;
+                 this.currentServices = response.data.enabled;
                }
+               if(response.data.disables) {
+                 this.disabledServices = response.data.disables;
+               }
+             })
+             .catch((error) => {
+               this.textError = error;
+             })
+       }
 
-             })
-             .catch((error) => {
-               this.textError = error;
-             })
-       }
-       if(this.currentCard === this.disableService){
-         axios.get('http://127.0.0.1:8000/api/Service')
-             .then((response) => {
-               console.log(response);
-               if(response.data.disabled) {
-                 this.disabledServices = response.data;
-               }
-             })
-             .catch((error) => {
-               this.textError = error;
-             })
-       }
     },
     newService(){
       this.textError = '';
@@ -165,6 +156,7 @@ export default {
           'content': this.editorDataText
         })
             .then((response) => {
+
               this.sendData = true;
               this.editorDataText = '';
               this.editorDataTitle = '';
@@ -178,7 +170,7 @@ export default {
       }
     },
     deleteService(serviceId){
-      axios.delete(`http://127.0.0.1:8000/api/ServiceManager/${serviceId}`)
+      axios.delete(`http://127.0.0.1:8000/api/${serviceId}`)
           .then((response) =>{
             this.currentCard = 0;
           })
@@ -187,7 +179,7 @@ export default {
           })
     },
     undoService(serviceId){
-      axios.post(`http://127.0.0.1:8000/api/ServiceManager/${serviceId}`)
+      axios.post(`http://127.0.0.1:8000/api/${serviceId}`)
           .then((response) =>{
             this.currentCard = 0;
             //todo arrumar para dar um reload e recarregar sem esse serviço

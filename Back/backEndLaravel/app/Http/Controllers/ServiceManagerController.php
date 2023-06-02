@@ -7,7 +7,7 @@ use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 class ServiceManagerController extends Controller
 {
-    public function ServiceDrop(int $value){
+    public function destroy(int $value){
         $toDelete = Service::where('id','=', $value)
                         ->first();
         $toDelete->delete();
@@ -17,7 +17,7 @@ class ServiceManagerController extends Controller
             return response(status:400);
         }
     }
-    public function ServiceUp(int $serviceId){
+    public function store(int $serviceId){
         $toUp = DB::table('service')
             ->where('id', $serviceId)
             ->update(['deleted_at'=> null]);

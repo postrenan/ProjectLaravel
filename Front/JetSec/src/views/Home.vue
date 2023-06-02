@@ -79,7 +79,8 @@
             <p class="column has-text-centered title">Nossos serviços</p>
             <div class=" has-text-centered">
                 <div class=" columns is-multiline ">
-                    <article class="column is-one-third box mosaicService" v-for="service in currentServices" v-if="service.id !== 12" >
+                  <span v-if="errorGetService" class="">{{serviceErrorMsg}}</span>
+                    <article class="column is-one-third box mosaicService" v-for="service in currentServices">
                       <i class=""></i>
                       <p class="title">{{service.title}}</p>
                       <p class="subtitle">{{service.content}}</p>
@@ -124,16 +125,18 @@ export default {
       errorSend: false,
       errorMsg: '',
       currentServices: [],
-
+      errorGetService: false,
+      serviceErrorMsg: '',
     }
   },
   created(){
     axios.get('http://127.0.0.1:8000/api/Service')
         .then((response) =>{
-          this.currentServices = response.data;
+          this.currentServices = response.data.enabled;
         })
         .catch((error) => {
-
+          this.errorGetService = true;
+          this.serviceErrorMsg = error;
         })
   },
   methods: {

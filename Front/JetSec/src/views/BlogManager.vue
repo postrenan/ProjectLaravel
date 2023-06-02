@@ -142,20 +142,16 @@ export default{
         this.textError = '';
         this.badResponseToDelete = '';
 
-        if(this.currentCard === this.activeArticle){
+        if(this.currentCard === this.activeArticle || this.currentCard === this.disableArticle){
           axios.get('http://127.0.0.1:8000/api/article')
               .then((response) => {
-                console.log(response)
-                this.currentArticles = response.data;
-              })
-              .catch((error) => {
-                this.textError = error;
-              })
-        }
-        if(this.currentCard === this.disableArticle){
-          axios.get('http://127.0.0.1:8000/api/article')
-              .then((response) => {
-                this.disabledArticles = response.data;
+                if(response.data.enable){
+                  this.currentArticles = response.data.enable;
+                }
+                if(response.data.disable){
+                  this.disabledArticles = response.data.disable;
+                }
+
               })
               .catch((error) => {
                 this.textError = error;
@@ -183,7 +179,7 @@ export default{
             })
       },
       deleteArticle(articleId){
-        axios.delete(`http://127.0.0.1:8000/api/article`, this.articleId)
+        axios.delete(`http://127.0.0.1:8000/api/article`, )
             .then((response) =>{
               this.currentCard = 0;
             })
@@ -192,7 +188,7 @@ export default{
             })
       },
       undoArticle(serviceId){
-        axios.post(`http://127.0.0.1:8000/api/`)
+        axios.post(`http://127.0.0.1:8000/api/article`)
             .then((response) =>{
               this.currentCard = 0;
               //todo arrumar para dar um reload e recarregar sem esse serviço

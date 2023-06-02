@@ -52,3 +52,7 @@ Route::prefix('/')->group(function (){
 Route::prefix('/')->group(function () {
     Route::apiResource('/article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy']);
 });
+
+Route::prefix('/')->group( function(){
+   Route::apiResource('/user', \App\Http\Controllers\UserController::class)->only(['index, store, destroy']);
+});

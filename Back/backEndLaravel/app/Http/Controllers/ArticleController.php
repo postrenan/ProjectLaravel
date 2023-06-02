@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateArticleRequest;
-use App\Models\Blog;
-
+use App\Models\Article;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
@@ -17,7 +17,7 @@ class ArticleController extends \App\Http\Controllers\Controller
         $author = $request->input('author');
         $category = $request->input('category');
 
-        $article = new Blog();
+        $article = new Article();
         $article->title = strip_tags($title);
         $article->content = strip_tags($content);
         $article->author = strip_tags($author);
@@ -32,17 +32,24 @@ class ArticleController extends \App\Http\Controllers\Controller
         }
     }
 
-    public function index()
+    public function index(string $searchArticleInput)
     {
-        $enables = DB::table('blog')
+        $matchWord = DB::table('article')
+            ->where('title', '=', $searchArticleInput)
+            ->get();
+        $enabled = DB::table('article')
             ->where('deleted_at', null )
             ->get();
-        return $enables;
+        $disabled = DB::table('article')
+            ->where('deleted_at', '!=' , null )
+            ->get();
+
+        return response(['resultWord'=>$matchWord,  'enable'=>$enabled, 'disable' => $disabled]);
     }
 
-    public function destroy(Blog $blog)
+    public function destroy(Article $article)
     {
-        $blog->delete();
+        $article->delete();
 
         return response(status:200);
     }

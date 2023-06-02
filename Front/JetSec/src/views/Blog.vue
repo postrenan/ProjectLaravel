@@ -7,9 +7,9 @@
     </div>
       <div class="navbar-end">
       <div class="navbar-menu" id="nav-links">
-        <ul class="navbar-end" id="navbarForms">
-          <div class=" navbar-item has-dropdown button is-hoverable botaoDropDown ">
-            <a class="navbar-link  navbarDrop" >
+        <ul class="navbar-end " id="navbarForms">
+          <div class=" navbar-item has-dropdown button is-rounded is-hoverable botaoDropDown ">
+            <a class="navbar-link  navbarDrop button is-rounded" >
               Categorias
             </a>
             <div class="navbar-dropdown is-boxed">
@@ -32,14 +32,12 @@
           </div>
         </ul>
         <div class="level-item">
-          <div class="field has-addons">
+          <div class="field has-addons ">
             <p class="control">
-              <input class="input" type="text" placeholder="Find a post">
+              <input v-model="searchArticleInput" class="input is-rounded" type="text" placeholder="Find a post">
             </p>
             <p class="control">
-              <button class="button">
-                Search
-              </button>
+              <button @click="findArticle"  class="button is-rounded">Buscar</button>
             </p>
           </div>
         </div>
@@ -91,7 +89,7 @@
         <p class="">{{article.category}}</p>
       </article>
     </div>
-    <button class="button">Carregar mais posts</button>
+    <button class="button is-rounded">Carregar mais posts</button>
   </div>
   <div class="section is-centered columns ">
     <div class="section ">
@@ -103,7 +101,7 @@
       <div class="column is-4 ">
         <div class="columns ">
           <input class="column input is-rounded" type="text" size="8">
-          <button class=" column button">Cadastrar</button>
+          <button class=" column button is-rounded">Cadastrar</button>
         </div>
 
       </div>
@@ -123,13 +121,15 @@ export default {
     return{
       currentArticles: '',
       arrayArticles: [],
+      searchArticleInput: '',
+      enableArticles:'',
     }
   },
   created() {
     axios.get('http://127.0.0.1:8000/api/article')
         .then((response) => {
-          this.currentArticles = response.data;
-          this.arrayArticles = response.data;
+          this.currentArticles = response.data.enable;
+          this.arrayArticles = response.data.enable;
         })
         .catch((error) => {
           this.textError = error;
@@ -139,7 +139,16 @@ export default {
   },
 
   methods:{
+      findArticle(){
+        axios.get(`http://localhost:8000/api/article/${this.searchArticleInput}`,)
+            .then((response) => {
+              this.enableArticles = response.data.enable;
+              console.log(this.enableArticles);
+            })
+            .catch((error)=>{
 
+            })
+      }
   },
 }
 

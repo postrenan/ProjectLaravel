@@ -13,19 +13,19 @@
                     <p>Solicite um contato</p>
                     <div class="field">
                         <label class="required-field" >Nome</label><br>
-                        <input v-model="name" type="text"/>
+                        <input class=" " v-model="name" type="text"/>
                     </div>
                     <div class="field">
                         <label class="required-field" >Telefone<br /></label>
-                        <input v-model="phone" type="number" name="phone" id="phone" />
+                        <input class=" " v-model="phone" type="number" name="phone" id="phone" />
                     </div>
                     <div class="field">
-                        <label class="required-field">Endereço de E-mail</label>
-                        <input v-model="mail" type="email" name="email" id="email" />
+                        <label class="required-field" >Endereço de E-mail</label>
+                        <input class="" v-model="mail" type="email" name="email" id="email" />
                     </div>
-                    <div class="field">
-                        <label class="required-field" >Mensagem:</label><br>
-                        <textarea  v-model="msg" type="text" name="textarea" id="textarea"></textarea>
+                    <div class="field ">
+                        <label class="required-field " >Mensagem:</label><br>
+                        <textarea class=" " v-model="msg" type="text" name="textarea" id="textarea"></textarea>
                     </div>
                     <div>
                         <span id="errorMessage"></span>
@@ -57,7 +57,7 @@
                     parte da família <strong>Strong Security</strong> você também!
                 </p>
                 <div class="column has-text-centered">
-                    <button class="button is-success"><router-link to="/About">Conheça a Jet</router-link></button>
+                    <button class="button is-rounded is-success"><router-link to="/About">Conheça a Jet</router-link></button>
                 </div>
             </div>
         </section>
@@ -70,7 +70,7 @@
                         Se você possui alguma dúvida relacionada a segurança, nossa equipe
                         está à disposição para te ajudar.
                     </p>
-                    <button class="button is-warning"><router-link to="/">Saiba mais</router-link></button>
+                    <button class="button is-rounded is-warning"><router-link to="/">Saiba mais</router-link></button>
                 </div>
                 <div class="column"></div>
             </div>
@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="column has-text-centered">
-                <button class="button is-success"><router-link to="/Service">Saiba mais</router-link></button>
+                <button class="button is-rounded is-success"><router-link to="/Service">Saiba mais</router-link></button>
             </div>
         </section>
         <section class="section">

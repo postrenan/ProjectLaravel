@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-class Blog extends Model
+class Article extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;

@@ -61,7 +61,7 @@
       </div>
       <div v-if="currentCard === 2" class="section">
         <div class="section box">
-          <div v-for="article in currentArticles" class="columns">
+          <div v-for="article in activeArticles" class="columns">
             <div class="box column">
               {{article.title}}<br>
               {{article.content}}
@@ -79,12 +79,12 @@
       </div>
       <div v-if="currentCard === 3" class="section">
         <div class="section box ">
-          <div v-for="article in disabledArticles" class="columns">
+          <div v-for="articles in disabledArticles" class="columns">
             <div class="box column">
-              {{article.title}}<br>
-              {{article.content}}
+              {{articles.title}}<br>
+              {{articles.content}}
             </div>
-            <button class="button column is-vcentered is-2" @click="undoArticle(article.id)">Ativar</button>
+            <button class="button column is-vcentered is-2" @click="undoArticle(articles.id)">Ativar</button>
           </div>
           <div v-if="badResponseToActive !== ''">
             <p class="box">{{badResponseToActive}}</p>
@@ -132,7 +132,8 @@ export default{
         godResponseToDelete: false,
         badResponseToDelete: '',
         badResponseToActive: '',
-
+        articlesGetted: [],
+        activeArticles: [],
       }
     },
     methods:{
@@ -145,13 +146,13 @@ export default{
         if(this.currentCard === this.activeArticle || this.currentCard === this.disableArticle){
           axios.get('http://127.0.0.1:8000/api/article')
               .then((response) => {
-                if(response.data.enable){
-                  this.currentArticles = response.data.enable;
-                }
-                if(response.data.disable){
-                  this.disabledArticles = response.data.disable;
-                }
+                this.articlesGetted = response.data.articles;
 
+                this.currentArticles = response.data.articles;
+
+
+                this.activeArticles = this.currentArticles.filter((article) => !article.deleted_at);
+                this.disabledArticles =  this.currentArticles.filter((article) => article.deleted_at);
               })
               .catch((error) => {
                 this.textError = error;
@@ -179,7 +180,7 @@ export default{
             })
       },
       deleteArticle(articleId){
-        axios.delete(`http://127.0.0.1:8000/api/article`, )
+        axios.delete(`http://127.0.0.1:8000/api/article/${articleId}` )
             .then((response) =>{
               this.currentCard = 0;
             })
@@ -187,8 +188,8 @@ export default{
               this.badResponseToDelete = error;
             })
       },
-      undoArticle(serviceId){
-        axios.post(`http://127.0.0.1:8000/api/article`)
+      undoArticle(articleId){
+        axios.put(`http://127.0.0.1:8000/api/article/${articleId}`)
             .then((response) =>{
               this.currentCard = 0;
               //todo arrumar para dar um reload e recarregar sem esse serviço
@@ -208,6 +209,7 @@ export default{
 
 .main{
   background-color: #1c7430;
+
 }
 
 </style>

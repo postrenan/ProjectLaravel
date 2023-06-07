@@ -11,6 +11,7 @@ import RestrictArea from "@/views/RestrictArea.vue";
 import Crud from "@/views/Crud.vue";
 import Blog from "../views/Blog.vue"
 import BlogManager from "@/views/BlogManager.vue";
+import post from "@/views/Post.vue"
 
 import Cookies from 'js-cookie'
 import axios from 'axios';
@@ -27,17 +28,17 @@ const router = new VueRouter({
       component: Home,
     },
     {
-      path: "/About",
+      path: "/about",
       name: "About",
       component: About,
     },
     {
-      path: "/Service",
+      path: "/service",
       name: "Service",
       component: Service,
     },
     {
-      path: "/ClientArea",
+      path: "/client-area",
       name: "ClientArea",
       component: ClientArea,
       meta: {requiresAuth: true,
@@ -50,22 +51,22 @@ const router = new VueRouter({
       component: Contact,
     },
     {
-      path: "/Login",
+      path: "/login",
       name: "Login",
       component: Login,
     },
     {
-      path: "/EmailStep",
+      path: "/email-step",
       name: "EmailStep",
       component: EmailStep,
     },
     {
-      path: "/RestrictArea",
+      path: "/restrict-area",
       name: "RestrictArea",
       component: RestrictArea,
     },
     {
-      path: "/Crud",
+      path: "/crud",
       name: "Crud",
       component: Crud,
       meta: {
@@ -74,7 +75,7 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/Blog",
+      path: "/blog",
       name: "Blog",
       component: Blog,
       meta: {
@@ -82,13 +83,19 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/BlogManager",
+      path: "/blog-manager",
       name:"BlogManager",
       component: BlogManager,
       meta: {
         hideHeader: true
       },
-    }
+    },
+    {
+      path:"/post/:slug",
+      name:'post',
+      component: post,
+      props: true
+    },
   ]
 });
 

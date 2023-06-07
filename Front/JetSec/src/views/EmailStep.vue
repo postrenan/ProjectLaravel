@@ -124,7 +124,7 @@ export default {
                 if(this.pwd1 !== this.pwd2){
                   this.passwordWarning = false;
                 } else{
-                    axios.post('http://127.0.0.1:8000/api/dataSaver', {'email': this.mail1 ,'password' : this.pwd1})
+                    axios.post('http://127.0.0.1:8000/api/user', {'email': this.mail1 ,'password' : this.pwd1})
                         .then((response) => {
                             if(response.status === 201){
                                 this.pwd1 ="";

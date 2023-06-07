@@ -96,10 +96,10 @@ export default {
   methods:{
     redirectToManagers(idRedirect){
       if(idRedirect === 1){
-        router.push({path: '/BlogManager'});
+        router.push({path: '/blog-manager'});
       }
       else{
-        router.push({path: '/Crud'});
+        router.push({path: '/crud'});
 
       }
     },
@@ -139,7 +139,7 @@ export default {
           Cookies.remove('email');
           Cookies.remove('logged');
           Cookies.remove('passwordUser')
-         router.push({path:'/Login'});
+         router.push({path:'/login'});
         })
         .catch((error) => {
           //todo arrumar

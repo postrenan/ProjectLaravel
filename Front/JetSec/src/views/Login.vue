@@ -68,7 +68,7 @@ export default {
                       Cookies.set('email', response.data.emailUser);
                       Cookies.set('logged', true);
                       this.setLoggedIn(true);
-                      router.push({path: '/ClientArea'});
+                      router.push({path: '/client-area'});
                   }
                   else{
                     this.verifyLog = true;

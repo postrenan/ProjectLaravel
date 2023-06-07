@@ -19,7 +19,7 @@
           <input v-model="password" type="password" id="password">
         </div>
         <div>
-          <span v-if="verifyLog">verifica se o email e senha estão corretos</span>
+          <span v-if="verifyLog">Verificar se o email e senha estão corretos</span>
         </div>
         <div>
           <br>
@@ -65,7 +65,7 @@ export default {
               Cookies.set('email', response.data.emailUser);
               Cookies.set('logged', true);
               this.setLoggedIn(true);
-              router.push({path: '/Crud'});
+              router.push({path: '/crud'});
             }
             else{
               this.verifyLog = true;

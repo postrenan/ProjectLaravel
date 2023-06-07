@@ -44,6 +44,7 @@ Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@
 
 Route::apiResource('article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy','update']);
 
+Route::get('/article-page', 'App\Http\Controllers\ArticleController@show');
 
 Route::prefix('/')->group(function (){
     Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);

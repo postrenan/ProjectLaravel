@@ -42,6 +42,9 @@ Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@
 
 Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
 
+Route::apiResource('article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy','update']);
+
+
 Route::prefix('/')->group(function (){
     Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
     Route::prefix('/{value}')->group(function () {
@@ -49,10 +52,3 @@ Route::prefix('/')->group(function (){
     });
 });
 
-Route::prefix('/')->group(function () {
-    Route::apiResource('/article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy']);
-});
-
-Route::prefix('/')->group( function(){
-   Route::apiResource('/user', \App\Http\Controllers\UserController::class)->only(['index, store, destroy']);
-});

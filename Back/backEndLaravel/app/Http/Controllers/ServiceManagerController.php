@@ -7,8 +7,8 @@ use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 class ServiceManagerController extends Controller
 {
-    public function destroy(int $value){
-        $toDelete = Service::where('id','=', $value)
+    public function destroy(int $serviceId){
+        $toDelete = Service::where('id','=', $serviceId)
                         ->first();
         $toDelete->delete();
         if($toDelete){

@@ -4,31 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function index(Request $request, string $email){
-        $email = $request->input('email');
-
-        $validateMail = User::where('email', $email)->exists();
-
-        if($validateMail){
-            return response(status:409);
-        } else {
-            return response(status:201);
-        }
-//
-//        return User::query()
-//            ->where('email', '=', $email)
-//            ->first();
-
+    public function index(Request $request){
         $email = $request->input('email');
         $password = $request->input('password');
-        User::query()
-            ->where('email', '=', $email)
-            ->first();
+
+        User::where('email', '=', $email)->exist();
 
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return response(['emailUser' => $email], status: 200);
@@ -49,6 +35,7 @@ class UserController extends Controller
     {
         $email = $request->input('email');
         $password = $request->input('password');
+
         $users = new User();
         $users->password = Hash::make($password);
         $users->email = $email;

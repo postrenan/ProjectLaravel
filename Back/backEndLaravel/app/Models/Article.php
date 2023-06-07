@@ -2,11 +2,19 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
+/**
+ * @property int $id
+ * @property string $name
+ * @property Carbon $deleted_at
+ */
+
 class Article extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -18,7 +26,7 @@ class Article extends Model
      * @var array<int, string>
      */
 
-    public $table = 'blog';
+    public $table = 'article';
 
     public $timestamps = true;
     protected $primaryKey = 'id';
@@ -27,6 +35,7 @@ class Article extends Model
         'content',
         'author',
         'category',
+        'slug'
     ];
 
     protected $casts = [

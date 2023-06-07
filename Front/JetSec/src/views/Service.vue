@@ -1,30 +1,30 @@
 <template>
-<div id="app">
+  <div id="app">
 
-      <section class="section" id="Services">
-        <p class="column has-text-centered title">O cuidado que você merece</p>
-        <div class=" has-text-centered">
-          <div class=" columns is-multiline ">
-            <span v-if="errorInResponse" class="">{{errorMsg}}</span>
-            <article class="column is-one-fifth box mosaicService" v-for="service in currentServices" >
-              <i class=""></i>
-              <p class="title">{{service.title}}</p>
-              <p class="subtitle">{{service.content}}</p>
-            </article>
-          </div>
+    <section class="section" id="Services">
+      <p class="column has-text-centered title">O cuidado que você merece</p>
+      <div class=" has-text-centered">
+        <div class=" columns is-multiline ">
+          <span v-if="errorInResponse" class="">{{ errorMsg }}</span>
+          <article class="column is-one-fifth box mosaicService" v-for="service in currentServices">
+            <i class=""></i>
+            <p class="title">{{ service.title }}</p>
+            <p class="subtitle">{{ service.content }}</p>
+          </article>
         </div>
-      </section>
+      </div>
+    </section>
     <router-link class="button" to="/RestrictArea">Area restrita</router-link>
-</div>
+  </div>
 </template>
 
-<script >
+<script>
 import axios from "axios";
 
 export default {
   name: "Service",
-  data(){
-    return{
+  data() {
+    return {
       currentServices: [],
       errorMsg: '',
       errorInResponse: false,
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-.box{
+.box {
   background-color: #d6e8ee;
   margin: 10px;
 }

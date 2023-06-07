@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class formSaver extends Controller
 {
-    public function dataUpload(Request $request){
+    public function dataUpload(Request $request)
+    {
         $email = $request->input('email');
         $msg = $request->input('msg');
         $phone = $request->input('phone');
@@ -16,10 +18,10 @@ class formSaver extends Controller
         $form = new Form($request->only(['email', 'msg', 'phone', 'name']));
         $insert = $form->save();
 
-        if($insert){
-           return response(status:200);
-        }else{
-            return response(status:500);
+        if ($insert) {
+            return response(status: 200);
+        } else {
+            return response(status: 500);
         }
     }
 }

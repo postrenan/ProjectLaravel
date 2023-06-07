@@ -1,8 +1,7 @@
-
 <template>
   <div id="#app">
     <div class="section ">
-      <h1 v-if="setErrorMsg">{{errorMessage}}</h1>
+      <h1 v-if="setErrorMsg">{{ errorMessage }}</h1>
       <div v-for="article in dbResponsePost">
         <p class="tag is-rounded" v-html="article.category"/>
         <h1 class="title" v-html="article.title"/>
@@ -16,20 +15,21 @@
 
 <script>
 import axios from 'axios';
-export default{
+
+export default {
   props: ['slug'],
   name: 'post',
-  data(){
-    return{
+  data() {
+    return {
       postSlug: '',
       dbResponsePost: '',
       errorMessage: '',
       setErrorMsg: false,
     }
   },
-  created(){
+  created() {
     this.postSlug = this.$router.currentRoute.params.slug
-    axios.get(`http://localhost:8000/api/article-page?search=${this.postSlug}`, )
+    axios.get(`http://localhost:8000/api/article-page?search=${this.postSlug}`,)
         .then((response) => {
           this.dbResponsePost = response.data.article;
           this.setErrorMsg = false;
@@ -39,19 +39,17 @@ export default{
               content: article.content,
               author: article.author,
               category: article.category,
-              created : article.created_at,
+              created: article.created_at,
             }
           });
         })
-        .catch((error) =>{
-            this.setErrorMsg = true;
-            this.errorMessage = error;
+        .catch((error) => {
+          this.setErrorMsg = true;
+          this.errorMessage = error;
         })
 
   },
-  methods:{
-
-  },
+  methods: {},
 }
 </script>
 

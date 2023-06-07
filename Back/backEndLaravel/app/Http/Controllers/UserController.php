@@ -10,7 +10,8 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $email = $request->input('email');
         $password = $request->input('password');
 
@@ -24,7 +25,8 @@ class UserController extends Controller
 
     }
 
-    public function destroy(string $email){
+    public function destroy(string $email)
+    {
         $user = User::where('email', '=', $email)
             ->first();
         $user->delete();
@@ -46,8 +48,7 @@ class UserController extends Controller
 
         if ($successUp) {
             return response(status: 201);
-        }
-        else {
+        } else {
             return response(status: 404);
         }
 

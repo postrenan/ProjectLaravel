@@ -28,17 +28,18 @@ class ArticleController extends Controller
         $articles->slug = $slug;
         $articleUp = $articles->save();
 
-        if($articleUp){
-            return response(status:200);
+        if ($articleUp) {
+            return response(status: 200);
         } else {
             abort(400);
         }
     }
 
-    public function update(int $articleId): bool{
+    public function update(int $articleId): bool
+    {
         DB::table('article')
             ->where('id', $articleId)
-            ->update(['deleted_at'=> null]);
+            ->update(['deleted_at' => null]);
         return true;
     }
 
@@ -47,7 +48,7 @@ class ArticleController extends Controller
         $search = $request->input('search');
         $articles = Article::withTrashed()
             ->when(filled($search), function ($query) use ($search) {
-                $query->where('title', 'like', '%'. $search . '%');
+                $query->where('title', 'like', '%' . $search . '%');
             })->get();
         return response()->json(['articles' => $articles]);
     }
@@ -56,8 +57,8 @@ class ArticleController extends Controller
     {
         $slugValue = $request->input('search');
         $article = DB::table('article')
-                ->where('slug', '=' ,  $slugValue)
-                ->get();
+            ->where('slug', '=', $slugValue)
+            ->get();
         return response()->json(['article' => $article]);
     }
 
@@ -65,6 +66,6 @@ class ArticleController extends Controller
     {
         $article->delete();
         $article->save();
-      return response(status:200);
+        return response(status: 200);
     }
 }

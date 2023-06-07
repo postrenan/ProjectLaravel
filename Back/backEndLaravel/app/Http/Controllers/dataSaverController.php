@@ -24,8 +24,7 @@ class dataSaverController extends Controller
 
         if ($successUp) {
             return response(status: 201);
-        }
-        else {
+        } else {
             return response(status: 404);
         }
 

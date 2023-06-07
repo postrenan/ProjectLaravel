@@ -10,25 +10,25 @@ use Illuminate\Support\Facades\Hash;
 
 class validateLogin extends Controller
 {
-   public function dbValidate(Request $request)
-   {
-       $email = $request->input('email');
-       $password = $request->input('password');
-       User::query()
-           ->where('email', '=', $email)
-           ->first();
+    public function dbValidate(Request $request)
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        User::query()
+            ->where('email', '=', $email)
+            ->first();
 
-           if (Auth::attempt(['email' => $email, 'password' => $password])) {
-               return response(['emailUser' => $email], status: 200);
-           } else {
-               return response(status: 401);
-           }
-   }
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            return response(['emailUser' => $email], status: 200);
+        } else {
+            return response(status: 401);
+        }
+    }
 
-   public function mailGetData(string $email)
-   {
-       return User::query()
-           ->where('email', '=', $email)
-           ->first();
-   }
+    public function mailGetData(string $email)
+    {
+        return User::query()
+            ->where('email', '=', $email)
+            ->first();
+    }
 }

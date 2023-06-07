@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $title = $request->input('title');
         $content = $request->input('content');
 
@@ -19,22 +20,24 @@ class ServiceController extends Controller
 
         $successUp = $service->save();
 
-        if($successUp){
-            return response(status:200);
+        if ($successUp) {
+            return response(status: 200);
         } else {
-            return response(status:401);
+            return response(status: 401);
         }
 
     }
-    public function index(){
-            $enabled = DB::table('service')
-                ->where('deleted_at', null )
-                ->get();
 
-            $disable = DB::table('service')
-                ->where('deleted_at', '!=',null )
-                ->get();
+    public function index()
+    {
+        $enabled = DB::table('service')
+            ->where('deleted_at', null)
+            ->get();
 
-            return response(['disables'=>  $disable, 'enabled' => $enabled]);
+        $disable = DB::table('service')
+            ->where('deleted_at', '!=', null)
+            ->get();
+
+        return response(['disables' => $disable, 'enabled' => $enabled]);
     }
 }

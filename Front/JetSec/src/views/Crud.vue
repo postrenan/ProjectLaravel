@@ -1,18 +1,28 @@
 <template>
   <div id="app">
-    <nav class="navbar" >
-      <div class="navbar-brand" >
+    <nav class="navbar">
+      <div class="navbar-brand">
         <div class="navbar-item ">
           <router-link to="/"><img src="../assets/rocket.png" alt="Foguete azul"></router-link>
         </div>
       </div>
       <div class="navbar-menu" id="nav-links">
         <ul class="navbar-end" id="navbarForms">
-          <li class="navbar-item"><router-link to="/home">Home</router-link></li>
-          <li class="navbar-item"><router-link to="/about">Sobre</router-link></li>
-          <li class="navbar-item"><router-link to="/service">Serviços</router-link></li>
-          <li class="navbar-item"><router-link to="/home">Contato</router-link></li>
-          <li  class="navbar-item" id="clientArea"><router-link to="/home">Logout</router-link></li>
+          <li class="navbar-item">
+            <router-link to="/home">Home</router-link>
+          </li>
+          <li class="navbar-item">
+            <router-link to="/about">Sobre</router-link>
+          </li>
+          <li class="navbar-item">
+            <router-link to="/service">Serviços</router-link>
+          </li>
+          <li class="navbar-item">
+            <router-link to="/home">Contato</router-link>
+          </li>
+          <li class="navbar-item" id="clientArea">
+            <router-link to="/home">Logout</router-link>
+          </li>
         </ul>
       </div>
     </nav>
@@ -24,10 +34,10 @@
         <h2 @click="setPanel(activeService)" class="button">Serviços ativos</h2>
       </div>
       <div class="column">
-        <h2 @click="setPanel(disableService)"  class="button">Serviços desativados</h2>
+        <h2 @click="setPanel(disableService)" class="button">Serviços desativados</h2>
       </div>
     </div>
-    <div v-if="currentCard === 1"  class="section">
+    <div v-if="currentCard === 1" class="section">
       <div class="section box">
         <div class="box">
           <label>insira o titulo </label><br>
@@ -42,7 +52,7 @@
         </div>
         <div>
           <br>
-          <h2 class="box" v-if="textError!== ''">{{textError}}</h2>
+          <h2 class="box" v-if="textError!== ''">{{ textError }}</h2>
         </div>
         <div>
           <br>
@@ -50,47 +60,47 @@
         </div>
       </div>
     </div>
-      <div v-if="currentCard === 2" class="section">
-        <div class="section box">
-          <div v-for="service in currentServices" class="columns">
-            <div class="box column">
-              {{service.title}}<br>
-              {{service.content}}
-            </div>
-              <button class="button column is-vcentered is-2" @click="deleteService(service.id)">delete</button>
+    <div v-if="currentCard === 2" class="section">
+      <div class="section box">
+        <div v-for="service in currentServices" class="columns">
+          <div class="box column">
+            {{ service.title }}<br>
+            {{ service.content }}
           </div>
-          <div v-if="badResponseToDelete !== ''">
-            <p class="box">{{badResponseToDelete}}</p>
-          </div>
-          <div>
-            <br>
-            <h2 class="box" v-if="textError!== ''">{{textError}}</h2>
-          </div>
+          <button class="button column is-vcentered is-2" @click="deleteService(service.id)">delete</button>
+        </div>
+        <div v-if="badResponseToDelete !== ''">
+          <p class="box">{{ badResponseToDelete }}</p>
+        </div>
+        <div>
+          <br>
+          <h2 class="box" v-if="textError!== ''">{{ textError }}</h2>
         </div>
       </div>
-    <div v-if="currentCard === 3" class="section" >
+    </div>
+    <div v-if="currentCard === 3" class="section">
       <div class="section box ">
         <div v-for="service in disabledServices" class="columns">
           <div class="box column">
-            {{service.title}}<br>
-            {{service.content}}
+            {{ service.title }}<br>
+            {{ service.content }}
           </div>
-         <button class="button column is-vcentered is-2" @click="undoService(service.id)">Ativar</button>
+          <button class="button column is-vcentered is-2" @click="undoService(service.id)">Ativar</button>
         </div>
         <div v-if="badResponseToActive !== ''">
-          <p class="box">{{badResponseToActive}}</p>
+          <p class="box">{{ badResponseToActive }}</p>
         </div>
       </div>
       <div>
         <br>
-        <h2 class="box" v-if="textError!== ''">{{textError}}</h2>
+        <h2 class="box" v-if="textError!== ''">{{ textError }}</h2>
       </div>
     </div>
   </div>
 </template>
 
 
-<script >
+<script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import axios from 'axios';
@@ -100,13 +110,12 @@ export default {
   components: {
     ckeditor: CKEditor.component
   },
-  data(){
-    return{
+  data() {
+    return {
       editor: ClassicEditor,
       editorDataTitle: '',
       editorDataText: '',
-      editorConfig: {
-      },
+      editorConfig: {},
       insertService: 1,
       activeService: 2,
       disableService: 3,
@@ -114,7 +123,7 @@ export default {
       newContent: '',
       textError: '',
       sendData: false,
-      currentServices:[],
+      currentServices: [],
       disabledServices: [],
       id: '',
       content: '',
@@ -125,32 +134,32 @@ export default {
 
     }
   },
-  methods:{
-    setPanel(value){
+  methods: {
+    setPanel(value) {
       this.currentCard = value;
       this.sendData = false;
       this.textError = '';
       this.badResponseToDelete = '';
 
-       if(this.currentCard === this.activeService || this.currentCard === this.disableService){
-         axios.get('http://127.0.0.1:8000/api/Service')
-             .then((response) => {
-               if(response.data.enabled) {
-                 this.currentServices = response.data.enabled;
-               }
-               if(response.data.disables) {
-                 this.disabledServices = response.data.disables;
-               }
-             })
-             .catch((error) => {
-               this.textError = error;
-             })
-       }
+      if (this.currentCard === this.activeService || this.currentCard === this.disableService) {
+        axios.get('http://127.0.0.1:8000/api/Service')
+            .then((response) => {
+              if (response.data.enabled) {
+                this.currentServices = response.data.enabled;
+              }
+              if (response.data.disables) {
+                this.disabledServices = response.data.disables;
+              }
+            })
+            .catch((error) => {
+              this.textError = error;
+            })
+      }
 
     },
-    newService(){
+    newService() {
       this.textError = '';
-      if(this.editorDataTitle !== '' && this.editorDataText !== '') {
+      if (this.editorDataTitle !== '' && this.editorDataText !== '') {
         axios.post('http://127.0.0.1:8000/api/Service', {
           'title': this.editorDataTitle,
           'content': this.editorDataText
@@ -164,27 +173,26 @@ export default {
             .catch((error) => {
               this.textError = error;
             })
-      }
-      else{
+      } else {
         this.textError = 'os campos não podem estar vazio';
       }
     },
-    deleteService(serviceId){
+    deleteService(serviceId) {
       axios.delete(`http://127.0.0.1:8000/api/${serviceId}`)
-          .then((response) =>{
+          .then((response) => {
             this.currentCard = 0;
           })
-          .catch((error) =>{
+          .catch((error) => {
             this.badResponseToDelete = error;
           })
     },
-    undoService(serviceId){
+    undoService(serviceId) {
       axios.post(`http://127.0.0.1:8000/api/${serviceId}`)
-          .then((response) =>{
+          .then((response) => {
             this.currentCard = 0;
             //todo arrumar para dar um reload e recarregar sem esse serviço
           })
-          .catch((error) =>{
+          .catch((error) => {
             this.badResponseToActive = error;
           })
 
@@ -198,12 +206,12 @@ export default {
   margin: 0;
 }
 
-h2{
+h2 {
   margin: 0 5px;
 
 }
 
-#app{
+#app {
   background: #9ddbea;
   min-height: 40rem;
 }

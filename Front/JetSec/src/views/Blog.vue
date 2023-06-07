@@ -44,16 +44,20 @@
         </div>
       </div>
     </div>
-    <div v-if="keyWordGetted" class="navbar-brand ">
-      <div class="navbar-end">
-        <div class="columns navbar-item">
-          <div class="column is-3 field is-grouped">
-            <div class=" content searchContent" v-for="title in titles">
-              <ul class="is-lower-alpha">
-                <ul><router-link :to="{name: 'post', params:{slug: title.slug}}" v-html="title.title"></router-link></ul>
-                <button class="button is-small" @click="keyWordGetted = false">fechar</button>
+    <div v-if="keyWordGetted" class=" ">
+      <div class="">
+        <div class="columns ">
+          <div class="column"></div>
+          <div class="column is-3  ">
+            <div class="content  searchContent" v-for="title in titles">
+              <ul class="has-text-right is-lower-alpha">
+                <ul>
+                  <router-link class="box " :to="{name: 'post', params:{slug: title.slug}}"
+                               v-html="title.title"></router-link>
+                </ul>
               </ul>
             </div>
+            <button class="button  is-small is-rounded" @click="keyWordGetted = false">fechar</button>
           </div>
         </div>
       </div>
@@ -67,20 +71,20 @@
       <div>
         <div class="section columns">
           <div class="tile is-ancestor  column">
-            <article class="tile is-child notification has-text-centered "  v-for="title in titles">
-              <p class="" v-html="title.title"/>
-              <p class="" v-html="title.content"/>
-              <p class="" v-html="title.author"/>
-              <p class="" v-html="title.category"/>
+            <article class="tile is-child notification has-text-centered ">
+              <p class="title" v-html=""/>
+              <p class="subtitle" v-html=""/>
+              <p class="subtitle" v-html=""/>
             </article>
             <div class="tile is-vertical column is-4">
               <div class="tile">
                 <div class="tile is-parent is-vertical">
-                  <article class="tile is-child notification " v-for="article  in currentArticles">
+                  <article class="tile box is-child notification " v-for="article  in currentArticles">
                     <div class="content">
-                      <img src="https://www.jetimob.com/blog/content/images/size/w1200/2023/06/o_que_e_habite-se.webp">
+                      <img src="">
                       <p class="" v-html="article.category"/>
-                      <p class="" v-html="article.title"/>
+                      <router-link :to="{name: 'post', params:{slug: article.slug}}"
+                                   v-html="article.title"></router-link>
                     </div>
                   </article>
                 </div>
@@ -94,11 +98,11 @@
 
       <h2 class="title">Post mais recentes</h2>
       <div class="section column is-multiline">
-        <article class="column is-one-third  mosaicService" v-for="article in currentArticles">
+        <article class="column box is-one-third  mosaicService" v-for="article in currentArticles">
           <i class=""></i>
-          <p class="" v-html="article.title"></p>
-          <p class="" v-html="article.author"></p>
-          <p class="" v-html="article.category"></p>
+          <router-link :to="{name: 'post', params:{slug: article.slug}}" v-html="article.title"></router-link>
+          <router-link :to="{name: 'post', params:{slug: article.slug}}" v-html="article.author"></router-link>
+          <router-link :to="{name: 'post', params:{slug: article.slug}}" v-html="article.category"></router-link>
         </article>
       </div>
       <button class="button is-rounded">Carregar mais posts</button>
@@ -159,6 +163,7 @@ export default {
               return {
                 title: article.title,
                 slug: article.slug,
+                content: article.content,
               }
             });
           })

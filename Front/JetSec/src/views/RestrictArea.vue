@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <div class="section columns is-fullheight is-centered">
@@ -7,10 +6,10 @@
       <div id="main" class="column box has-text-centered">
         <h2>Area restrita</h2>
         <br>
-        <div >
+        <div>
           <label>Email</label>
           <br>
-          <input v-model="email" id="email" type="email" >
+          <input v-model="email" id="email" type="email">
         </div>
         <div>
           <br>
@@ -41,8 +40,8 @@ import Cookies from 'js-cookie'
 
 export default {
   name: "RestrictArea",
-  data(){
-    return{
+  data() {
+    return {
       email: '',
       password: '',
       verifyLog: false,
@@ -53,21 +52,20 @@ export default {
       getLog: 'loggedIn',
     }),
   },
-  methods:{
+  methods: {
     ...mapMutations([
       'setLoggedIn',
     ]),
-    loginValidation:function(){
+    loginValidation: function () {
 
-      axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password:this.password})
+      axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password: this.password})
           .then((response) => {
-            if(response.status === 200) {
+            if (response.status === 200) {
               Cookies.set('email', response.data.emailUser);
               Cookies.set('logged', true);
               this.setLoggedIn(true);
               router.push({path: '/crud'});
-            }
-            else{
+            } else {
               this.verifyLog = true;
             }
           })
@@ -81,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-#main{
+#main {
   padding-top: 3rem;
 }
 
@@ -91,7 +89,7 @@ export default {
   padding-top: 9rem;
 }
 
-#app{
+#app {
   background: #65030b;
   min-height: 40rem;
 }

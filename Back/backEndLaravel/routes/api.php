@@ -14,11 +14,11 @@ use App\Http\Middleware\Authenticate;
 | be assigned to the "api" middleware group. Make something great!
 */
 
-Route::middleware('auth:api')->get('/ClientArea', function(Request $request) {
+Route::middleware('auth:api')->get('/ClientArea', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->post('/ClientArea', function(Request $request) {
+Route::middleware('auth:api')->post('/ClientArea', function (Request $request) {
     return $request->user();
 });
 
@@ -42,11 +42,11 @@ Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@
 
 Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
 
-Route::apiResource('article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy','update']);
+Route::apiResource('article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy', 'update']);
 
 Route::get('/article-page', 'App\Http\Controllers\ArticleController@show');
 
-Route::prefix('/')->group(function (){
+Route::prefix('/')->group(function () {
     Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
     Route::prefix('/{value}')->group(function () {
         Route::apiResource('/', \App\Http\Controllers\ServiceManagerController::class)->only(['destroy', 'store']);

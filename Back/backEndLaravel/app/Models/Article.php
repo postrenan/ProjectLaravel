@@ -13,6 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $id
  * @property string $name
  * @property Carbon $deleted_at
+ * @property mixed $title
+ * @property int $author
+ * @property mixed $category
+ * @property mixed $content
+ * @property mixed|string $slug
  */
 
 class Article extends Model
@@ -30,6 +35,8 @@ class Article extends Model
 
     public $timestamps = true;
     protected $primaryKey = 'id';
+
+    public $foreingKey = 'author';
     protected $fillable = [
         'title',
         'content',

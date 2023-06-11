@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+
+
 class ArticleController extends Controller
 {
     public function store(CreateArticleRequest $request)
@@ -19,10 +21,10 @@ class ArticleController extends Controller
         $category = $request->input('category');
 
         $articles = new Article();
-        $articles->title = ($title);
-        $articles->content = ($content);
-        $articles->author = ($author);
-        $articles->category = ($category);
+        $articles->title = $title;
+        $articles->content = $content;
+        $articles->author = $author;
+        $articles->category = $category;
 
         $slug = Str::kebab(strip_tags($title));
         $articles->slug = $slug;

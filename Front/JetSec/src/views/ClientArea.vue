@@ -67,8 +67,8 @@
           <div class="box">
             <div class="columns">
               <button class="button column" @click="closeTable">Fechar</button>
-              <button v-if="!currentReplace" @click="replaceData()" class="button box">Alterar</button>
-              <button v-else @click="dataChange" class="button box">Confirmar troca</button>
+              <!--<button v-if="!currentReplace" @click="replaceData()" class="button box">Alterar</button>-->
+              <button v-if="currentReplace" @click="dataChange" class="button box">Confirmar troca</button>
               <button class="button is-danger column" @click="deleteUser">DELETAR CONTA</button>
             </div>
           </div>
@@ -106,6 +106,17 @@ export default {
   },
   mounted() {
     this.email = Cookies.get('email');
+    axios.get(`http://127.0.0.1:8000/api/getUserAfterValidate/${this.email}`)
+        .then((response) => {
+          if (response) {
+            Cookies.set('userId',  response.data.id);
+          } else {
+            this.verifyLog = true;
+          }
+        })
+        .catch((error) => {
+          this.verifyLog = true;
+        })
   },
   methods: {
     redirectToManagers(idRedirect) {
@@ -122,6 +133,7 @@ export default {
           .then((response) => {
             if (response) {
               this.nameUser = response.data.name;
+              Cookies.set('userId',  response.data.id);
               this.created_at = response.data.created_at;
               this.password = Cookies.get('passwordUser');
             } else {

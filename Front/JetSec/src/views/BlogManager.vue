@@ -42,19 +42,15 @@
         <div class="section box">
           <div class="box">
             <label>insira o titulo </label><br>
-            <ckeditor :editor="editor" v-model="editorDataTitle" :config="editorConfig"></ckeditor>
+            <input v-model="newTitle" type="text">
           </div>
           <div class="box">
             <label>Insira o texto</label>
             <ckeditor :editor="editor" v-model="editorDataText" :config="editorConfig"></ckeditor>
           </div>
           <div class="box">
-            <label>Insira o autor</label>
-            <ckeditor :editor="editor" v-model="editorDataSign" :config="editorConfig"></ckeditor>
-          </div>
-          <div class="box">
-            <label>Insira a categoria</label>
-            <ckeditor :editor="editor" v-model="editorDataCategory" :config="editorConfig"></ckeditor>
+            <label>Insira a categoria</label><br>
+            <input v-model="newCategory" type="text">
           </div>
           <div>
             <button @click="newArticle" class="button">Criar</button>
@@ -113,7 +109,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import axios from 'axios';
-
+import Cookies from 'js-cookie'
 export default {
   name: "BlogManager",
   components: {
@@ -122,14 +118,13 @@ export default {
   data() {
     return {
       editor: ClassicEditor,
-      editorDataTitle: '',
       editorDataText: '',
-      editorDataSign: '',
-      editorDataCategory: '',
       editorConfig: {},
       insertArticle: 1,
       activeArticle: 2,
       disableArticle: 3,
+      newTitle: '',
+      newCategory: '',
       currentCard: '',
       newContent: '',
       textError: '',
@@ -157,10 +152,7 @@ export default {
         axios.get('http://127.0.0.1:8000/api/article')
             .then((response) => {
               this.articlesGetted = response.data.articles;
-
               this.currentArticles = response.data.articles;
-
-
               this.activeArticles = this.currentArticles.filter((article) => !article.deleted_at);
               this.disabledArticles = this.currentArticles.filter((article) => article.deleted_at);
             })
@@ -173,17 +165,16 @@ export default {
       this.textError = '';
 
       axios.post('http://127.0.0.1:8000/api/article', {
-        'title': this.editorDataTitle,
+        'title': this.newTitle,
         'content': this.editorDataText,
-        'author': this.editorDataSign,
-        'category': this.editorDataCategory,
+        'category': this.newCategory,
+        'author': Cookies.get('userId'),
       })
           .then((response) => {
             this.sendData = true;
             this.editorDataText = '';
-            this.editorDataTitle = '';
-            this.editorDataSign = '';
-            this.editorDataCategory = '';
+            this.newTitle = '';
+            this.newCategory = '';
           })
           .catch((error) => {
             this.textError = error;

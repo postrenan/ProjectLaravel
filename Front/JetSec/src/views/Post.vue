@@ -1,14 +1,29 @@
 <template>
   <div id="#app">
-    <div class="section ">
+    <div class="section columns">
       <h1 v-if="setErrorMsg">{{ errorMessage }}</h1>
-      <div v-for="article in dbResponsePost">
+      <div class="column is-2"></div>
+      <div class="column" v-for="article in dbResponsePost">
         <p class="tag is-rounded" v-html="article.category"/>
         <h1 class="title" v-html="article.title"/>
         <p class="subtitle" v-html="article.author"/>
         <p v-html="article.created"/>
-        <p class="content has-text-justified" v-html="article.content"></p>
+        <div class="columns">
+          <div class="column is-2"></div>
+          <div><p class="content column has-text-justified" v-html="article.content"/>
+            <p class="has-text-centered">Compartilhe esse post</p>
+            <div class="has-text-centered icon-text">
+            </div>
+            <h2>Escrito por</h2>
+            <div class="box">
+              <svg-icon type="mdi" :path="path"></svg-icon>
+              <p class="subtitle" v-html="article.author"/>
+            </div>
+            <div class="column is-2"></div>
+          </div>
+        </div>
       </div>
+      <div class="column is-2"></div>
     </div>
   </div>
 </template>
@@ -55,4 +70,13 @@ export default {
 
 <style scoped>
 
+svg{
+  scale: 5%;
+}
+
+.section {
+  background-color: #272935;
+  color: #FFFFFFFF;
+  text-decoration: none;
+}
 </style>

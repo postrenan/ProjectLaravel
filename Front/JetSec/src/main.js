@@ -13,5 +13,5 @@ new Vue({
   store,
   router,
   pinia: createPinia(),
-  render: (h) => h(App)
+  render: (h) => h(App),
 }).$mount('#app')

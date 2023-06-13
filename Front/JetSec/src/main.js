@@ -1,13 +1,11 @@
 import Vue from 'vue'
-import Vuex from 'vuex';
-import { createPinia, PiniaVuePlugin } from 'pinia'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import './assets/main.css'
 import store from './stores/auth';
-import CKEditor from "@ckeditor/ckeditor5-vue2"
-
-Vue.use( CKEditor );
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 new Vue({
   store,

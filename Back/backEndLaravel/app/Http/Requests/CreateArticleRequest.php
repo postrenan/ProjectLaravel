@@ -8,8 +8,10 @@ class CreateArticleRequest extends \Illuminate\Foundation\Http\FormRequest
     {
         // @link https://laravel.com/docs/10.x/validation
         return [
-            'title' => 'required|string|min:5',
-            'content' => '',
+            'title' => 'required|string|min:5|unique:article',
+            'content' => 'required',
+            'author' => 'required',
+            'category' => 'required',
         ];
     }
 }

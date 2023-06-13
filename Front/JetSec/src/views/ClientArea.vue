@@ -18,6 +18,9 @@
             <router-link to="/service">Serviços</router-link>
           </li>
           <li class="navbar-item">
+            <router-link to="/blog">Blog</router-link>
+          </li>
+          <li class="navbar-item">
             <router-link to="/home">Contato</router-link>
           </li>
           <li @CLICK="removeCookie" class="navbar-item" id="clientArea">

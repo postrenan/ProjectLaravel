@@ -47,11 +47,11 @@
         id="CareSection"
     >
       <div class="column has-text-centered" id="columImage">
-        <img src="" id="imageCare" alt=""/>
+        <img src="https://www.jetimob.com/blog/content/images/size/w600/2023/06/o_que_e_habite-se.webp" id="imageCare" alt=""/>
       </div>
       <div class="column">
         <h2 class="title has-text-centered">O cuidado que você merece</h2>
-        <p class="has-text-justified">
+        <p class="has-text-justified careText">
           Há mais de <strong>25 ANOS </strong>cuidar da sua segurança é a nossa
           missão. Para minimizar riscos e evitar surpresas desagradáveis, você
           precisa ter a estratégia correta, e para isso estamos aqui.Venha fazer
@@ -188,5 +188,9 @@ export default {
 
 .mosaicService {
   margin: 0 0 24px 0;
+}
+
+.careText{
+  margin: 10px;
 }
 </style>

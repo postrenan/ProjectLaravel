@@ -4,19 +4,20 @@
       <h1 v-if="setErrorMsg">{{ errorMessage }}</h1>
       <div class="column is-2"></div>
       <div class="column" v-for="article in dbResponsePost">
+        <router-link to="/blog"><p class="button is-small is-rounded">Home</p></router-link>
+        <h1 class="title has-text-light" v-html="article.title"/>
         <p class="tag is-rounded" v-html="article.category"/>
-        <h1 class="title" v-html="article.title"/>
-        <p class="subtitle" v-html="article.author"/>
         <p v-html="article.created"/>
         <div class="columns">
           <div class="column is-2"></div>
           <div><p class="content column has-text-justified" v-html="article.content"/>
             <p class="has-text-centered">Compartilhe esse post</p>
-            <div class="has-text-centered icon-text">
+            <div class="has-text-centered">
+
             </div>
             <h2>Escrito por</h2>
             <div class="box">
-              <svg-icon type="mdi" :path="path"></svg-icon>
+
               <p class="subtitle" v-html="article.author"/>
             </div>
             <div class="column is-2"></div>
@@ -30,7 +31,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   props: ['slug'],
   name: 'post',
@@ -75,8 +75,9 @@ svg{
 }
 
 .section {
-  background-color: #272935;
+  background-color: #053b44;
   color: #FFFFFFFF;
   text-decoration: none;
+  min-height: 40rem;
 }
 </style>

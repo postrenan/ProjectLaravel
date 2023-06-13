@@ -14,7 +14,7 @@
         </div>
       </div>
     </section>
-    <router-link class="button" to="/RestrictArea">Area restrita</router-link>
+    <router-link class="button" to="/restrict-area">Area restrita</router-link>
   </div>
 </template>
 

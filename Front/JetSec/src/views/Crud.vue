@@ -18,6 +18,9 @@
             <router-link to="/service">Serviços</router-link>
           </li>
           <li class="navbar-item">
+            <router-link to="/blog">Blog</router-link>
+          </li>
+          <li class="navbar-item">
             <router-link to="/home">Contato</router-link>
           </li>
           <li class="navbar-item" id="clientArea">
@@ -62,12 +65,12 @@
     </div>
     <div v-if="currentCard === 2" class="section">
       <div class="section box">
-        <div v-for="service in currentServices" class="columns">
+        <div v-for="service in currentServices" class="columns is-vcentered">
           <div class="box column">
             {{ service.title }}<br>
             {{ service.content }}
           </div>
-          <button class="button column is-vcentered is-2" @click="deleteService(service.id)">delete</button>
+          <button class="button column  is-2 buttonToSwitchState" @click="deleteService(service.id)">delete</button>
         </div>
         <div v-if="badResponseToDelete !== ''">
           <p class="box">{{ badResponseToDelete }}</p>
@@ -80,12 +83,12 @@
     </div>
     <div v-if="currentCard === 3" class="section">
       <div class="section box ">
-        <div v-for="service in disabledServices" class="columns">
+        <div v-for="service in disabledServices" class="columns is-vcentered">
           <div class="box column">
             {{ service.title }}<br>
             {{ service.content }}
           </div>
-          <button class="button column is-vcentered is-2" @click="undoService(service.id)">Ativar</button>
+          <button class="button column is-2 buttonToSwitchState" @click="undoService(service.id)">Ativar</button>
         </div>
         <div v-if="badResponseToActive !== ''">
           <p class="box">{{ badResponseToActive }}</p>
@@ -219,5 +222,9 @@ h2 {
 ul {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.buttonToSwitchState{
+  margin: 5px;
 }
 </style>

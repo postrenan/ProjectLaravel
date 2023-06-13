@@ -18,6 +18,9 @@
             <router-link to="/service">Serviços</router-link>
           </li>
           <li class="navbar-item">
+            <router-link to="/blog">Blog</router-link>
+          </li>
+          <li class="navbar-item">
             <router-link to="/home">Contato</router-link>
           </li>
           <li class="navbar-item" id="clientArea">
@@ -67,12 +70,12 @@
       </div>
       <div v-if="currentCard === 2" class="section">
         <div class="section box">
-          <div v-for="article in activeArticles" class="columns">
+          <div v-for="article in activeArticles" class="columns is-vcentered">
             <div class="box column">
               {{ article.title }}<br>
               {{ article.content }}
             </div>
-            <button class="button column is-vcentered is-2" @click="deleteArticle(article.id)">delete</button>
+            <button class="button column is-2 buttonToSwitchState" @click="deleteArticle(article.id)">Desativar</button>
           </div>
           <div v-if="badResponseToDelete !== ''">
             <p class="box">{{ badResponseToDelete }}</p>
@@ -85,12 +88,12 @@
       </div>
       <div v-if="currentCard === 3" class="section">
         <div class="section box ">
-          <div v-for="articles in disabledArticles" class="columns">
+          <div v-for="articles in disabledArticles" class="columns is-vcentered">
             <div class="box column">
               {{ articles.title }}<br>
               {{ articles.content }}
             </div>
-            <button class="button column is-vcentered is-2" @click="undoArticle(articles.id)">Ativar</button>
+            <button class="button column  is-2 buttonToSwitchState" @click="undoArticle(articles.id)">Ativar</button>
           </div>
           <div v-if="badResponseToActive !== ''">
             <p class="box">{{ badResponseToActive }}</p>
@@ -210,7 +213,11 @@ export default {
 
 .main {
   background-color: #1c7430;
-
+  min-height: 40rem;
 }
 
+
+.buttonToSwitchState{
+  margin: 5px;
+}
 </style>

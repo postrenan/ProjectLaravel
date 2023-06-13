@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Pagination\CursorPaginator;
 
 
 
@@ -45,13 +46,23 @@ class ArticleController extends Controller
         return true;
     }
 
+    public function create(Request $request):JsonResponse
+    {
+        $search = $request->input('search');
+        $articles = DB::table('article')
+            ->where('created_at', '=' , null)
+            ->get();
+        echo $articles;
+        return response()->json(['articles' => $articles]);
+    }
     public function index(Request $request): JsonResponse
     {
         $search = $request->input('search');
-        $articles = Article::withTrashed()
-            ->when(filled($search), function ($query) use ($search) {
+        $articles = DB::table('article')
+                ->when(filled($search), function ($query) use ($search) {
                 $query->where('title', 'like', '%' . $search . '%');
             })->get();
+
         return response()->json(['articles' => $articles]);
     }
 
@@ -61,6 +72,7 @@ class ArticleController extends Controller
         $article = DB::table('article')
             ->where('slug', '=', $slugValue)
             ->get();
+
         return response()->json(['article' => $article]);
     }
 
@@ -70,4 +82,5 @@ class ArticleController extends Controller
         $article->save();
         return response(status: 200);
     }
+
 }

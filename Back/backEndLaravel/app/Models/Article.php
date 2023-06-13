@@ -30,13 +30,10 @@ class Article extends Model
      *
      * @var array<int, string>
      */
-
     public $table = 'article';
 
     public $timestamps = true;
     protected $primaryKey = 'id';
-
-    public $foreingKey = 'author';
     protected $fillable = [
         'title',
         'content',
@@ -52,7 +49,6 @@ class Article extends Model
 
     /**
      * The attributes that should be hidden for serialization.
-     *
      * @var array<int, string>
      */
 

@@ -82,8 +82,8 @@
     </section>
     <section class="section" id="Services">
       <p class="column has-text-centered title">Nossos serviços</p>
-      <div class=" has-text-centered">
-        <div class=" columns is-multiline ">
+      <div class=" has-text-centered ">
+        <div class=" columns is-multiline is-centered">
           <span v-if="errorGetService" class="">{{ serviceErrorMsg }}</span>
           <article class="column is-one-third box mosaicService" v-for="service in currentServices">
             <i class=""></i>
@@ -187,7 +187,7 @@ export default {
 }
 
 .mosaicService {
-  margin: 0 0 24px 0;
+  margin: 0 5px 24px 0;
 }
 
 .careText{

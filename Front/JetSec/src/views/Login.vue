@@ -26,7 +26,7 @@
         </div>
         <div>
           <br>
-          <router-link to="EmailStep">criar uma conta</router-link>
+          <router-link to="/email-step">criar uma conta</router-link>
         </div>
       </div>
       <div class="column is-4">

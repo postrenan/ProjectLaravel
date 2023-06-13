@@ -4,7 +4,7 @@
     <section class="section" id="Services">
       <p class="column has-text-centered title">O cuidado que você merece</p>
       <div class=" has-text-centered">
-        <div class=" columns is-multiline ">
+        <div class=" columns is-multiline is-centered">
           <span v-if="errorInResponse" class="">{{ errorMsg }}</span>
           <article class="column is-one-fifth box mosaicService" v-for="service in currentServices">
             <i class=""></i>

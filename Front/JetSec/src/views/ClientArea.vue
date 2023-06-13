@@ -112,7 +112,7 @@ export default {
     axios.get(`http://127.0.0.1:8000/api/getUserAfterValidate/${this.email}`)
         .then((response) => {
           if (response) {
-            Cookies.set('userId',  response.data.id);
+            Cookies.set('userName',  response.data.name);
           } else {
             this.verifyLog = true;
           }

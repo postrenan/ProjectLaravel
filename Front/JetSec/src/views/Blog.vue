@@ -14,7 +14,7 @@
                        placeholder="Procure um artigo">
               </h2>
               <h2 class="control">
-                <button @click="findArticle(searchArticleInput)" class="button  is-rounded">Buscar</button>
+                <button @click="findArticle(searchArticleInput)" v-if="this.searchArticleInput.length >= 3" class="button  is-rounded">Buscar</button>
               </h2>
             </div>
           </div>
@@ -40,8 +40,11 @@
       <h2 class="title has-text-centered  has-text-light">Conteúdos em destaque</h2><br>
       <div class="columns is-centered">
         <article class="column is-3 has-text-centered box topPost" v-for="(article, index) in articles" v-if="index <= 1">
+          <img src="https://source.unsplash.com/random/300x300/?img=" alt="">
           <router-link :to="{name: 'post', params:{slug: article.slug}}"
           ><h3 class="title has-text-light">{{article.title }}</h3></router-link>
+          <br>
+          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.content.substring(3,100)" class="content has-text-light" ></h3></router-link>
           <br>
           <router-link :to="{name: 'post', params:{slug: article.slug}}" class=" tag is-rounded "
           ><p>{{ article.date }}</p></router-link>
@@ -52,11 +55,10 @@
       <h2 class="title is-2 has-text-light">Todos os post</h2>
       <div class="is-multiline columns is-centered">
         <article class="is-one-fifth-desktop box mosaicService column " v-for="(article, index) in articles"
-                 v-if="index <= 10">
+                v-if="article.deleted == null">
           <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 class="title has-text-light">{{ article.title }}</h3></router-link>
           <br>
-          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 class="content has-text-light" >{{article.content}}</h3></router-link>
-          <br>
+          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.content.substring(3,170)" class="content has-text-light" ></h3></router-link>
           <br>
           <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3>{{ article.date }}</h3></router-link>
         </article>
@@ -72,7 +74,7 @@
           </div>
           <div class="column is-4  ">
             <div class="columns is-vcentered">
-              <input placeholder="meuemail@email.com" class="column input is-rounded " type="text" size="8">
+              <input placeholder="meuemail@email.com" class="column input is-rounded " type="text" size="3">
               <button v-model="emailNewsLetter" @click="sendEmail"
                       class="column is-3 button is-small is-rounded buttonNews">Cadastrar
               </button>
@@ -109,7 +111,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:8000/api/article')
+    axios.get('http://localhost:8000/api/article')
         .then((response) => {
           this.currentArticles = response.data.articles;
           this.articles = this.currentArticles.map((article) => {
@@ -118,6 +120,7 @@ export default {
               slug: article.slug,
               content: article.content,
               date: article.created_at,
+              deleted: article.deleted_at,
             }
           });
         })
@@ -175,12 +178,6 @@ export default {
   color: white;
 }
 
-.pageTitle {
-  font-size: 1.4rem;
-  font-family: "Source Code Pro", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  color: #ffffff;
-}
-
 .navbar-brand {
   margin: 0;
 }
@@ -223,6 +220,7 @@ ul{
 }
 
 .buttonNews {
+  margin-left: 5px;
   padding: 0 0;
 }
 
@@ -230,6 +228,8 @@ ul{
   margin:  24px;
 }
 
-
+.level-item{
+  margin-right: 15px;
+}
 
 </style>

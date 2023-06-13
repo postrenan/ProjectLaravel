@@ -171,7 +171,7 @@ export default {
         'title': this.newTitle,
         'content': this.editorDataText,
         'category': this.newCategory,
-        'author': Cookies.get('userId'),
+        'author': Cookies.get('userName'),
       })
           .then((response) => {
             this.sendData = true;

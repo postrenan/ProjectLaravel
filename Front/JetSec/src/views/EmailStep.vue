@@ -131,7 +131,7 @@ export default {
                 if (response.status === 201) {
                   this.pwd1 = "";
                   this.pwd2 = "";
-                  router.push({path: '/Login'});
+                  router.push({path: '/login'});
                 } else {
                   this.errorCreate = true;
                 }

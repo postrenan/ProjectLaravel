@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Pagination\CursorPaginator;
 
 
 
@@ -52,7 +53,9 @@ class ArticleController extends Controller
         $articles = DB::table('article')
                 ->when(filled($search), function ($query) use ($search) {
                 $query->where('title', 'like', '%' . $search . '%');
+
             })->reorder('created_at', 'desc' )->get();
+
 
         return response()->json(['articles' => $articles]);
     }

@@ -12,6 +12,8 @@
           <div class="column is-2"></div>
           <div class="is-centered">
             <p class="content column  has-text-justified" v-html="article.content"/>
+          </div>
+          <div class="section">
             <p v-if="!validateCopy" class="has-text-centered">Compartilhe esse post</p>
             <p v-if="validateCopy" class="subtitle has-text-centered has-text-light ">Link copiado com sucesso</p>
             <div class="has-text-centered ">
@@ -22,8 +24,8 @@
             </div>
             <h2 class="title has-text-light">Escrito por</h2>
             <div class=" columns is-vcentered  boxAuthor">
-                <a class="fa-solid fa-user fa-xl  iconAuthor"></a>
-                <p class="subtitle column  is-5 " v-html="article.author"/>
+              <a class="fa-solid fa-user fa-xl  iconAuthor"></a>
+              <p class="subtitle column  is-5 " v-html="article.author"/>
             </div>
             <div class="column is-4"></div>
           </div>
@@ -36,6 +38,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   props: ['slug'],
   name: 'post',
@@ -71,15 +74,12 @@ export default {
 
   },
   methods: {
-    copyURL(){
+    copyURL() {
       navigator.clipboard.writeText(`http://localhost:8000/api/article-page?search=${this.postSlug}`);
-
-      setTimeout(() => {
-        this.validateCopy = true;
-      }, 1000, )
+      this.validateCopy = true;
       setTimeout(() => {
         this.validateCopy = false;
-      }, 5000, )
+      }, 2000,)
 
     }
 
@@ -95,7 +95,7 @@ export default {
   min-height: 40rem;
 }
 
-.shareIcons{
+.shareIcons {
   margin: 10px;
   padding: 10px;
   background-color: #095a69;
@@ -103,20 +103,20 @@ export default {
   border-radius: 40px;
 }
 
-a{
-  color:#ffffff;
+a {
+  color: #ffffff;
   text-decoration: none;
 }
 
-.shareIcons:hover{
+.shareIcons:hover {
   background-color: #01cdf1;
 }
 
-.boxAuthor{
+.boxAuthor {
   padding: 5px;
 }
 
-.iconAuthor{
+.iconAuthor {
   border-radius: 50px;
   color: #ffffff;
   padding: 10px;

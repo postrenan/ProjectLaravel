@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Authenticate;
@@ -34,7 +35,7 @@ Route::post('/emailValidate', 'App\Http\Controllers\ValidateEmailController@mail
 
 Route::post('/dataSaver', 'App\Http\Controllers\dataSaverController@dataUpload');
 
-Route::post('/formSaver', 'App\Http\Controllers\formSaver@dataUpload');
+Route::post('/formSaver', 'App\Http\Controllers\FormSaver@dataUpload');
 
 Route::post('/validateLogin', 'App\Http\Controllers\validateLogin@dbValidate');
 
@@ -42,14 +43,14 @@ Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@
 
 Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
 
-Route::apiResource('article', \App\Http\Controllers\ArticleController::class)->only(['index', 'store', 'destroy', 'update']);
+Route::apiResource('article', ArticleController::class)->only(['index', 'store', 'destroy', 'update', 'show']);
 
 Route::get('/article-page', 'App\Http\Controllers\ArticleController@show');
 
-Route::prefix('/')->group(function () {
-    Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
-    Route::prefix('/{value}')->group(function () {
-        Route::apiResource('/', \App\Http\Controllers\ServiceManagerController::class)->only(['destroy', 'store']);
-    });
+
+Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
+Route::prefix('/{value}')->group(function () {
+    Route::apiResource('/', \App\Http\Controllers\ServiceManagerController::class)->only(['destroy', 'store']);
 });
+
 

@@ -16,26 +16,18 @@ class ArticleController extends Controller
 {
     public function store(CreateArticleRequest $request)
     {
-        $title = $request->input('title');
-        $content = $request->input('content');
-        $author = $request->input('author');
-        $category = $request->input('category');
-
         $articles = new Article();
-        $articles->title = $title;
-        $articles->content = $content;
-        $articles->author = $author;
-        $articles->category = $category;
+        $articles->title = $request->input('title');
+        $articles->content = $request->input('content');
+        $articles->author = $request->input('author');
+        $articles->category = $request->input('category');
+        $articles->image = $request->input('image');
 
-        $slug = Str::kebab(strip_tags($title));
+        $slug = Str::kebab(strip_tags($request->input('title')));
         $articles->slug = $slug;
-        $articleUp = $articles->save();
+        $articles->save();
 
-        if ($articleUp) {
-            return response(status: 200);
-        } else {
-            abort(400);
-        }
+//        return response(status: 200);
     }
 
     public function update(int $articleId): bool
@@ -61,7 +53,9 @@ class ArticleController extends Controller
         $articles = DB::table('article')
                 ->when(filled($search), function ($query) use ($search) {
                 $query->where('title', 'like', '%' . $search . '%');
-            })->get();
+
+            })->reorder('created_at', 'desc' )->get();
+
 
         return response()->json(['articles' => $articles]);
     }
@@ -69,7 +63,7 @@ class ArticleController extends Controller
     public function show(Request $request): JsonResponse
     {
         $slugValue = $request->input('search');
-        $article = DB::table('article')
+        $article = Article::query()
             ->where('slug', '=', $slugValue)
             ->get();
 

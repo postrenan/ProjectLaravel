@@ -44,8 +44,12 @@
       <div v-if="currentCard === 1" class="section">
         <div class="section box">
           <div class="box">
+            <label>insira a imagem(em forma de html)</label><br>
+            <input type="text" v-model="newImage" ></input>
+          </div>
+          <div class="box">
             <label>insira o titulo </label><br>
-            <input v-model="newTitle" type="text">
+            <input v-model="newTitle" type="text"></input>
           </div>
           <div class="box">
             <label>Insira o texto</label>
@@ -60,7 +64,7 @@
           </div>
           <div>
             <br>
-            <h2 class="box" v-if="textError!== ''">{{ textError }}</h2>
+            <h2 class="box" v-if="textError!== ''">{{ textError  }}<br>Já existe esse titulo </h2>
           </div>
           <div>
             <br>
@@ -142,6 +146,7 @@ export default {
       badResponseToActive: '',
       articlesGetted: [],
       activeArticles: [],
+      newImage:'',
     }
   },
   methods: {
@@ -175,12 +180,18 @@ export default {
       })
           .then((response) => {
             this.sendData = true;
+            setTimeout(() => {
+              this.sendData = false;
+            }, 2000, )
             this.editorDataText = '';
             this.newTitle = '';
             this.newCategory = '';
           })
           .catch((error) => {
             this.textError = error;
+            setTimeout(() => {
+              this.textError = '';
+            }, 2000, )
           })
     },
     deleteArticle(articleId) {

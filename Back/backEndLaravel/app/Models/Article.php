@@ -18,11 +18,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @property mixed $category
  * @property mixed $content
  * @property mixed|string $slug
+ * @property mixed $image
  */
 
 class Article extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
 
     /**
@@ -39,7 +39,8 @@ class Article extends Model
         'content',
         'author',
         'category',
-        'slug'
+        'slug',
+        'image'
     ];
 
     protected $casts = [

@@ -39,24 +39,24 @@
     <div class="section ">
       <h2 class="title has-text-centered  has-text-light">Conteúdos em destaque</h2><br>
       <div class="columns is-centered">
-        <article class="column is-3 has-text-centered box topPost" v-for="(article, index) in articles" v-if="index <= 1">
-          <img src="https://source.unsplash.com/random/300x300/?img=" alt="">
-          <router-link :to="{name: 'post', params:{slug: article.slug}}"
-          ><h3 class="title has-text-light">{{article.title }}</h3></router-link>
+        <article class="column is-3 has-text-centered box topPost" v-for="(article, index) in highlightsPost" v-if="highlightsPost.length">
+          <router-link :to="{name: 'post', params:{slug: article.slug}}">
+            <h3 class="title has-text-light" v-html="article.title">{{ article.title }}</h3>
+          </router-link>
           <br>
-          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.content.substring(3,100)" class="content has-text-light" ></h3></router-link>
+<!--          TODO: Text overflow ellipsis-->
+<!--          TODO: CÓDIGO DUPLICADO-->
+          <router-link :to="{name: 'post', params:{ slug: article.slug }}"><h3 v-html="article.content.substring(3,100)" class="content has-text-light"></h3> </router-link>
           <br>
-          <router-link :to="{name: 'post', params:{slug: article.slug}}" class=" tag is-rounded "
-          ><p>{{ article.date }}</p></router-link>
+          <router-link :to="{name: 'post', params:{ slug: article.slug }}" class="tag is-rounded"><p>{{ article.date }}</p></router-link>
         </article>
       </div>
     </div>
     <div class="section  has-text-centered ">
       <h2 class="title is-2 has-text-light">Todos os post</h2>
       <div class="is-multiline columns is-centered">
-        <article class="is-one-fifth-desktop box mosaicService column " v-for="(article, index) in articles"
-                v-if="article.deleted == null">
-          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 class="title has-text-light">{{ article.title }}</h3></router-link>
+        <article class="is-one-fifth-desktop box mosaicService column " v-for="(article, index) in articles" v-if="article.deleted == null">
+          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.title" class="title has-text-light"></h3></router-link>
           <br>
           <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.content.substring(3,170)" class="content has-text-light" ></h3></router-link>
           <br>
@@ -65,7 +65,7 @@
 
       </div>
     </div>
-    <div class="section is-centered columns" v-on:scroll="handleScroll">
+    <div class="section is-centered columns">
       <div class="section newsLetterBox">
         <div class="columns  is-vcentered">
           <div class="column has-text-centered msgNewsLetter">
@@ -75,8 +75,7 @@
           <div class="column is-4  ">
             <div class="columns is-vcentered">
               <input placeholder="meuemail@email.com" class="column input is-rounded " type="text" size="3">
-              <button v-model="emailNewsLetter" @click="sendEmail"
-                      class="column is-3 button is-small is-rounded buttonNews">Cadastrar
+              <button v-model="emailNewsLetter" @click="sendEmail" class="column is-3 button is-small is-rounded buttonNews">Cadastrar
               </button>
             </div>
             <span v-if="emailHasSend">Email cadastrado com sucesso</span>
@@ -91,7 +90,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
 
   name: "Blog",
@@ -102,16 +100,18 @@ export default {
       keyWordGetted: false,
       titles: '',
       dbResponseKeys: '',
-      articles: '',
+      articles: [],
       emailNewsLetter: '',
       emailHasSend: false,
       emailHasFailed: false,
       moreArticles: '',
+      highlightsPost: [],
+      articlesLimit: 10,
       setY: 218,
     }
   },
-  created() {
-    axios.get('http://localhost:8000/api/article')
+   async created() {
+     await axios.get('http://localhost:8000/api/article')
         .then((response) => {
           this.currentArticles = response.data.articles;
           this.articles = this.currentArticles.map((article) => {
@@ -120,7 +120,6 @@ export default {
               slug: article.slug,
               content: article.content,
               date: article.created_at,
-              deleted: article.deleted_at,
             }
           });
         })
@@ -128,10 +127,12 @@ export default {
           this.textError = error;
         });
     window.addEventListener('scroll', this.handleScroll);
+
+    this.highlightsPost = this.articles.slice(0,2);
   },
   methods: {
     findArticle(keyWord) {
-      axios.get(`http://localhost:8000/api/article?search=${keyWord}`)
+      axios.get(`http://localhost:8000/api/article`, { params: { search: keyWord } })
           .then((response) => {
             this.keyWordGetted = true;
             this.dbResponseKeys = response.data.articles;
@@ -148,24 +149,12 @@ export default {
 
           })
     },
-    loadPost() {
-
-    },
     sendEmail() {
       if (this.emailNewsLetter !== '') {
         this.emailHasSend = true;
       } else {
         this.emailHasFailed = true;
       }
-    },
-    handleScroll (event) {
-     // if(scrollY > this.setY ){
-     //    axios.get()
-     //        .then((response) => {
-     //
-     //        });
-     //    this.setY += 100;
-     // }
     },
   },
 }

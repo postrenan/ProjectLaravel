@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserCreateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\Authenticate;
 
 
 /*
@@ -30,23 +32,15 @@ Route::get('/users', function () {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::apiResource('form', FormController::class)->only(['store']);
 
-Route::post('/emailValidate', 'App\Http\Controllers\ValidateEmailController@mailVerify');
+Route::apiResource('user', UserController::class)->only(['index', 'store', 'destroy', 'update', 'show']);
 
-Route::post('/dataSaver', 'App\Http\Controllers\dataSaverController@dataUpload');
-
-Route::post('/formSaver', 'App\Http\Controllers\FormSaver@dataUpload');
-
-Route::post('/validateLogin', 'App\Http\Controllers\validateLogin@dbValidate');
-
-Route::get('/getUserAfterValidate/{email}', 'App\Http\Controllers\validateLogin@mailGetData');
-
-Route::delete('/deleteUser/{email}', 'App\Http\Controllers\DeleteUserController@UserDrop');
+Route::apiResource('user-create', UserCreateController::class)->only(['index', 'store']);
 
 Route::apiResource('article', ArticleController::class)->only(['index', 'store', 'destroy', 'update', 'show']);
 
 Route::get('/article-page', 'App\Http\Controllers\ArticleController@show');
-
 
 Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
 Route::prefix('/{value}')->group(function () {

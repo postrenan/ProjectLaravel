@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use App\Models\Form;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class formSaver extends Controller
+
+class FormController extends Controller
 {
-    public function dataUpload(Request $request)
+    public function store(Request $request)
     {
         $form = new Form($request->only(['email', 'msg', 'phone', 'name']));
         $insert = $form->save();

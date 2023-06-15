@@ -16,26 +16,22 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        User::query()
+        $user = User::query()
             ->where('email', '=', $email = $request->input('email'))
             ->first();
 
-        if (Auth::attempt(['email' => $email, 'password' =>   $request->input('password')])) {
-            return response(['emailUser' => $email]);
+        if (Auth::attempt(['email' => $email, 'password' =>$request->input('password')])) {
+            return response(['emailUser' => $email], );
         };
     }
 
-
+    public function destroy(string $email)
+    {
+        $user = User::where('email', '=', $email)
+            ->first();
+        $user->delete();
+        return $user;
+    }
 
 }
-//    public function destroy(string $email)
-//    {
-//        $user = User::where('email', '=', $email)
-//            ->first();
-//        $user->delete();
-//        return $user;
-//    }
-//
-//
-//    }
 

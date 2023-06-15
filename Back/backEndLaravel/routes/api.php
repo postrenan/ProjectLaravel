@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::apiResource('form', FormController::class)->only(['store']);
 
-Route::apiResource('user', UserController::class)->only(['index', 'store', 'destroy', 'update', 'show']);
+Route::apiResource('user', UserController::class)->only(['index', 'destroy', ]);
 
 Route::apiResource('user-create', UserCreateController::class)->only(['index', 'store']);
 

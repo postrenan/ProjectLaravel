@@ -27,7 +27,6 @@ class ArticleController extends Controller
         $articles->slug = $slug;
         $articles->save();
 
-//        return response(status: 200);
     }
 
     public function update(int $articleId): bool

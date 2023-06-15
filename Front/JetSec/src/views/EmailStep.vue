@@ -98,7 +98,6 @@ export default {
     validateEmail: function () {
       if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.mail1)) {
         if (this.mail1 !== this.mail2) {
-
         } else {
           axios.get('http://127.0.0.1:8000/api/user-create', {params:{'email': this.mail1}})
               .then((response) => {

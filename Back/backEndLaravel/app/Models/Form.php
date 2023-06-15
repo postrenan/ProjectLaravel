@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Form extends Model
 {
     use HasFactory;
+
+    public $table = 'form';
     protected $primaryKey = 'id';
     protected $fillable = ['phone','email','msg','name'];
-    protected $guarded = ['update_at','created_at','id'];
+    public $guarded = ['update_at','created_at','id'];
 }

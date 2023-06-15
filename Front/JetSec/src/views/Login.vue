@@ -62,13 +62,17 @@ export default {
     loginValidation: function () {
       axios.get('http://localhost:8000/api/user', {params:{email: this.email, password: this.password}})
           .then((response) => {
-            if (response) {
-              Cookies.set('passwordUser', this.password);
-              Cookies.set('email', response.data.emailUser);
-              Cookies.set('logged', true);
-              this.setLoggedIn(true);
-              router.push({path: '/client-area'});
-            } else {
+
+              console.log(response.data)
+              if (response) {
+                Cookies.set('passwordUser', this.password);
+                Cookies.set('email', response.data.emailUser);
+                Cookies.set('logged', true);
+                this.setLoggedIn(true);
+                router.push({path: '/client-area'});
+              }
+
+            else {
               this.verifyLog = true;
             }
           })

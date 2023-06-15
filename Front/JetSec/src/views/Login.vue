@@ -60,10 +60,9 @@ export default {
       'setLoggedIn',
     ]),
     loginValidation: function () {
-
-      axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password: this.password})
+      axios.get('http://localhost:8000/api/user', {params:{email: this.email, password: this.password}})
           .then((response) => {
-            if (response.status === 200) {
+            if (response) {
               Cookies.set('passwordUser', this.password);
               Cookies.set('email', response.data.emailUser);
               Cookies.set('logged', true);

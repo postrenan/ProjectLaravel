@@ -109,7 +109,7 @@ export default {
   },
   mounted() {
     this.email = Cookies.get('email');
-    axios.get(`http://127.0.0.1:8000/api/getUserAfterValidate/${this.email}`)
+    axios.get(`http://127.0.0.1:8000/api/user/${this.email}`)
         .then((response) => {
           if (response) {
             Cookies.set('userName',  response.data.name);
@@ -132,13 +132,14 @@ export default {
     },
     userTable: function () {
       this.hiddenTable = false;
-      axios.get(`http://127.0.0.1:8000/api/getUserAfterValidate/${this.email}`)
+      this.password = Cookies.get('passwordUser');
+      axios.get(`http://127.0.0.1:8000/api/user/${this.email}`)
           .then((response) => {
             if (response) {
               this.nameUser = response.data.name;
               Cookies.set('userId',  response.data.id);
               this.created_at = response.data.created_at;
-              this.password = Cookies.get('passwordUser');
+
             } else {
               this.verifyLog = true;
             }
@@ -161,7 +162,7 @@ export default {
     },
     deleteUser: function () {
 
-      axios.delete(`http://localhost:8000/api/deleteUser/${this.email}`)
+      axios.delete(`http://localhost:8000/api/user/${this.email}`)
           .then((response) => {
             Cookies.remove('email');
             Cookies.remove('logged');

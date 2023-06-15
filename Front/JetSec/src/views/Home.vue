@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     formSend: function () {
-      axios.post('http://127.0.0.1:8000/api/formSaver', {
+      axios.post('http://127.0.0.1:8000/api/form', {
         'email': this.mail,
         'phone': this.phone,
         'msg': this.msg,
@@ -168,6 +168,10 @@ export default {
           .catch((error) => {
             this.errorSend = true;
             this.errorMsg = error;
+            setTimeout(() => {
+              this.errorSend = false;
+            }, 4000,)
+
           });
 
     },

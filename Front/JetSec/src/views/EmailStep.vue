@@ -100,9 +100,9 @@ export default {
         if (this.mail1 !== this.mail2) {
 
         } else {
-          axios.post('http://127.0.0.1:8000/api/emailValidate', {'email': this.mail1})
+          axios.get('http://127.0.0.1:8000/api/user-create', {params:{'email': this.mail1}})
               .then((response) => {
-                if (response.status === 201) {
+                if (response.status === 200 ) {
                   this.invalidEmail = false;
                   this.emailStep = false;
                   this.passwordStep = true;
@@ -126,9 +126,9 @@ export default {
         if (this.pwd1 !== this.pwd2) {
           this.passwordWarning = false;
         } else {
-          axios.post('http://127.0.0.1:8000/api/user', {'email': this.mail1, 'password': this.pwd1})
+          axios.post('http://127.0.0.1:8000/api/user-create', {'email': this.mail1, 'password': this.pwd1})
               .then((response) => {
-                if (response.status === 201) {
+                if (response) {
                   this.pwd1 = "";
                   this.pwd2 = "";
                   router.push({path: '/login'});

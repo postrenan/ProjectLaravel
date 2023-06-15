@@ -58,16 +58,12 @@ export default {
     ]),
     loginValidation: function () {
 
-      axios.post('http://127.0.0.1:8000/api/validateLogin', {email: this.email, password: this.password})
+      axios.get('http://127.0.0.1:8000/api/user', {email: this.email, password: this.password})
           .then((response) => {
-            if (response.status === 200) {
               Cookies.set('email', response.data.emailUser);
               Cookies.set('logged', true);
               this.setLoggedIn(true);
               router.push({path: '/crud'});
-            } else {
-              this.verifyLog = true;
-            }
           })
           .catch((error) => {
             this.verifyLog = true;

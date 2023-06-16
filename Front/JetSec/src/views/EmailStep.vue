@@ -23,8 +23,8 @@
         </div>
         <div>
           <br>
-          <button v-if="invalidEmail" v-on:click="validateEmail">Verificar</button>
-          <button v-else>Prosseguir</button>
+          <button class="button" v-if="invalidEmail" v-on:click="validateEmail">Verificar</button>
+          <button class="button" v-else>Prosseguir</button>
         </div>
 
         <div>
@@ -61,7 +61,7 @@
         </div>
         <div>
           <br>
-          <button @click="registerData">Criar</button>
+          <button class="button" @click="registerData">Criar</button>
         </div>
         <div>
           <br>

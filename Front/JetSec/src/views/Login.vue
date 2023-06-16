@@ -22,7 +22,7 @@
         </div>
         <div>
           <br>
-          <button @click="loginValidation">Logar</button>
+          <button class="button" @click="loginValidation">Logar</button>
         </div>
         <div>
           <br>
@@ -62,19 +62,12 @@ export default {
     loginValidation: function () {
       axios.get('http://localhost:8000/api/user', {params:{email: this.email, password: this.password}})
           .then((response) => {
-
-              console.log(response.data)
-              if (response) {
+              console.log(response)
                 Cookies.set('passwordUser', this.password);
-                Cookies.set('email', response.data.emailUser);
+                Cookies.set('email', this.email);
                 Cookies.set('logged', true);
                 this.setLoggedIn(true);
                 router.push({path: '/client-area'});
-              }
-
-            else {
-              this.verifyLog = true;
-            }
           })
           .catch((error) => {
             this.verifyLog = true;

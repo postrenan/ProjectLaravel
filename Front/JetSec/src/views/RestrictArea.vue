@@ -60,10 +60,10 @@ export default {
 
       axios.get('http://127.0.0.1:8000/api/user', {email: this.email, password: this.password})
           .then((response) => {
-              Cookies.set('email', response.data.emailUser);
-              Cookies.set('logged', true);
-              this.setLoggedIn(true);
-              router.push({path: '/crud'});
+            Cookies.set('email', response.data.emailUser);
+            Cookies.set('logged', true);
+            this.setLoggedIn(true);
+            router.push({path: '/crud'});
           })
           .catch((error) => {
             this.verifyLog = true;

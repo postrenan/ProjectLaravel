@@ -16,7 +16,8 @@
 
 <script>
 import axios from "axios";
-import { useStore } from '/home/renan/DesenvolvimentoPraticas/Project/Front/JetSec/src/main.js';
+import {useStore} from '/home/renan/DesenvolvimentoPraticas/Project/Front/JetSec/src/main.js';
+
 export default {
   setup() {
     const store = useStore();
@@ -42,28 +43,23 @@ export default {
     }
   },
   methods: {
-    setPanel(value){
+    setPanel(value) {
       this.currentCard = value;
-        if (this.currentCard === this.activeOption || this.currentCard === this.disableOption) {
-          axios.get('http://127.0.0.1:8000/api/Service')
-              .then((response) => {
-                if (response.data.enabled) {
-                  this.currentServices = response.data.enabled;
-                }
-                if (response.data.disabled) {
-                  this.disabledServices = response.data.disabled;
-                }
-              })
-              .catch((error) => {
-                this.textError = error;
-              })
-        }
+      if (this.currentCard === this.activeOption || this.currentCard === this.disableOption) {
+        axios.get('http://127.0.0.1:8000/api/Service')
+            .then((response) => {
+              if (response.data.enabled) {
+                this.currentServices = response.data.enabled;
+              }
+              if (response.data.disabled) {
+                this.disabledServices = response.data.disabled;
+              }
+            })
+            .catch((error) => {
+              this.textError = error;
+            })
       }
+    }
   }
 }
 </script>
-
-
-<style scoped>
-
-</style>

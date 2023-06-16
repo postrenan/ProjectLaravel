@@ -1,30 +1,25 @@
 <template>
   <div id="app">
-      <HeaderSite v-if="!$route.meta.hideHeader" />
-      <router-view />
-      <FooterSite />
+    <HeaderSite v-if="!$route.meta.hideHeader"/>
+    <router-view/>
+    <FooterSite/>
   </div>
 </template>
 
-<script >
+<script>
 import HeaderSite from "./components/Header.vue";
 import FooterSite from "./components/Footer.vue";
-export default {
-    name: "app",
-  data(){
-      return{
 
-      }
+export default {
+  name: "app",
+  data() {
+    return {}
   },
   components: {
-        HeaderSite,
-        FooterSite,
-    },
+    HeaderSite,
+    FooterSite,
+  },
   mounted() {
   },
 };
-
 </script>
-
-<style scoped>
-</style>

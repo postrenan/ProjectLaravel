@@ -13,26 +13,28 @@
           <div class="is-centered">
             <p class="content column  has-text-justified" v-html="article.content"/>
           </div>
-          <div class="section">
-            <p v-if="!validateCopy" class="has-text-centered">Compartilhe esse post</p>
-            <p v-if="validateCopy" class="subtitle has-text-centered has-text-light ">Link copiado com sucesso</p>
-            <div class="has-text-centered ">
-              <a href="https://www.instagram.com/jetimob_/"><i class="fa-brands fa-instagram  shareIcons"></i></a>
-              <a @click="copyURL"><i class="fa-solid fa-link shareIcons"></i></a>
-              <a href="https://www.facebook.com/jetimob/?locale=pt_BR"><i class="fa-brands fa-facebook  shareIcons"></i></a>
-              <a href="https://wa.me/55997038314"><i class="fa-brands fa-whatsapp shareIcons"></i></a>
-            </div>
-            <h2 class="title has-text-light">Escrito por</h2>
-            <div class=" columns is-vcentered  boxAuthor">
-              <a class="fa-solid fa-user fa-xl  iconAuthor"></a>
-              <p class="subtitle column  is-5 " v-html="article.author"/>
-            </div>
-            <div class="column is-4"></div>
+          <div class="column is-2"></div>
+        </div>
+        <div class="section is-paddingless">
+          <p v-if="!validateCopy" class="has-text-centered">Compartilhe esse post</p>
+          <p v-if="validateCopy" class="subtitle has-text-centered has-text-light ">Link copiado com sucesso</p>
+          <div class="has-text-centered ">
+            <a href="https://www.instagram.com/jetimob_/"><i class="fa-brands fa-instagram  shareIcons"></i></a>
+            <a @click="copyURL"><i class="fa-solid fa-link shareIcons"></i></a>
+            <a href="https://www.facebook.com/jetimob/?locale=pt_BR"><i
+                class="fa-brands fa-facebook  shareIcons"></i></a>
+            <a href="https://wa.me/55997038314"><i class="fa-brands fa-whatsapp shareIcons"></i></a>
           </div>
+          <h2 class="title has-text-light">Escrito por</h2>
+          <div class=" columns is-vcentered  boxAuthor">
+            <a class="fa-solid fa-user fa-xl  iconAuthor"></a>
+            <p class="subtitle column  is-5 " v-html="article.author"/>
+          </div>
+          <div class="column is-4"></div>
         </div>
       </div>
-      <div class="column is-2"></div>
     </div>
+    <div class="column is-2"></div>
   </div>
 </template>
 

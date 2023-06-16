@@ -66,9 +66,9 @@
 import axios from "axios";
 import CKEditor from "@ckeditor/ckeditor5-vue2";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useStore } from '/home/renan/DesenvolvimentoPraticas/Project/Front/JetSec/src/main.js';
+import {useStore} from '/home/renan/DesenvolvimentoPraticas/Project/Front/JetSec/src/main.js';
 
-export default{
+export default {
   setup() {
     const store = useStore();
 
@@ -88,26 +88,26 @@ export default{
   components: {
     ckeditor: CKEditor.component
   },
-  data(){
-  return{
-    editor: ClassicEditor,
-    editorDataTitle: '',
-    editorDataText: '',
-    editorConfig: {},
-    newContent: '',
-    textError: '',
-    sendData: false,
-    currentServices: [],
-    disabledServices: [],
-    id: '',
-    content: '',
-    title: '',
-    godResponseToDelete: false,
-    badResponseToDelete: '',
-    badResponseToActive: '',
-  }
+  data() {
+    return {
+      editor: ClassicEditor,
+      editorDataTitle: '',
+      editorDataText: '',
+      editorConfig: {},
+      newContent: '',
+      textError: '',
+      sendData: false,
+      currentServices: [],
+      disabledServices: [],
+      id: '',
+      content: '',
+      title: '',
+      godResponseToDelete: false,
+      badResponseToDelete: '',
+      badResponseToActive: '',
+    }
   },
-  methods:{
+  methods: {
     newService() {
       this.textError = '';
       if (this.editorDataTitle !== '' && this.editorDataText !== '') {
@@ -173,7 +173,7 @@ ul {
   margin-bottom: 0.5rem;
 }
 
-.buttonToSwitchState{
+.buttonToSwitchState {
   margin: 5px;
 }
 </style>

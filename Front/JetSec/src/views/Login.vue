@@ -60,14 +60,14 @@ export default {
       'setLoggedIn',
     ]),
     loginValidation: function () {
-      axios.get('http://localhost:8000/api/user', {params:{email: this.email, password: this.password}})
+      axios.get('http://localhost:8000/api/user', {params: {email: this.email, password: this.password}})
           .then((response) => {
-              console.log(response)
-                Cookies.set('passwordUser', this.password);
-                Cookies.set('email', this.email);
-                Cookies.set('logged', true);
-                this.setLoggedIn(true);
-                router.push({path: '/client-area'});
+            console.log(response)
+            Cookies.set('passwordUser', this.password);
+            Cookies.set('email', this.email);
+            Cookies.set('logged', true);
+            this.setLoggedIn(true);
+            router.push({path: '/client-area'});
           })
           .catch((error) => {
             this.verifyLog = true;

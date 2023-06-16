@@ -6,25 +6,38 @@ use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-
-
-
 class UserController extends Controller
 {
+
     public function index(Request $request)
     {
-        $user = User::query()
-            ->where('email', '=', $email = $request->input('email'))
-            ->first();
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if (Auth::attempt(['email' => $email, 'password' =>$request->input('password')])) {
-            return response(['emailUser' => $email], );
-        };
+        $credentials = [
+            'email' => $email,
+            'password' => $password,
+        ];
+
+        $logged = Auth::attempt($credentials);
+        if(!$logged){
+            abort(404);
+        }
     }
 
+    public function show( $email)
+    {
+
+        $user = User::where('email', '=', $email)
+                ->first();
+
+        $userName = $user['name'];
+        return (['name' => $userName]);
+    }
     public function destroy(string $email)
     {
         $user = User::where('email', '=', $email)

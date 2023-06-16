@@ -1,45 +1,5 @@
 <template>
-  <div id="app">
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <div class="navbar-item ">
-          <router-link to="/"><img src="../assets/rocket.png" alt="Foguete azul"></router-link>
-        </div>
-      </div>
-      <div class="navbar-menu" id="nav-links">
-        <ul class="navbar-end" id="navbarForms">
-          <li class="navbar-item">
-            <router-link to="/home">Home</router-link>
-          </li>
-          <li class="navbar-item">
-            <router-link to="/about">Sobre</router-link>
-          </li>
-          <li class="navbar-item">
-            <router-link to="/service">Serviços</router-link>
-          </li>
-          <li class="navbar-item">
-            <router-link to="/blog">Blog</router-link>
-          </li>
-          <li class="navbar-item">
-            <router-link to="/home">Contato</router-link>
-          </li>
-          <li class="navbar-item" id="clientArea">
-            <router-link to="/home">Logout</router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <div class="section columns has-text-centered ">
-      <div class="column">
-        <h2 @click="setPanel(insertService)" class="button ">Adicionar serviço</h2>
-      </div>
-      <div class="column">
-        <h2 @click="setPanel(activeService)" class="button">Serviços ativos</h2>
-      </div>
-      <div class="column">
-        <h2 @click="setPanel(disableService)" class="button">Serviços desativados</h2>
-      </div>
-    </div>
+  <div id="#app">
     <div v-if="currentCard === 1" class="section">
       <div class="section box">
         <div class="box">
@@ -55,7 +15,7 @@
         </div>
         <div>
           <br>
-          <h2 class="box" v-if="textError!== ''">{{ textError }}</h2>
+          <h2 class="box" v-if="textError !== ''">{{ textError }}</h2>
         </div>
         <div>
           <br>
@@ -103,62 +63,51 @@
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import CKEditor from '@ckeditor/ckeditor5-vue2';
-import axios from 'axios';
+import axios from "axios";
+import CKEditor from "@ckeditor/ckeditor5-vue2";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useStore } from '/home/renan/DesenvolvimentoPraticas/Project/Front/JetSec/src/main.js';
 
-export default {
-  name: "Crud",
+export default{
+  setup() {
+    const store = useStore();
+
+    const sharedData = computed(() => store.data);
+
+    const updateData = () => {
+      const newData = 'Novos dados';
+      store.setData(newData); // Chama a ação para atualizar o estado
+    };
+
+    return {
+      sharedData,
+      updateData
+    };
+  },
+  name: "OptionsActions",
   components: {
     ckeditor: CKEditor.component
   },
-  data() {
-    return {
-      editor: ClassicEditor,
-      editorDataTitle: '',
-      editorDataText: '',
-      editorConfig: {},
-      insertService: 1,
-      activeService: 2,
-      disableService: 3,
-      currentCard: '',
-      newContent: '',
-      textError: '',
-      sendData: false,
-      currentServices: [],
-      disabledServices: [],
-      id: '',
-      content: '',
-      title: '',
-      godResponseToDelete: false,
-      badResponseToDelete: '',
-      badResponseToActive: '',
-
-    }
+  data(){
+  return{
+    editor: ClassicEditor,
+    editorDataTitle: '',
+    editorDataText: '',
+    editorConfig: {},
+    newContent: '',
+    textError: '',
+    sendData: false,
+    currentServices: [],
+    disabledServices: [],
+    id: '',
+    content: '',
+    title: '',
+    godResponseToDelete: false,
+    badResponseToDelete: '',
+    badResponseToActive: '',
+  }
   },
-  methods: {
-    setPanel(value) {
-      this.currentCard = value;
-      this.sendData = false;
-      this.textError = '';
-      this.badResponseToDelete = '';
-
-      if (this.currentCard === this.activeService || this.currentCard === this.disableService) {
-        axios.get('http://127.0.0.1:8000/api/Service')
-            .then((response) => {
-              if (response.data.enabled) {
-                this.currentServices = response.data.enabled;
-              }
-              if (response.data.disables) {
-                this.disabledServices = response.data.disables;
-              }
-            })
-            .catch((error) => {
-              this.textError = error;
-            })
-      }
-
-    },
+  methods:{
     newService() {
       this.textError = '';
       if (this.editorDataTitle !== '' && this.editorDataText !== '') {
@@ -202,6 +151,7 @@ export default {
   },
 }
 </script>
+
 
 <style scoped>
 .section {

@@ -27,7 +27,7 @@ class UserCreateController extends Controller
 
         $users = new User();
         $users -> email = $request->input('email');
-        $users -> password = $request->input('password');
+        $users -> password = Hash::make( $request->input('password'));
         $users -> name = '';
         $users->api_token = Str::random(60);
         return $users->save();

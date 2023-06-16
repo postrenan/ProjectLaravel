@@ -111,11 +111,7 @@ export default {
     this.email = Cookies.get('email');
     axios.get(`http://127.0.0.1:8000/api/user/${this.email}`)
         .then((response) => {
-          if (response) {
-            Cookies.set('userName',  response.data.name);
-          } else {
-            this.verifyLog = true;
-          }
+            Cookies.set('userName', response.data.name);
         })
         .catch((error) => {
           this.verifyLog = true;

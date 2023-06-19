@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="navbar-brand">
+    <div class="navbar-brand backgroundColor">
       <div class="navbar-item ">
         <router-link to="/"><img src="../assets/rocket.png" alt="Foguete azul"></router-link>
         <h2 class="title has-text-light"><i>Blog</i> JetMonitoramentos</h2>
@@ -14,19 +14,22 @@
                        placeholder="Procure um artigo">
               </h2>
               <h2 class="control">
-                <button @click="findArticle(searchArticleInput)" v-if="this.searchArticleInput.length >= 3" class="button  is-rounded">Buscar</button>
+                <button @click="findArticle(searchArticleInput)" v-if="this.searchArticleInput.length >= 3"
+                        class="button  is-rounded">Buscar
+                </button>
               </h2>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="keyWordGetted" class=" ">
+    <div v-if="keyWordGetted" class=" backgroundColor ">
       <div class="columns ">
         <div class="column"></div>
         <div class="column is-2 has-text-centered">
           <div class="content  searchContent" v-for="title in titles">
-                <router-link class="box has-text-light searchInput has-text-centered" :to="{name: 'post', params:{slug: title.slug}}" v-html="title.title"></router-link>
+            <router-link class="box has-text-light searchInput has-text-centered"
+                         :to="{name: 'post', params:{slug: title.slug}}" v-html="title.title"></router-link>
           </div>
           <button class="button is-small is-rounded " @click="keyWordGetted = false">fechar</button>
         </div>
@@ -39,28 +42,28 @@
     <div class="section ">
       <h2 class="title has-text-centered  has-text-light">Conteúdos em destaque</h2><br>
       <div class="columns is-centered">
-        <article class="column is-3 has-text-centered box topPost" v-for="(article, index) in highlightsPost" v-if="highlightsPost.length">
-          <router-link :to="{name: 'post', params:{slug: article.slug}}">
-            <h3 class="title has-text-light" v-html="article.title">{{ article.title }}</h3>
-          </router-link>
-          <br>
-<!--          TODO: Text overflow ellipsis-->
-<!--          TODO: CÓDIGO DUPLICADO-->
-          <router-link :to="{name: 'post', params:{ slug: article.slug }}"><h3 v-html="article.content.substring(3,100)" class="content has-text-light"></h3> </router-link>
-          <br>
-          <router-link :to="{name: 'post', params:{ slug: article.slug }}" class="tag is-rounded"><p>{{ article.date }}</p></router-link>
+        <article class="column is-3 has-text-centered box topPost" v-for="(article, index) in highlightsPost"
+                 v-if="highlightsPost.length">
+          <!--TODO: Text overflow ellipsis-->
+          <!--TODO: CÓDIGO DUPLICADO-->
+          <router-link :to="{name: 'post', params:{ slug: article.slug }}"><h3 class="title has-text-light"
+                                                                               v-html="article.title">{{
+              article.title
+            }}</h3>
+            <h3 v-html="article.content.substring(3,100)" class="content has-text-light contentAssets"></h3>
+            <p class="tag is-rounded ">{{ article.date }}</p></router-link>
         </article>
       </div>
     </div>
     <div class="section  has-text-centered ">
       <h2 class="title is-2 has-text-light">Todos os post</h2>
       <div class="is-multiline columns is-centered">
-        <article class="is-one-fifth-desktop box mosaicService column " v-for="(article, index) in articles" v-if="article.deleted == null">
-          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.title" class="title has-text-light"></h3></router-link>
-          <br>
-          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.content.substring(3,170)" class="content has-text-light" ></h3></router-link>
-          <br>
-          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3>{{ article.date }}</h3></router-link>
+        <article class="is-one-fifth-desktop box mosaicService column " v-for="(article, index) in articles"
+                 v-if="article.deleted == null">
+          <router-link :to="{name: 'post', params:{slug: article.slug}}"><h3 v-html="article.title"
+                                                                             class="title has-text-light"></h3>
+            <p v-html="article.content.substring(3,170)" class="content has-text-light "></p>
+            <p class="tag is-rounded ">{{ article.date }}</p></router-link>
         </article>
 
       </div>
@@ -75,7 +78,8 @@
           <div class="column is-4  ">
             <div class="columns is-vcentered">
               <input placeholder="meuemail@email.com" class="column input is-rounded " type="text" size="3">
-              <button v-model="emailNewsLetter" @click="sendEmail" class="column is-3 button is-small is-rounded buttonNews">Cadastrar
+              <button v-model="emailNewsLetter" @click="sendEmail"
+                      class="column is-3 button is-small is-rounded buttonNews">Cadastrar
               </button>
             </div>
             <span v-if="emailHasSend">Email cadastrado com sucesso</span>
@@ -91,6 +95,7 @@
 <script>
 import axios from 'axios';
 import {instance} from '@/main'
+
 export default {
 
   name: "Blog",
@@ -111,8 +116,8 @@ export default {
       setY: 218,
     }
   },
-   async created() {
-     await instance.get('/article')
+  async created() {
+    await instance.get('/article')
         .then((response) => {
           this.currentArticles = response.data.articles;
           this.articles = this.currentArticles.map((article) => {
@@ -129,11 +134,11 @@ export default {
         });
     window.addEventListener('scroll', this.handleScroll);
 
-    this.highlightsPost = this.articles.slice(0,2);
+    this.highlightsPost = this.articles.slice(0, 2);
   },
   methods: {
     findArticle(keyWord) {
-      instance.get(`/article`, { params: { search: keyWord } })
+      instance.get(`/article`, {params: {search: keyWord}})
           .then((response) => {
             this.keyWordGetted = true;
             this.dbResponseKeys = response.data.articles;
@@ -163,9 +168,20 @@ export default {
 </script>
 
 <style scoped>
-* {
+.backgroundColor{
   background: #053b44;
   color: white;
+}
+.section {
+  background: #053b44;
+  color: white;
+}
+
+.contentAssets{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 400px;
+  white-space: nowrap;
 }
 
 .navbar-brand {
@@ -182,9 +198,9 @@ export default {
   background: #055f70;
 }
 
-p {
-  color: #000000;
-  background-color: #F5F5F5;
+
+p{
+  background-color: #055f70;
 }
 
 h3 {
@@ -205,7 +221,7 @@ h3 {
   margin: 25px;
 }
 
-ul{
+ul {
   margin: 0;
 }
 
@@ -214,12 +230,21 @@ ul{
   padding: 0 0;
 }
 
-.topPost{
-  margin:  24px;
+.topPost {
+  margin: 24px;
 }
 
-.level-item{
+.level-item {
   margin-right: 15px;
+}
+
+@media only screen and (max-width: 600px){
+  .contentAssets{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 310px;
+    white-space: nowrap;
+  }
 }
 
 </style>

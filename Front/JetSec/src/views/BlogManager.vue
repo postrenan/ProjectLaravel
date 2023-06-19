@@ -117,6 +117,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import {instance} from '@/main'
 export default {
   name: "BlogManager",
   components: {
@@ -157,7 +158,7 @@ export default {
       this.badResponseToDelete = '';
 
       if (this.currentCard === this.activeArticle || this.currentCard === this.disableArticle) {
-        axios.get('http://127.0.0.1:8000/api/article')
+        instance.get('/article')
             .then((response) => {
               this.articlesGetted = response.data.articles;
               this.currentArticles = response.data.articles;
@@ -172,7 +173,7 @@ export default {
     newArticle() {
       this.textError = '';
 
-      axios.post('http://127.0.0.1:8000/api/article', {
+      instance.post('/article', {
         'title': this.newTitle,
         'content': this.editorDataText,
         'category': this.newCategory,
@@ -195,7 +196,7 @@ export default {
           })
     },
     deleteArticle(articleId) {
-      axios.delete(`http://127.0.0.1:8000/api/article/${articleId}`)
+      instance.delete(`/article/${articleId}`)
           .then((response) => {
             this.currentCard = 0;
           })
@@ -204,7 +205,7 @@ export default {
           })
     },
     undoArticle(articleId) {
-      axios.put(`http://127.0.0.1:8000/api/article/${articleId}`)
+      instance.put(`/article/${articleId}`)
           .then((response) => {
             this.currentCard = 0;
             //todo arrumar para dar um reload e recarregar sem esse serviço

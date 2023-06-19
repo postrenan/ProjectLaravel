@@ -82,7 +82,8 @@
 
 <script>
 import axios from 'axios';
-import CareCard from "@/components/CareCard.vue";
+import CareCard from '@/components/CareCard.vue';
+import {instance} from '@/main';
 
 export default {
   name: "Home",
@@ -103,7 +104,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:8000/api/Service')
+    instance.get('/Service')
         .then((response) => {
           this.currentServices = response.data.enabled;
         })
@@ -114,7 +115,7 @@ export default {
   },
   methods: {
     formSend: function () {
-      axios.post('http://127.0.0.1:8000/api/form', {
+      instance.post('/form', {
         'email': this.mail,
         'phone': this.phone,
         'msg': this.msg,

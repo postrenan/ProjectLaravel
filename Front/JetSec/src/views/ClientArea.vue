@@ -86,6 +86,7 @@ import Cookies from "js-cookie";
 import axios from 'axios';
 import {ValidationProvider} from 'vee-validate';
 import router from "@/router";
+import {instance} from '@/main';
 
 export default {
   components: {
@@ -109,9 +110,9 @@ export default {
   },
   mounted() {
     this.email = Cookies.get('email');
-    axios.get(`http://127.0.0.1:8000/api/user/${this.email}`)
+    instance.get(`/user/${this.email}`)
         .then((response) => {
-            Cookies.set('userName', response.data.name);
+          Cookies.set('userName', response.data.name);
         })
         .catch((error) => {
           this.verifyLog = true;
@@ -123,17 +124,16 @@ export default {
         router.push({path: '/blog-manager'});
       } else {
         router.push({path: '/crud'});
-
       }
     },
     userTable: function () {
       this.hiddenTable = false;
       this.password = Cookies.get('passwordUser');
-      axios.get(`http://127.0.0.1:8000/api/user/${this.email}`)
+      instance.get(`/user/${this.email}`)
           .then((response) => {
             if (response) {
               this.nameUser = response.data.name;
-              Cookies.set('userId',  response.data.id);
+              Cookies.set('userId', response.data.id);
               this.created_at = response.data.created_at;
 
             } else {
@@ -158,7 +158,7 @@ export default {
     },
     deleteUser: function () {
 
-      axios.delete(`http://localhost:8000/api/user/${this.email}`)
+      instance.delete(`/user/${this.email}`)
           .then((response) => {
             Cookies.remove('email');
             Cookies.remove('logged');

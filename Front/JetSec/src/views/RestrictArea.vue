@@ -37,7 +37,7 @@ import axios from 'axios';
 import router from '@/router';
 import {mapGetters, mapMutations} from 'vuex';
 import Cookies from 'js-cookie'
-
+import {instance} from '@/main';
 export default {
   name: "RestrictArea",
   data() {
@@ -58,7 +58,7 @@ export default {
     ]),
     loginValidation: function () {
 
-      axios.get('http://127.0.0.1:8000/api/user', {email: this.email, password: this.password})
+      instance.get('/user', {email: this.email, password: this.password})
           .then((response) => {
             Cookies.set('email', response.data.emailUser);
             Cookies.set('logged', true);

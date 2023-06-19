@@ -40,7 +40,7 @@
 
 <script>
 import axios from 'axios';
-
+import {instance} from '@/main';
 export default {
   props: ['slug'],
   name: 'post',
@@ -55,7 +55,7 @@ export default {
   },
   created() {
     this.postSlug = this.$router.currentRoute.params.slug
-    axios.get(`http://localhost:8000/api/article-page?search=${this.postSlug}`,)
+    instance.get(`/article-page?search=${this.postSlug}`,)
         .then((response) => {
           this.dbResponsePost = response.data.article;
           this.setErrorMsg = false;

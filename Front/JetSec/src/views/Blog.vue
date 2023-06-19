@@ -90,6 +90,7 @@
 
 <script>
 import axios from 'axios';
+import {instance} from '@/main'
 export default {
 
   name: "Blog",
@@ -111,7 +112,7 @@ export default {
     }
   },
    async created() {
-     await axios.get('http://localhost:8000/api/article')
+     await instance.get('/article')
         .then((response) => {
           this.currentArticles = response.data.articles;
           this.articles = this.currentArticles.map((article) => {
@@ -132,7 +133,7 @@ export default {
   },
   methods: {
     findArticle(keyWord) {
-      axios.get(`http://localhost:8000/api/article`, { params: { search: keyWord } })
+      instance.get(`/article`, { params: { search: keyWord } })
           .then((response) => {
             this.keyWordGetted = true;
             this.dbResponseKeys = response.data.articles;

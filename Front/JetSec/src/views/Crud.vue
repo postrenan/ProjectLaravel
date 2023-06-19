@@ -106,7 +106,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import axios from 'axios';
-
+import {instance} from '@/main';
 export default {
   name: "Crud",
   components: {
@@ -144,7 +144,7 @@ export default {
       this.badResponseToDelete = '';
 
       if (this.currentCard === this.activeService || this.currentCard === this.disableService) {
-        axios.get('http://127.0.0.1:8000/api/Service')
+        instance.get('/Service')
             .then((response) => {
               if (response.data.enabled) {
                 this.currentServices = response.data.enabled;
@@ -162,7 +162,7 @@ export default {
     newService() {
       this.textError = '';
       if (this.editorDataTitle !== '' && this.editorDataText !== '') {
-        axios.post('http://127.0.0.1:8000/api/Service', {
+        instance.post('/Service', {
           'title': this.editorDataTitle,
           'content': this.editorDataText
         })
@@ -180,7 +180,7 @@ export default {
       }
     },
     deleteService(serviceId) {
-      axios.delete(`http://127.0.0.1:8000/api/${serviceId}`)
+      instance.delete(`/${serviceId}`)
           .then((response) => {
             this.currentCard = 0;
           })
@@ -189,7 +189,7 @@ export default {
           })
     },
     undoService(serviceId) {
-      axios.post(`http://127.0.0.1:8000/api/${serviceId}`)
+      instance.post(`/${serviceId}`)
           .then((response) => {
             this.currentCard = 0;
             //todo arrumar para dar um reload e recarregar sem esse serviço

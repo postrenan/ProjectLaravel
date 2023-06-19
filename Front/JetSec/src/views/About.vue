@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style scoped>
-.box{
+.box {
   background-color: #007198;
   color: #ffffff;
 }

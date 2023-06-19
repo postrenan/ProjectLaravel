@@ -40,6 +40,7 @@ import axios from 'axios';
 import router from '@/router';
 import {mapGetters, mapMutations} from 'vuex';
 import Cookies from 'js-cookie'
+import {instance} from '@/main';
 
 export default {
   name: "Login",
@@ -60,7 +61,7 @@ export default {
       'setLoggedIn',
     ]),
     loginValidation: function () {
-      axios.get('http://localhost:8000/api/user', {params: {email: this.email, password: this.password}})
+      instance.get('/user', {params: {email: this.email, password: this.password}})
           .then((response) => {
             console.log(response)
             Cookies.set('passwordUser', this.password);

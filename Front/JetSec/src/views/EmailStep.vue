@@ -76,8 +76,8 @@
 
 <script>
 import axios from 'axios';
-import router from "@/router";
-
+import router from '@/router';
+import {instance} from'@/main';
 export default {
   name: "EmailStep",
   data() {
@@ -99,7 +99,7 @@ export default {
       if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.mail1)) {
         if (this.mail1 !== this.mail2) {
         } else {
-          axios.get('http://127.0.0.1:8000/api/user-create', {params: {'email': this.mail1}})
+          instance.get('/user-create', {params: {'email': this.mail1}})
               .then((response) => {
                 if (response.status === 200) {
                   this.invalidEmail = false;
@@ -125,7 +125,7 @@ export default {
         if (this.pwd1 !== this.pwd2) {
           this.passwordWarning = false;
         } else {
-          axios.post('http://127.0.0.1:8000/api/user-create', {'email': this.mail1, 'password': this.pwd1})
+          instance.post('/user-create', {'email': this.mail1, 'password': this.pwd1})
               .then((response) => {
                 if (response) {
                   this.pwd1 = "";

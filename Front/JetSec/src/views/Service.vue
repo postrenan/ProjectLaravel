@@ -20,6 +20,7 @@
 
 <script>
 import axios from "axios";
+import {instance} from '@/main'
 
 export default {
   name: "Service",
@@ -31,7 +32,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://127.0.0.1:8000/api/Service')
+    instance.get('/Service')
         .then((response) => {
           this.currentServices = response.data.enabled;
         })

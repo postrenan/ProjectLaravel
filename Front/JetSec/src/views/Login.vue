@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <div class="section columns is-fullheight is-centered">
-      <div class="column is-4">
-      </div>
-      <div id="main" class="column box has-text-centered">
+    <div class="section columns is-fullheight  is-centered">
+      <div v-if="!nextStep" id="main" class="column is-half  box has-text-centered">
         <h2>Login</h2>
         <br>
         <div>
@@ -22,32 +20,37 @@
         </div>
         <div>
           <br>
-          <button class="button" @click="loginValidation">Logar</button>
+          <button class="button is-rounded is-light" @click="loginValidation">Logar</button>
         </div>
         <div>
           <br>
-          <router-link to="/email-step">criar uma conta</router-link>
+          <button @click="createAccountStep" class="button is-rounded is-light " >criar uma conta </button>
+
         </div>
       </div>
-      <div class="column is-4">
+      <div v-else-if="nextStep">
+        <EmailStep/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import router from '@/router';
 import {mapGetters, mapMutations} from 'vuex';
 import Cookies from 'js-cookie'
-
+import {instance} from '@/main';
+import EmailStep from "@/components/EmailStep.vue";
 export default {
   name: "Login",
+  components: {EmailStep},
   data() {
     return {
       email: '',
       password: '',
       verifyLog: false,
+      nextStep: false,
+
     }
   },
   computed: {
@@ -60,18 +63,21 @@ export default {
       'setLoggedIn',
     ]),
     loginValidation: function () {
-      axios.get('http://localhost:8000/api/user', {params:{email: this.email, password: this.password}})
+      instance.get('/user', {params: {email: this.email, password: this.password}})
           .then((response) => {
-              console.log(response)
-                Cookies.set('passwordUser', this.password);
-                Cookies.set('email', this.email);
-                Cookies.set('logged', true);
-                this.setLoggedIn(true);
-                router.push({path: '/client-area'});
+            console.log(response)
+            Cookies.set('passwordUser', this.password);
+            Cookies.set('email', this.email);
+            Cookies.set('logged', true);
+            this.setLoggedIn(true);
+            router.push({path: '/client-area'});
           })
           .catch((error) => {
             this.verifyLog = true;
           })
+    },
+    createAccountStep (){
+      this.nextStep = true;
     },
   },
 };

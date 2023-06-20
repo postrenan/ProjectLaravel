@@ -3,7 +3,7 @@
     <div class="navbar-brand backgroundColor">
       <div class="navbar-item ">
         <router-link to="/"><img src="../assets/rocket.png" alt="Foguete azul"></router-link>
-        <h2 class="title has-text-light"><i>Blog</i> JetMonitoramentos</h2>
+        <h2 class="title has-text-light backgroundColor"><i>Blog</i> JetMonitoramentos</h2>
       </div>
       <div class="navbar-end">
         <div class="navbar-menu" id="nav-links">
@@ -44,8 +44,6 @@
       <div class="columns is-centered">
         <article class="column is-3 has-text-centered box topPost" v-for="(article, index) in highlightsPost"
                  v-if="highlightsPost.length">
-          <!--TODO: Text overflow ellipsis-->
-          <!--TODO: CÓDIGO DUPLICADO-->
           <router-link :to="{name: 'post', params:{ slug: article.slug }}"><h3 class="title has-text-light"
                                                                                v-html="article.title">{{
               article.title
@@ -68,8 +66,8 @@
 
       </div>
     </div>
-    <div class="section is-centered columns">
-      <div class="section newsLetterBox">
+    <div class="section is-centered columns msgNewsLetter">
+      <div class="section newsLetterBox ">
         <div class="columns  is-vcentered">
           <div class="column has-text-centered msgNewsLetter">
             <h2 class="title has-text-light">Quer saber mais sobre monitoramento e segurança?</h2>
@@ -239,6 +237,15 @@ ul {
 }
 
 @media only screen and (max-width: 600px){
+  .backgroundColor{
+    max-width: 412px;
+    font-weight: 50;
+    font-size: 1rem;
+  }
+  .msgNewsLetter{
+    max-width: 412px;
+  }
+
   .contentAssets{
     text-overflow: ellipsis;
     overflow: hidden;

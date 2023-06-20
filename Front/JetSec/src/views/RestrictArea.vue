@@ -63,7 +63,7 @@ export default {
             Cookies.set('email', response.data.emailUser);
             Cookies.set('logged', true);
             this.setLoggedIn(true);
-            router.push({path: '/crud'});
+            router.push({path: '/client-area'});
           })
           .catch((error) => {
             this.verifyLog = true;

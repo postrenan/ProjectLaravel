@@ -23,7 +23,7 @@
           <li class="navbar-item">
             <router-link to="/home">Contato</router-link>
           </li>
-          <li @CLICK="removeCookie" class="navbar-item" id="clientArea">
+          <li @click="removeCookie" class="navbar-item" id="clientArea">
             <router-link to="/home">Logout</router-link>
           </li>
         </ul>
@@ -34,13 +34,13 @@
       <h2 class="column-is-1 box">Olá {{ email }}</h2>
       <h2 class="column-is-2  button box" @click="userTable">Meu dados</h2>
       <div>
-        <button @click="redirectToManagers(1)" class="button">BlogManager</button>
+        <button @click="redirectToManagers(1)" class="button buttonsSelector">BlogManager</button>
       </div>
       <div>
         <button @click="redirectToManagers(2)" class="button">ServiceManager</button>
       </div>
     </div>
-    <div class="section">
+    <div v-if="!serviceSet && !blogSet" class="section">
       <div class="columns box">
         <div class="column">
           <p>sistemas de segurança em uso: 20 unidades</p>
@@ -54,17 +54,14 @@
       </div>
     </div>
     <div v-if="!hiddenTable" class="section">
-      <div class=" ">
+      <div v-if="!serviceSet && !blogSet" class=" ">
         <div class="column is-5 box ">
           <p class=" column box">nome de usuario: {{ nameUser }}<input v-model="newName" v-if="currentReplace"
                                                                        class="box" type="text"></p>
-
           <p class="column box">email: {{ email }}<input v-model="newEmail" v-if="currentReplace" class="box"
                                                          type="text"></p>
-
           <p class="column box">senha: {{ password }}<input v-model="newPassword" v-if="currentReplace" class="box"
                                                             type="text"></p>
-
           <p class="column box">data de criação da conta: {{ created_at }}</p><br>
           <span v-if="warningData !== ''" class="column">{{ warningData }}</span>
           <div class="box">
@@ -78,18 +75,23 @@
         </div>
       </div>
     </div>
+    <div class="section">
+      <ManagerCruds :SelectedOption="this.crudOption"/>
+    </div>
   </div>
 </template>
 
 <script>
 import Cookies from "js-cookie";
-import axios from 'axios';
 import {ValidationProvider} from 'vee-validate';
 import router from "@/router";
 import {instance} from '@/main';
+import ManagerCruds from "@/components/ManagerCruds.vue";
+import {MANNAGER_CONSTANTS} from "@/const/managerConstants";
 
 export default {
   components: {
+    ManagerCruds,
     ValidationProvider
   },
   name: "ClientArea",
@@ -106,6 +108,9 @@ export default {
       newEmail: '',
       newName: '',
       warningData: '',
+      serviceSet: false,
+      blogSet: false,
+      crudOption: 0, /// 1 artigo, 2 serviços
     }
   },
   mounted() {
@@ -120,13 +125,10 @@ export default {
   },
   methods: {
     redirectToManagers(idRedirect) {
-      if (idRedirect === 1) {
-        router.push({path: '/blog-manager'});
-      } else {
-        router.push({path: '/crud'});
-      }
+      this.crudOption = idRedirect;
     },
     userTable: function () {
+      this.crudOption = 3;
       this.hiddenTable = false;
       this.password = Cookies.get('passwordUser');
       instance.get(`/user/${this.email}`)
@@ -165,9 +167,6 @@ export default {
             Cookies.remove('passwordUser')
             router.push({path: '/login'});
           })
-          .catch((error) => {
-            //todo arrumar
-          })
     },
     dataChange: function () {
       this.currentReplace = false;
@@ -194,5 +193,9 @@ h2 {
 ul {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.buttonsSelector {
+  margin-right: 5px;
 }
 </style>

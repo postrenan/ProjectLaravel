@@ -6,11 +6,13 @@ const MANNAGER_CONSTANTS = {
         addButtonLabel: "Adicionar serviços",
         viewEnabledButtonLabel: "Serviços ativos",
         viewDisabledButtonLabel: "Serviços desativados",
+        id: 1,
     },
     2: {
         addButtonLabel: "Adicionar artigos",
         viewEnabledButtonLabel: "Artigos ativos",
         viewDisabledButtonLabel: "Artigos desativados",
+        id: 2,
     }
 }
 

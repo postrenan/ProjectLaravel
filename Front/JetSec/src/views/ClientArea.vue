@@ -23,8 +23,8 @@
           <li class="navbar-item">
             <router-link to="/home">Contato</router-link>
           </li>
-          <li @click="removeCookie" class="navbar-item" id="clientArea">
-            <router-link to="/home">Logout</router-link>
+          <li @click="removeCookie" class="navbar-item" >
+            <router-link class="button is-rounded is-success" to="/home">Logout</router-link>
           </li>
         </ul>
       </div>
@@ -34,10 +34,10 @@
       <h2 class="column-is-1 box">Olá {{ email }}</h2>
       <h2 class="column-is-2  button box" @click="userTable">Meu dados</h2>
       <div>
-        <button @click="redirectToManagers(1)" class="button buttonsSelector">BlogManager</button>
+        <button @click="redirectToManagers(1)" class="button buttonsSelector">ServiceManager</button>
       </div>
       <div>
-        <button @click="redirectToManagers(2)" class="button">ServiceManager</button>
+        <button @click="redirectToManagers(2)" class="button">BlogManager</button>
       </div>
     </div>
     <div v-if="!serviceSet && !blogSet" class="section">
@@ -67,16 +67,14 @@
           <div class="box">
             <div class="columns">
               <button class="button column" @click="closeTable">Fechar</button>
-              <!--<button v-if="!currentReplace" @click="replaceData()" class="button box">Alterar</button>-->
-              <button v-if="currentReplace" @click="dataChange" class="button box">Confirmar troca</button>
               <button class="button is-danger column" @click="deleteUser">DELETAR CONTA</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="section">
-      <ManagerCruds :SelectedOption="this.crudOption"/>
+    <div v-if="serviceSet || blogSet" class="section">
+      <ManagerCruds :SelectedOption="MANNAGER_CONSTANTS[crudOption]"/>
     </div>
   </div>
 </template>
@@ -88,8 +86,8 @@ import router from "@/router";
 import {instance} from '@/main';
 import ManagerCruds from "@/components/ManagerCruds.vue";
 import {MANNAGER_CONSTANTS} from "@/const/managerConstants";
-
 export default {
+  props:[`SelectedOption`],
   components: {
     ManagerCruds,
     ValidationProvider
@@ -111,6 +109,7 @@ export default {
       serviceSet: false,
       blogSet: false,
       crudOption: 0, /// 1 artigo, 2 serviços
+      MANNAGER_CONSTANTS,
     }
   },
   mounted() {
@@ -124,13 +123,23 @@ export default {
         })
   },
   methods: {
+    MANNAGER_CONSTANTS() {
+      return MANNAGER_CONSTANTS
+    },
     redirectToManagers(idRedirect) {
-      this.crudOption = idRedirect;
-      console.log(this.crudOption);
+      if(idRedirect === 1){
+        this.crudOption = idRedirect;
+        this.serviceSet = true;
+      }else{
+        this.crudOption = idRedirect;
+        this.blogSet = true;
+      }
     },
     userTable: function () {
       this.crudOption = 0;
       this.hiddenTable = false;
+      this.blogSet = false;
+      this.serviceSet = false;
       this.password = Cookies.get('passwordUser');
       instance.get(`/user/${this.email}`)
           .then((response) => {

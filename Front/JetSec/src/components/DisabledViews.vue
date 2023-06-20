@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div class="section box ">
-      <div v-for="articles in disabledArticles" class="columns is-vcentered">
+    <div v-if="SelectedOption === 1" class="section box ">
+      <div v-for="service in disabledServices" class="columns is-vcentered">
         <div class="box column">
-          {{ articles.title }}<br>
-          {{ articles.content }}
+          {{ service.title }}<br>
+          {{ service.content }}
         </div>
-        <button class="button column  is-2 buttonToSwitchState" @click="undoArticle(articles.id)">Ativar</button>
+        <button class="button column is-2 buttonToSwitchState" @click="undoFunction(service.id)">Ativar</button>
       </div>
       <div>
         <p class="box">{{ badResponseToActive }}</p>
@@ -16,13 +16,13 @@
       <br>
       <h2 class="box">{{ textError }}</h2>
     </div>
-    <div class="section box ">
-      <div v-for="service in disabledServices" class="columns is-vcentered">
+    <div v-if="SelectedOption === 2" class="section box ">
+      <div v-for="articles in disabledArticles" class="columns is-vcentered">
         <div class="box column">
-          {{ service.title }}<br>
-          {{ service.content }}
+          {{ articles.title }}<br>
+          {{ articles.content }}
         </div>
-        <button class="button column is-2 buttonToSwitchState" @click="undoService(service.id)">Ativar</button>
+        <button class="button column  is-2 buttonToSwitchState" @click="undoFunction(articles.id)">Ativar</button>
       </div>
       <div>
         <p class="box">{{ badResponseToActive }}</p>
@@ -39,16 +39,40 @@
 import {instance} from "@/main";
 
 export default {
+  props: [`SelectedOption`],
   name: 'DisabledViews',
   data() {
     return {
       disabledArticles: [],
       disabledServices: [],
+      badResponseToActive: '',
+      textError: '',
+    }
+  },
+  mounted(){
+    if (this.SelectedOption === 1) {
+      instance.get('/Service')
+          .then((response) => {
+              this.disabledServices = response.data.disabled;
+          })
+          .catch((error) => {
+            this.textError = error;
+          });
+    } else {
+      instance.get('/article')
+          .then((response) => {
+            this.currentArticles = response.data.articles;
+            this.disabledArticles = this.currentArticles.filter((article) => article.deleted_at);
+          })
+          .catch((error) => {
+            this.textError = error;
+          })
     }
   },
   methods: {
-    undoArticle(articleId) {
-      instance.put(`/article/${articleId}`)
+    undoFunction(id) {
+      if(this.SelectedOption === 2)
+      instance.put(`/article/${id}`)
           .then((response) => {
             this.currentCard = 0;
           })

@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div class="section box">
-      <div v-for="article in activeArticles" class="columns is-vcentered">
+    <div v-if="SelectedOption === 1" class="section box">
+      <div v-for="service in currentServices" class="columns is-vcentered">
         <div class="box column">
-          {{ article.title }}<br>
-          {{ article.content }}
+          {{ service.title }}<br>
+          {{ service.content }}
         </div>
-        <button class="button column is-2 buttonToSwitchState" @click="deleteArticle(article.id)">Desativar</button>
+        <button class="button column  is-2 buttonToSwitchState" @click="deleteFunction(service.id)">delete</button>
       </div>
       <div v-if="badResponseToDelete !== ''">
         <p class="box">{{ badResponseToDelete }}</p>
@@ -16,13 +16,13 @@
         <h2 class="box" v-if="textError!== ''">{{ textError }}</h2>
       </div>
     </div>
-    <div class="section box">
-      <div v-for="service in currentServices" class="columns is-vcentered">
+    <div v-if="SelectedOption === 2" class="section box">
+      <div v-for="article in activeArticles" class="columns is-vcentered">
         <div class="box column">
-          {{ service.title }}<br>
-          {{ service.content }}
+          {{ article.title }}<br>
+          {{ article.content }}
         </div>
-        <button class="button column  is-2 buttonToSwitchState" @click="deleteService(service.id)">delete</button>
+        <button class="button column is-2 buttonToSwitchState" @click="deleteFunction(article.id)">Desativar</button>
       </div>
       <div v-if="badResponseToDelete !== ''">
         <p class="box">{{ badResponseToDelete }}</p>
@@ -37,7 +37,9 @@
 
 <script>
 import {instance} from "@/main";
+
 export default {
+  props: [`SelectedOption`],
   name: 'EnabledViews',
   data() {
     return {
@@ -45,17 +47,51 @@ export default {
       currentServices: [],
       articlesGetted: [],
       activeArticles: [],
+      badResponseToDelete: '',
+      textError: '',
     }
   },
-  methods:{
-    deleteArticle(articleId) {
-      instance.delete(`/article/${articleId}`)
+  mounted() {
+    if (this.SelectedOption === 1) {
+      instance.get('/Service')
           .then((response) => {
-            this.currentCard = 0;
+            this.currentServices = response.data.enabled;
           })
           .catch((error) => {
-            this.badResponseToDelete = error;
+            this.textError = error;
+          });
+    } else {
+      instance.get('/article')
+          .then((response) => {
+            this.articlesGetted = response.data.articles;
+            this.currentArticles = response.data.articles;
+            this.activeArticles = this.currentArticles.filter((article) => !article.deleted_at);
+            this.disabledArticles = this.currentArticles.filter((article) => article.deleted_at);
           })
+          .catch((error) => {
+            this.textError = error;
+          })
+    }
+  },
+  methods: {
+    deleteFunction(id) {
+      if (this.SelectedOption === 1) {
+        instance.delete(`/article/${id}`)
+            .then((response) => {
+              this.currentCard = 0;
+            })
+            .catch((error) => {
+              this.badResponseToDelete = error;
+            })
+      } else {
+        instance.delete(`/service/${id}`)
+            .then((response) => {
+              this.currentCard = 0;
+            })
+            .catch((error) => {
+              this.badResponseToDelete = error;
+            })
+      }
     },
   }
 }

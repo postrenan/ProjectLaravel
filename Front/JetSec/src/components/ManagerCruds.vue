@@ -2,23 +2,23 @@
   <div id="app">
     <div class="section columns has-text-centered box">
       <div class="column">
-        <h2 v-if="SelectedOption === 1" @click="setPanel(insertArticle)" class="button">{{this.SelectedOption.addButtonLabel}}</h2>
+        <h2 @click="setPanel(insertService)" class="button">{{SelectedOption.addButtonLabel}}</h2>
       </div>
       <div class="column">
-        <h2 v-if="SelectedOption === 1" @click="setPanel(activeArticle)" class="button">{{this.SelectedOption.viewEnabledButtonLabel}}</h2>
+        <h2 @click="setPanel(activeService)" class="button">{{SelectedOption.viewEnabledButtonLabel}}</h2>
       </div>
       <div class="column">
-        <h2 v-if="SelectedOption === 1" @click="setPanel(disableArticle)" class="button">{{this.SelectedOption.viewDisabledButtonLabel}}</h2>
+        <h2 @click="setPanel(disableService)" class="button">{{SelectedOption.viewDisabledButtonLabel}}</h2>
       </div>
     </div>
     <div v-if="currentCard === 1" class="section">
-     <!-- <CreateViews :SelectedOption="this.SelectedOption"/>-->
+     <CreateViews :SelectedOption="SelectedOption.id"/>
     </div>
     <div v-if="currentCard === 2" class="section">
-      <!-- <EnabledViews :SelectedOption="this.SelectedOption"/>-->
+      <EnabledViews :SelectedOption="SelectedOption.id"/>
     </div>
     <div v-if="currentCard === 3" class="section">
-     <!-- <DisabledViews ::SelectedOption="this.SelectedOption"/>-->
+     <DisabledViews ::SelectedOption="SelectedOption.id"/>
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@
 import CreateViews from "@/components/CreateViews.vue";
 import EnabledViews from "@/components/EnabledViews.vue";
 import DisabledViews from "@/components/DisabledViews.vue";
+
 export default {
   props: [`SelectedOption`],
   name: "BlogManager",
@@ -34,10 +35,6 @@ export default {
     DisabledViews,
     EnabledViews,
     CreateViews,
-
-  },
-  mounted(){
-    console.log(this.SelectedOption.addButtonLabel);
   },
   data() {
     return {
@@ -46,6 +43,7 @@ export default {
       activeService: 2,
       disableService: 3,
       currentCard:0,
+      valueSelected : this.SelectedOption,
     }
   },
   methods: {

@@ -58,7 +58,7 @@ export default {
     ]),
     loginValidation: function () {
 
-      instance.get('/user', {email: this.email, password: this.password})
+      instance.get('/user', {params:{email: this.email, password: this.password}})
           .then((response) => {
             Cookies.set('email', response.data.emailUser);
             Cookies.set('logged', true);

@@ -126,9 +126,10 @@ export default {
   methods: {
     redirectToManagers(idRedirect) {
       this.crudOption = idRedirect;
+      console.log(this.crudOption);
     },
     userTable: function () {
-      this.crudOption = 3;
+      this.crudOption = 0;
       this.hiddenTable = false;
       this.password = Cookies.get('passwordUser');
       instance.get(`/user/${this.email}`)

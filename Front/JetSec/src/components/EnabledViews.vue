@@ -59,7 +59,6 @@ export default {
       instance.get('/service')
           .then((response) => {
             this.currentServices = response.data.services;
-            console.log(response);
             this.activeServices = this.currentServices.filter((service) => !service.deleted_at);
 
           })
@@ -71,7 +70,6 @@ export default {
           .then((response) => {
             this.articlesGetted = response.data.articles;
             this.currentArticles = response.data.articles;
-            console.log(response);
             this.activeArticles = this.currentArticles.filter((article) => !article.deleted_at);
           })
           .catch((error) => {

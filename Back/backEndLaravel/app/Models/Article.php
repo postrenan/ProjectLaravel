@@ -18,7 +18,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property mixed $category
  * @property mixed $content
  * @property mixed|string $slug
- * @property mixed $image
  */
 
 class Article extends Model
@@ -40,7 +39,6 @@ class Article extends Model
         'author',
         'category',
         'slug',
-        'image'
     ];
 
     protected $casts = [

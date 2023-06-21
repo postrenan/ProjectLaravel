@@ -28,16 +28,33 @@ class ServiceController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $enabled = DB::table('service')
-            ->where('deleted_at', null)
+        $search = $request->input('search');
+        $services = DB::table('service')
+            ->where('created_at', '!=' , null)
             ->get();
 
-        $disable = DB::table('service')
-            ->where('deleted_at', '!=', null)
-            ->get();
+        return response()->json(['services' => $services]);
+    }
+    public function destroy(int $id)
+    {
+        $toDelete = DB::table('service')
+            ->where('id', '=', $id)
+            ->delete();
 
-        return response(['disables' => $disable, 'enabled' => $enabled]);
+    }
+
+    public function update(int $id)
+    {
+        $toUp = DB::table('service')
+            ->where('id', $id)
+            ->update(['deleted_at' => null]);
+
+        if ($toUp) {
+            return response(status: 200);
+        } else {
+            return response(status: 400);
+        }
     }
 }

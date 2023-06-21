@@ -8,9 +8,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Pagination\CursorPaginator;
-
-
 
 class ArticleController extends Controller
 {
@@ -21,7 +18,6 @@ class ArticleController extends Controller
         $articles->content = $request->input('content');
         $articles->author = $request->input('author');
         $articles->category = $request->input('category');
-        $articles->image = $request->input('image');
 
         $slug = Str::kebab(strip_tags($request->input('title')));
         $articles->slug = $slug;
@@ -34,6 +30,7 @@ class ArticleController extends Controller
         DB::table('article')
             ->where('id', $articleId)
             ->update(['deleted_at' => null]);
+
         return true;
     }
 
@@ -41,9 +38,9 @@ class ArticleController extends Controller
     {
         $search = $request->input('search');
         $articles = DB::table('article')
-            ->where('created_at', '=' , null)
+            ->where('deleted_at', '=' , null)
             ->get();
-        echo $articles;
+
         return response()->json(['articles' => $articles]);
     }
     public function index(Request $request): JsonResponse
@@ -69,11 +66,12 @@ class ArticleController extends Controller
         return response()->json(['article' => $article]);
     }
 
-    public function destroy(Article $article)
+    public function destroy(Article $article): void
     {
-        $article->delete();
-        $article->save();
-        return response(status: 200);
+
+        DB::table('article')
+            ->where('id', '=', $article->id)
+            ->delete();
     }
 
 }

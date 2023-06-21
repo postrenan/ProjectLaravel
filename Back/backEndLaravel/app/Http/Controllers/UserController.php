@@ -31,7 +31,6 @@ class UserController extends Controller
 
     public function show( $email)
     {
-
         $user = User::where('email', '=', $email)
                 ->first();
 

@@ -42,9 +42,7 @@ Route::apiResource('article', ArticleController::class)->only(['index', 'store',
 
 Route::get('/article-page', 'App\Http\Controllers\ArticleController@show');
 
-Route::apiResource('/Service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store']);
-Route::prefix('/{value}')->group(function () {
-    Route::apiResource('/', \App\Http\Controllers\ServiceManagerController::class)->only(['destroy', 'store']);
-});
+Route::apiResource('/service', \App\Http\Controllers\ServiceController::class)->only(['index', 'store','destroy','update']);
+
 
 

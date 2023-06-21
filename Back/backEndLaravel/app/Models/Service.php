@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+
+/**
+* @property Carbon $deleted_at
+ * @property mixed $title
+ * @property int $id
+ * @property mixed $content
+ */
 
 class Service extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+
     use SoftDeletes;
 
     /**

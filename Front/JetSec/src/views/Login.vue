@@ -61,11 +61,12 @@ export default {
   methods: {
     ...mapMutations([
       'setLoggedIn',
+      'setUser',
     ]),
     loginValidation: function () {
       instance.get('/user', {params: {email: this.email, password: this.password}})
           .then((response) => {
-            console.log(response)
+            this.setUser(response.data.user);
             Cookies.set('passwordUser', this.password);
             Cookies.set('email', this.email);
             Cookies.set('logged', true);

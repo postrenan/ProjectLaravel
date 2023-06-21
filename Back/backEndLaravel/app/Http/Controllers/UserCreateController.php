@@ -23,8 +23,8 @@ class UserCreateController extends Controller
           return true;
       }
     }
-    public function store(Request $request){
-
+    public function store(Request $request)
+    {
         $users = new User();
         $users -> email = $request->input('email');
         $users -> password = Hash::make( $request->input('password'));

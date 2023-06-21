@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @property int $ID
+ * @property int $id
  * @property string $name
  * @property Carbon $deleted_at
  * @property mixed $email

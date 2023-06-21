@@ -1,5 +1,4 @@
 <template>
-
   <div class="section box">
     <div class="box">
       <label>insira o titulo </label><br>
@@ -8,10 +7,6 @@
     <div class="box">
       <label>Insira o texto</label>
       <ckeditor :editor="editor" v-model="newContent" :config="editorConfig"></ckeditor>
-    </div>
-    <div v-if="SelectedOption === 2" class="box">
-      <label>Insira a categoria</label><br>
-      <input v-model="newCategory" type="text">
     </div>
     <div>
       <button @click="newArticle" class="button">Criar</button>
@@ -25,8 +20,8 @@
       <h2 class="box" v-if="sendData">Novo artigo criado com sucesso</h2>
     </div>
   </div>
-
 </template>
+
 <script>
 import CKEditor from "@ckeditor/ckeditor5-vue2";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -80,17 +75,16 @@ export default {
       } else {
         if (this.newTitle !== '' && this.newContent !== '') {
           instance.post('/article', {
-            'title': this.newTitle,
-            'content': this.newContent,
-            'category': this.newCategory,
-            'author': this.getUser.id,
+            title: this.newTitle,
+            content: this.newContent,
+            category: this.newCategory,
+            author: this.getUser.id,
           })
               .then((response) => {
                 this.sendData = true;
                 setTimeout(() => {
                   this.sendData = false;
-                }, 2000,)
-                this.editorDataText = '';
+                }, 2000)
                 this.newTitle = '';
                 this.newCategory = '';
               })
@@ -108,7 +102,6 @@ export default {
   },
 }
 </script>
-
 
 <style scoped>
 

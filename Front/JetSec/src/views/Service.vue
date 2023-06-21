@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    instance.get('/Service')
+    instance.get('/service')
         .then((response) => {
           this.currentServices = response.data.enabled;
         })

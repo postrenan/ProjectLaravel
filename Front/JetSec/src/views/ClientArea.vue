@@ -74,7 +74,7 @@
       </div>
     </div>
     <div v-if="serviceSet || blogSet" class="section">
-      <ManagerCruds :SelectedOption="MANNAGER_CONSTANTS[crudOption]"/>
+      <ManagerCruds :SelectedOption="constValue[crudOption]"/>
     </div>
   </div>
 </template>
@@ -109,7 +109,7 @@ export default {
       serviceSet: false,
       blogSet: false,
       crudOption: 0, /// 1 artigo, 2 serviços
-      MANNAGER_CONSTANTS,
+      constValue: MANNAGER_CONSTANTS,
     }
   },
   mounted() {

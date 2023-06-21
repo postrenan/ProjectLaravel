@@ -3,24 +3,25 @@ import Vue from "vue";
 
 Vue.use(Vuex)
 
-// Create a new store instance.
 const store = new Store({
   state () {
     return {
       loggedIn: false,
+      user: { id: 9999, name: 'random' },
     }
   },
   getters: {
       getLoggedIn: (state) => state.loggedIn,
+      getUser: (state) => state.user,
   },
   mutations: {
     setLoggedIn (state, value) {
       state.loggedIn = value;
     },
+    setUser(state, user) {
+      state.user = { id: 9999, name: 'random' };
+    },
   },
-  actions: {
-
-  }
 })
 
 export default store;

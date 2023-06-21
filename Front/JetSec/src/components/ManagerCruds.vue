@@ -2,23 +2,17 @@
   <div id="app">
     <div class="section columns has-text-centered box">
       <div class="column">
-        <h2 @click="setPanel(insertService)" class="button">{{SelectedOption.addButtonLabel}}</h2>
+        <h2 @click="setPanel(insertService)" class="button">{{ SelectedOption.addButtonLabel }}</h2>
       </div>
       <div class="column">
-        <h2 @click="setPanel(activeService)" class="button">{{SelectedOption.viewEnabledButtonLabel}}</h2>
+        <h2 @click="setPanel(activeService)" class="button">{{ SelectedOption.viewEnabledButtonLabel }}</h2>
       </div>
       <div class="column">
-        <h2 @click="setPanel(disableService)" class="button">{{SelectedOption.viewDisabledButtonLabel}}</h2>
+        <h2 @click="setPanel(disableService)" class="button">{{ SelectedOption.viewDisabledButtonLabel }}</h2>
       </div>
     </div>
-    <div v-if="currentCard === 1" class="section">
-     <CreateViews :SelectedOption="SelectedOption.id"/>
-    </div>
-    <div v-if="currentCard === 2" class="section">
-      <EnabledViews :SelectedOption="SelectedOption.id"/>
-    </div>
-    <div v-if="currentCard === 3" class="section">
-     <DisabledViews ::SelectedOption="SelectedOption.id"/>
+    <div class="section">
+      <component :SelectedOption="SelectedOption.id" :is="currentCardComponent"/>
     </div>
   </div>
 </template>
@@ -39,16 +33,18 @@ export default {
   data() {
     return {
       editorConfig: {},
-      insertService: 1,
-      activeService: 2,
-      disableService: 3,
-      currentCard:0,
-      valueSelected : this.SelectedOption,
+      insertService: 0,
+      activeService: 1,
+      disableService: 2,
+      currentCard: 3,
+      currentCardComponent: null,
+      valueSelected: this.SelectedOption,
+      componentsName: [CreateViews, EnabledViews, DisabledViews]
     }
   },
   methods: {
     setPanel(value) {
-      this.currentCard = value;
+      this.currentCardComponent = this.componentsName[value];
     },
   },
 }

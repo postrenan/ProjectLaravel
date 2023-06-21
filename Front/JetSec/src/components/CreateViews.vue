@@ -55,7 +55,7 @@ export default {
       this.textError = '';
       if (this.SelectedOption === 1) {
         if (this.newTitle !== '' && this.newContent !== '') {
-          instance.post('/Service', {
+          instance.post('/service', {
             'title': this.newTitle,
             'content': this.newContent
           })

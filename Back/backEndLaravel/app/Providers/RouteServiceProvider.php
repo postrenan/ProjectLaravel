@@ -30,9 +30,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('article_id', function ($value) {
-            return Article::query()
-                ->where('id','=', $value)
-                ->firstOrFail();
+            return Article::query()->where('id','=', $value)->firstOrFail();
         });
 
         $this->routes(function () {

@@ -22,8 +22,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Article extends Model
 {
-    use SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -31,8 +29,6 @@ class Article extends Model
      */
     public $table = 'article';
 
-    public $timestamps = true;
-    protected $primaryKey = 'id';
     protected $fillable = [
         'title',
         'content',
@@ -45,11 +41,4 @@ class Article extends Model
         'created_at' => 'datetime:d-m-Y',
         'deleted_at' => 'datetime:d-m-Y',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     * @var array<int, string>
-     */
-
-    protected array $dates = ['deleted_at'];
 }

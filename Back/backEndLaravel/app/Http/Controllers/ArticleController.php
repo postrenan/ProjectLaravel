@@ -16,22 +16,21 @@ class ArticleController extends Controller
         $articles = new Article();
         $articles->title = $request->input('title');
         $articles->content = $request->input('content');
-        $articles->author = $request->input('author');
+        $articles->author_id = $request->input('author');
         $articles->category = $request->input('category');
 
         $slug = Str::kebab(strip_tags($request->input('title')));
-        $articles->slug = $slug;
         $articles->save();
+
+        return response()->json();
 
     }
 
-    public function update(int $articleId): bool
+    public function update(int $articleId): JsonResponse
     {
-        DB::table('article')
-            ->where('id', $articleId)
-            ->update(['deleted_at' => null]);
+        Article::find($articleId)->restore();
 
-        return true;
+        return response()->json();
     }
 
     public function create(Request $request):JsonResponse
@@ -46,11 +45,10 @@ class ArticleController extends Controller
     public function index(Request $request): JsonResponse
     {
         $search = $request->input('search');
-        $articles = DB::table('article')
+        $articles = Article::query()
                 ->when(filled($search), function ($query) use ($search) {
-                $query->where('title', 'like', '%' . $search . '%');
-
-            })->reorder('created_at', 'desc' )->get();
+                    $query->where('title', 'like', '%' . $search . '%');
+                })->orderByDesc('created_at' )->get();
 
 
         return response()->json(['articles' => $articles]);
@@ -68,10 +66,6 @@ class ArticleController extends Controller
 
     public function destroy(Article $article): void
     {
-
-        DB::table('article')
-            ->where('id', '=', $article->id)
-            ->delete();
+        Article::find($article->id)->delete();
     }
-
 }

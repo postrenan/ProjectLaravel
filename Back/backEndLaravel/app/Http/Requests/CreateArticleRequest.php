@@ -6,12 +6,18 @@ class CreateArticleRequest extends \Illuminate\Foundation\Http\FormRequest
 {
     public function rules(): array
     {
-        // @link https://laravel.com/docs/10.x/validation
         return [
             'title' => 'required|string|min:5|unique:article',
-            'content' => 'required',
-            'author' => 'required',
+            'content' => 'required|max:100',
+            'author' => 'required|in:users',
             'category' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'author' => 'O autor não existe',
         ];
     }
 }

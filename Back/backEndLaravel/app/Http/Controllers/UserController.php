@@ -24,9 +24,20 @@ class UserController extends Controller
         ];
 
         $logged = Auth::attempt($credentials);
+
         if(!$logged){
-            abort(404);
+            return response()->json([], 401);
         }
+
+        /** @var $user User */
+        $user = auth()->user();
+
+        return response()->json([
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+            ],
+        ]);
     }
 
     public function show( $email)
